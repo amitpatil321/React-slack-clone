@@ -77,19 +77,24 @@ export default class ChatHomeContainer extends Component {
 
     componentDidMount() {
         // TODO : Check if .env file is missing? and handle error accordingly
-        ChatKit(JSON.parse(localStorage.getItem("slack")).googleId, this.actions);
+        let storageUser = JSON.parse(localStorage.getItem("slack"));
+        if (storageUser && storageUser.googleId)
+            ChatKit(JSON.parse(localStorage.getItem("slack")).googleId, this.actions);
     }
 
     render() {
-        if (!JSON.parse(localStorage.getItem("slack")).googleId)
-            return <Redirect to="/login" />
+        let { room, rooms, user } = this.state;
+        let storageUser = JSON.parse(localStorage.getItem("slack"));
 
-        let { room, rooms, user, messages } = this.state;
+        if (!storageUser || !storageUser.googleId){
+            return <Redirect to="/login" />
+        }
 
         return (
             <ChatHome
-                user     = {user}
-                rooms    = {rooms}
+                user  = {user}
+                room  = {room}
+                rooms = {rooms}
             />
         )
     }
