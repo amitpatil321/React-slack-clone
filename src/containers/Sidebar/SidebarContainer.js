@@ -18,6 +18,7 @@ export default class SidebarContainer extends Component {
 
     render() {
         let { user, rooms, room } = this.props;
+        console.log(this.props);
         return (
             <>
                 <Sidebar

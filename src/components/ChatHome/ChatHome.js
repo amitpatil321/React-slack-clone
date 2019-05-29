@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Layout} from 'antd';
 
 import Sidebar from '../../containers/Sidebar';
+import SlackHeader from '../SlackHeader';
 
 const {
     Header, Content, Footer, Sider,
@@ -19,7 +20,7 @@ const ChatHome = ({ user, room, rooms}) =>
         </Sider>
         <Layout>
             <Header className="header" >
-                Header
+                <SlackHeader room={room} />
             </Header>
             <Content className="content">
                 content

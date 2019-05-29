@@ -19,6 +19,8 @@ html, body{
   right: 0;
   background: #fff;
   border-bottom: 1px solid #eee;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
 }
 .content{
   position: absolute;
