@@ -1,19 +1,16 @@
 import React, { Component } from 'react'
 import Sidebar from '../../components/Sidebar'
 import PropTypes from 'prop-types';
-import { isEqual } from 'lodash';
+import { isEqual, reduce } from 'lodash';
 
 export default class SidebarContainer extends Component {
-    state = {
-        loading : true
-    }
 
-    shouldComponentUpdate(prevProps, prevState){
-        // Object.keys(this.props.user).length || this.props.rooms.length &&
-        if (!isEqual(this.props, prevProps) || !isEqual(this.state, prevState))
-            return true;
-        return false;
-    }
+    // TODO : Improve component performance by deep comapring curcular objects
+    // shouldComponentUpdate(prevProps, prevState){
+    //     if (this.props.rooms.length)
+    //         return true;
+    //     return false;
+    // }
 
     _onLogoutSuccess = () => {
         console.log("On logout Success");
@@ -37,5 +34,5 @@ export default class SidebarContainer extends Component {
 SidebarContainer.propTypes = {
     user : PropTypes.object.isRequired,
     rooms: PropTypes.array.isRequired,
-    room : PropTypes.object.isRequired
+    room : PropTypes.object
 }
