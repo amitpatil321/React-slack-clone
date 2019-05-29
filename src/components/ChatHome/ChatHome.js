@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Layout} from 'antd';
 
@@ -12,15 +12,11 @@ const {
 const ChatHome = ({ user, room, rooms}) =>
     <Layout>
         <Sider className="sidebar">
-            <Sidebar
-                user  = {user}
-                room  = {room}
-                rooms = {rooms}
-            />
+            <Sidebar />
         </Sider>
         <Layout>
             <Header className="header" >
-                <SlackHeader room={room} />
+                <SlackHeader />
             </Header>
             <Content className="content">
                 content
@@ -31,10 +27,10 @@ const ChatHome = ({ user, room, rooms}) =>
         </Layout>
     </Layout>
 
-ChatHome.propType = {
-    user : PropTypes.object.isRequired,
-    rooms: PropTypes.array.isRequired,
-    room : PropTypes.object
-}
+// ChatHome.propType = {
+//     user : PropTypes.object.isRequired,
+//     rooms: PropTypes.array.isRequired,
+//     room : PropTypes.object
+// }
 
 export default ChatHome

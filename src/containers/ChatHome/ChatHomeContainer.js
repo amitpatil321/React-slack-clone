@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
+
 import { Redirect } from 'react-router-dom';
 import { uniqBy, filter } from 'lodash';
-import { Layout } from 'antd';
 
 import ChatKit from '../../Chatkit';
 import ChatHome from '../../components/ChatHome';
 import { subscribeToRoom } from '../../utils/ChatKitUtil';
-const {
-    Header, Content, Footer, Sider,
-} = Layout;
+import { Provider } from '../../store/store';
 
 export default class ChatHomeContainer extends Component {
     state = {
@@ -82,6 +80,8 @@ export default class ChatHomeContainer extends Component {
             ChatKit(JSON.parse(localStorage.getItem("slack")).googleId, this.actions);
     }
 
+    //TODO : Impliment should component update with deep object comaprison for cyclic objects to improve performance
+
     render() {
         let { room, rooms, user } = this.state;
         let storageUser = JSON.parse(localStorage.getItem("slack"));
@@ -91,11 +91,9 @@ export default class ChatHomeContainer extends Component {
         }
 
         return (
-            <ChatHome
-                user  = {user}
-                room  = {room}
-                rooms = {rooms}
-            />
+            <Provider value={{ state : this.state, joinRoom : this.actions.joinRoom}} >
+                <ChatHome />
+            </Provider>
         )
     }
 }
