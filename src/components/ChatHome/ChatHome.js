@@ -8,14 +8,14 @@ const {
     Header, Content, Footer, Sider,
 } = Layout;
 
-const ChatHome = ({user, rooms}) =>
+const ChatHome = ({ user, room, rooms}) =>
     <Layout>
         <Sider className="sidebar">
             <Sidebar
                 user  = {user}
                 room  = {room}
                 rooms = {rooms}
-                />
+            />
         </Sider>
         <Layout>
             <Header className="header" >
@@ -30,7 +30,10 @@ const ChatHome = ({user, rooms}) =>
         </Layout>
     </Layout>
 
-// ChatHome.prototype = {
-// }
+ChatHome.propType = {
+    user : PropTypes.object.isRequired,
+    rooms: PropTypes.array.isRequired,
+    room : PropTypes.object
+}
 
 export default ChatHome
