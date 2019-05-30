@@ -4,6 +4,7 @@ import { Consumer } from '../../store/store';
 
 import HeaderOptions from '../../containers/SlackHeader/HeaderOptions';
 import AddPeopleModal from '../../containers/SlackHeader/AddPeople';
+import RemovePeopleModal from '../../containers/SlackHeader/RemovePeople';
 
 import './SlackHeader.css';
 
@@ -29,6 +30,7 @@ class SlackHeader extends Component {
                             </Col>
                         </Row>
                         <AddPeopleModal />
+                        <RemovePeopleModal />
                     </>
                 )
             }}

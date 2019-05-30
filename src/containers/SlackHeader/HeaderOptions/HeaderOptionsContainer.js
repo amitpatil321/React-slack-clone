@@ -29,7 +29,7 @@ class HeaderOptionsContainer extends Component {
                 <Menu.Item key="setting:1" onClick={this.context.showAddPeople}>Add people to #{roomName} </Menu.Item>
                 {
                     (process.env.REACT_APP_CHATKIT_APP_ADMIN === user.id && room.id !== process.env.REACT_APP_CHATKIT_GENERAL_ROOM) ?
-                    <Menu.Item key="setting:2" onClick={this._removePeopleModal}>Remove People from #{roomName}</Menu.Item>
+                        <Menu.Item key="setting:2" onClick={this.context.showRemovePeople}>Remove People from #{roomName}</Menu.Item>
                     : ""
                 }
                 <Menu.Item key="setting:3">View channel details</Menu.Item>
