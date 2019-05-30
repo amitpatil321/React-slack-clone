@@ -2,10 +2,13 @@ import React, { Component } from 'react'
 import { Button, Row, Col, Icon } from 'antd';
 import { Consumer } from '../../store/store';
 
-import HeaderOptions from '../../containers/HeaderOptions';
+import HeaderOptions from '../../containers/SlackHeader/HeaderOptions';
 import './SlackHeader.css';
 
 class SlackHeader extends Component {
+    state = {
+        addPeopleModalVisible : false
+    }
     render() {
         return (
             <Consumer>

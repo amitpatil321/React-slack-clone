@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { SlackContext } from '../../store/store';
+import { SlackContext } from '../../../store/store';
 import { Menu, Icon } from 'antd';
 
-import HeaderOptions from '../../components/HeaderOptions'
+import HeaderOptions from '../../../components/SlackHeader/HeaderOptions';
 
 const SubMenu = Menu.SubMenu;
 
@@ -26,7 +26,6 @@ class HeaderOptionsContainer extends Component {
         return (
             <SubMenu title={<Icon type="setting" />} >
                 <Menu.Item key="setting:1" onClick={this._addPeopleModal}>Add people to #{roomName} </Menu.Item>
-                {/* User can remove users and delete room only if he's slack admin user and its not "general" room */ }
                 {
                     (process.env.REACT_APP_CHATKIT_APP_ADMIN === user.id && room.id !== process.env.REACT_APP_CHATKIT_GENERAL_ROOM) ?
                     <Menu.Item key="setting:2" onClick={this._removePeopleModal}>Remove People from #{roomName}</Menu.Item>
@@ -38,6 +37,7 @@ class HeaderOptionsContainer extends Component {
                     <Menu.Item key="setting:5" onClick={this._leaveRoom}>Leave #{roomName}</Menu.Item>
                     : ''
                 }
+                {/* User can remove users and delete room only if he's slack admin user and its not "general" room */}
                 {
                     (process.env.REACT_APP_CHATKIT_APP_ADMIN === user.id && room.id !== process.env.REACT_APP_CHATKIT_GENERAL_ROOM) ?
                     <Menu.Item key="setting:4">Delete channel</Menu.Item>
