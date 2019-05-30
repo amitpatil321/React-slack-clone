@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Select } from 'antd';
 import { SlackContext } from '../../../store/store';
 import AddPeopleModal from '../../../components/SlackHeader/AddPeople'
 

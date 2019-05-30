@@ -8,7 +8,7 @@ const Option = Select.Option;
 const AddPeople = ({ allUsers, roomName, onUserSelect, onSubmit, selectedUsers, onModalClose }) => {
     return (
         <Consumer>
-            {({ state, hideAddPeople}) =>
+            {({ state }) =>
                 <Modal
                     title        = {"Add people to # " + roomName}
                     visible      = {state.addPeopleModalVisible}

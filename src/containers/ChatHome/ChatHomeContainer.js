@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { Redirect } from 'react-router-dom';
-import { uniqBy, filter, isEqual } from 'lodash';
+import { uniqBy, filter } from 'lodash';
 
 import ChatKit from '../../Chatkit';
 import ChatHome from '../../components/ChatHome';
@@ -16,7 +16,8 @@ export default class ChatHomeContainer extends Component {
         rooms       : [],
         messages    : {},
         error       : null,
-        addPeopleModalVisible : false
+        addPeopleModalVisible : false,
+        remPeopleModalVisible : false
     }
 
     actions = {
@@ -85,6 +86,10 @@ export default class ChatHomeContainer extends Component {
     _showAddPeopleModal = () => this.setState({ addPeopleModalVisible: true })
     _hideAddPeopleModal = () => this.setState({ addPeopleModalVisible: false })
 
+    // Handle show/hide remove people modal
+    _showRemovePeopleModal = () => this.setState({ remPeopleModalVisible: true })
+    _hideRemovePeopleModal = () => this.setState({ remPeopleModalVisible: false })
+
     //TODO : Impliment should component update with deep object comaprison for cyclic objects to improve performance
     // shouldComponentUpdate(nextProps, nextState){
     //     console.log(this.state.user);
@@ -98,7 +103,6 @@ export default class ChatHomeContainer extends Component {
     // }
 
     render() {
-        let { room, rooms, user } = this.state;
         let storageUser = JSON.parse(localStorage.getItem("slack"));
 
         if (!storageUser || !storageUser.googleId){
@@ -107,10 +111,12 @@ export default class ChatHomeContainer extends Component {
 
         return (
             <Provider value={{
-                state : this.state,
-                joinRoom : this.actions.joinRoom,
-                showAddPeople : this._showAddPeopleModal,
-                hideAddPeople : this._hideAddPeopleModal
+                state           : this.state,
+                joinRoom        : this.actions.joinRoom,
+                showAddPeople   : this._showAddPeopleModal,
+                hideAddPeople   : this._hideAddPeopleModal,
+                showRemovePeople: this._showRemovePeopleModal,
+                hideRemovePeople: this._hideRemovePeopleModal
             }} >
                 <ChatHome
                     messages = {this.state.messages}

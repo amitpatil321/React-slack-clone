@@ -18,7 +18,7 @@ class HeaderOptionsContainer extends Component {
     }
 
     _availabeOptions() {
-        let { user, room, rooms } =  this.context.state;
+        let { user, room } =  this.context.state;
         if(room === null) return false;
 
         let roomName = room.name;
