@@ -99,7 +99,7 @@ const ChatHome = ({ messages }) =>
                             >
                                 <rect x="0" y="8" rx="4" ry="4" width="20" height="4" />
                                 <rect x="22" y="8" rx="4" ry="4" width="8" height="4" />
-                                <rect x="95%" y="8" rx="4" ry="4" width="10" height="4" />
+                                <rect x="98%" y="8" rx="4" ry="4" width="5" height="4" />
                             </ContentLoader>
                         </Header>
                         <Content className="content">
