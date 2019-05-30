@@ -10,7 +10,7 @@ const AddPeople = ({ allUsers, roomName, onUserSelect, onSubmit, selectedUsers, 
         <Consumer>
             {({ state }) =>
                 <Modal
-                    title        = {"Add people to # " + roomName}
+                    title        = {"Add people to #" + state.room.name}
                     visible      = {state.addPeopleModalVisible}
                     onOk         = {onSubmit}
                     onCancel     = {onModalClose}

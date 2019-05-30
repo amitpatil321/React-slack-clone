@@ -10,13 +10,6 @@ class AddPeopleContainer extends Component {
     state = {
         selectedUsers : []
     }
-    componentDidMount(){
-        // console.log("called");
-    }
-
-    componentDidUpdate(){
-        // console.log("updated");
-    }
 
     // Returns list of all available users except existing members
     _getAllUsers(){
@@ -72,19 +65,15 @@ class AddPeopleContainer extends Component {
     }
 
     render() {
-        let { room } = this.context.state;
-        if(room !== null)
-            return (
-                <AddPeopleModal
-                    allUsers      = {this._getAllUsers()}
-                    roomName      = {room.name}
-                    onSubmit      = {this._onSubmit}
-                    onUserSelect  = {this._onUserSelect}
-                    selectedUsers = {this.state.selectedUsers}
-                    onModalClose  = {this._onModalClose}
-                />
-            )
-        return "";
+        return (
+            <AddPeopleModal
+                allUsers      = {this._getAllUsers()}
+                onSubmit      = {this._onSubmit}
+                onUserSelect  = {this._onUserSelect}
+                selectedUsers = {this.state.selectedUsers}
+                onModalClose  = {this._onModalClose}
+            />
+        )
     }
 }
 
