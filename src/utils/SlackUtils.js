@@ -13,3 +13,31 @@ export function getJoinableUsers(rooms, currentRoom) {
         })
         return allUsers;
 }
+
+// Creates a message to be posted in channel
+export function peopleJoinedMessage(currentUser, channel, people, type) {
+    let message = "", myName = "";
+    // Convert all ids to names
+    let peopleNames = people.map(id => currentUser.userStore.users[id].name)
+
+    // Let room/channel know about new members
+    if (currentUser !== undefined) {
+        myName = currentUser.name;
+
+        if (people.length) {
+            if (people.length === 1) message = peopleNames[0]
+            else if (people.length === 2) message = peopleNames.join(" and ")
+            else if (people.length > 2) {
+                let last = peopleNames.pop()
+                message = peopleNames.join(", ") + " and " + last
+            }
+            if (type === "NEW")
+                return " joined #" + channel + " along with " + message;
+            else
+                return myName + " added " + message + " to #" + channel;
+        } else
+            // User created channel but didnt add anyone
+            return "joined #" + channel;
+
+    }
+}

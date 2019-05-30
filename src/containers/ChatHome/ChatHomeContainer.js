@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { Redirect } from 'react-router-dom';
-import { uniqBy, filter } from 'lodash';
+import { uniqBy, filter, isEqual } from 'lodash';
 
 import ChatKit from '../../Chatkit';
 import ChatHome from '../../components/ChatHome';
@@ -15,7 +15,8 @@ export default class ChatHomeContainer extends Component {
         room        : null,
         rooms       : [],
         messages    : {},
-        error       : null
+        error       : null,
+        addPeopleModalVisible : false
     }
 
     actions = {
@@ -42,7 +43,7 @@ export default class ChatHomeContainer extends Component {
             this.setState({ rooms: [...filter(this.state.rooms, (eachRoom) => eachRoom.id !== room.id)] })
         },
         setUserPresence: () => {
-            console.log("setUserPresence");
+            // console.log("setUserPresence");
             //setUserPresence doesnt cause re-render so we forcefully update the view
             this.forceUpdate()
         },
@@ -80,7 +81,21 @@ export default class ChatHomeContainer extends Component {
             ChatKit(JSON.parse(localStorage.getItem("slack")).googleId, this.actions);
     }
 
+    // Handle show/hide add people modal
+    _showAddPeopleModal = () => this.setState({ addPeopleModalVisible: true })
+    _hideAddPeopleModal = () => this.setState({ addPeopleModalVisible: false })
+
     //TODO : Impliment should component update with deep object comaprison for cyclic objects to improve performance
+    // shouldComponentUpdate(nextProps, nextState){
+    //     console.log(this.state.user);
+    //     if(!isEqual(this.props, nextProps) ||
+    //         !isEqual(this.state.user, nextState.user) ||
+    //         !isEqual(this.state.room, nextState.room) ||
+    //         !isEqual(this.state.rooms, nextState.rooms)
+    //     )
+    //         return true
+    //     return false
+    // }
 
     render() {
         let { room, rooms, user } = this.state;
@@ -91,7 +106,12 @@ export default class ChatHomeContainer extends Component {
         }
 
         return (
-            <Provider value={{ state : this.state, joinRoom : this.actions.joinRoom}} >
+            <Provider value={{
+                state : this.state,
+                joinRoom : this.actions.joinRoom,
+                showAddPeople : this._showAddPeopleModal,
+                hideAddPeople : this._hideAddPeopleModal
+            }} >
                 <ChatHome />
             </Provider>
         )

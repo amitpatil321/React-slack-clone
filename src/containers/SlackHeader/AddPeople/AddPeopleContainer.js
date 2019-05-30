@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Select } from 'antd';
-import { getJoinableUsers } from '../../../utils/SlackUtils';
 import { SlackContext } from '../../../store/store';
 import AddPeopleModal from '../../../components/SlackHeader/AddPeople'
 
-const Option = Select.Option;
+import { addUserToRoom, sendMessage } from '../../../utils/ChatKitUtil';
+import { peopleJoinedMessage, getJoinableUsers } from '../../../utils/SlackUtils';
 
 class AddPeopleContainer extends Component {
     static contextType = SlackContext;
@@ -29,6 +29,41 @@ class AddPeopleContainer extends Component {
 
     _onUserSelect = (selectedIds) => this.setState({ selectedUsers: selectedIds})
     _clearSelected = () => this.setState({ selectedUsers : [] })
+    // Handle submit button click
+    _onSubmit = () => {
+        let { room, user } = this.context.state;
+        // Add newly added users to room
+        this._addPeopleSync(user, room, this.state.selectedUsers)
+        .then(addSuccess => {
+            // Get list of all members newly joined
+            let message = peopleJoinedMessage(user, room.name, addSuccess, "EXISTING");
+            // Add message to channel letting them know who has joined
+            sendMessage(user, room.id, message, () => { }, (err) => Notification("error", "Error notifying channel", err)
+            )
+            // clear existing selection
+            this._clearSelected();
+            // Hide modal
+            this.context.hideAddPeople();
+        })
+    }
+
+    // add people to channel (a)synchronously
+    _addPeopleSync(currentUser, room, newlyAdded) {
+        let addSuccess = [];
+        let count = 0;
+        return new Promise((resolve, reject) => {
+            newlyAdded.forEach(userId => {
+                addUserToRoom(currentUser, room.id, userId, () => {
+                    addSuccess.push(userId)
+                    count++;
+                    if (newlyAdded.length === count) resolve(addSuccess);
+                }, err => {
+                    Notification("error", "Error adding " + this._getUserName(userId) + " to room, Please try again", err)
+                    reject(err, userId)
+                })
+            })
+        })
+    }
 
     render() {
         let { room } = this.context.state;
@@ -37,6 +72,7 @@ class AddPeopleContainer extends Component {
                 <AddPeopleModal
                     allUsers      = {this._getAllUsers()}
                     roomName      = {room.name}
+                    onSubmit      = {this._onSubmit}
                     onUserSelect  = {this._onUserSelect}
                     selectedUsers = {this.state.selectedUsers}
                     clearSelected = {this._clearSelected}

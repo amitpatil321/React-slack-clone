@@ -23,9 +23,10 @@ class HeaderOptionsContainer extends Component {
 
         let roomName = room.name;
 
+        // TODO : Try to compress/group below code so it will look cleaner
         return (
             <SubMenu title={<Icon type="setting" />} >
-                <Menu.Item key="setting:1" onClick={this._addPeopleModal}>Add people to #{roomName} </Menu.Item>
+                <Menu.Item key="setting:1" onClick={this.context.showAddPeople}>Add people to #{roomName} </Menu.Item>
                 {
                     (process.env.REACT_APP_CHATKIT_APP_ADMIN === user.id && room.id !== process.env.REACT_APP_CHATKIT_GENERAL_ROOM) ?
                     <Menu.Item key="setting:2" onClick={this._removePeopleModal}>Remove People from #{roomName}</Menu.Item>
