@@ -92,11 +92,11 @@ export default class ChatHomeContainer extends Component {
 
     //TODO : Impliment should component update with deep object comaprison for cyclic objects to improve performance
     // shouldComponentUpdate(nextProps, nextState){
-    //     console.log(this.state.user);
-    //     if(!isEqual(this.props, nextProps) ||
-    //         !isEqual(this.state.user, nextState.user) ||
-    //         !isEqual(this.state.room, nextState.room) ||
-    //         !isEqual(this.state.rooms, nextState.rooms)
+    //     let { user, room, rooms } = this.state;
+    //     if (Object.keys(user).length &&
+    //         room !== null &&
+    //         rooms.length &&
+    //         !isEqual(this.state, nextState)
     //     )
     //         return true
     //     return false
