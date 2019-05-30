@@ -47,6 +47,13 @@ class AddPeopleContainer extends Component {
         })
     }
 
+    _onModalClose = () =>{
+        // clear existing selection
+        this._clearSelected();
+        // Hide modal
+        this.context.hideAddPeople();
+    }
+
     // add people to channel (a)synchronously
     _addPeopleSync(currentUser, room, newlyAdded) {
         let addSuccess = [];
@@ -75,7 +82,7 @@ class AddPeopleContainer extends Component {
                     onSubmit      = {this._onSubmit}
                     onUserSelect  = {this._onUserSelect}
                     selectedUsers = {this.state.selectedUsers}
-                    clearSelected = {this._clearSelected}
+                    onModalClose  = {this._onModalClose}
                 />
             )
         return "";

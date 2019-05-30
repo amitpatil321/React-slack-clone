@@ -5,13 +5,7 @@ import { Consumer } from '../../../store/store';
 
 const Option = Select.Option;
 
-const AddPeople = ({ allUsers, roomName, onUserSelect, onSubmit, selectedUsers, clearSelected }) => {
-    const _hideAddPeople = (callback) => {
-        // Clear users selection on modal close
-        clearSelected()
-        // Call close modal method
-        callback();
-    }
+const AddPeople = ({ allUsers, roomName, onUserSelect, onSubmit, selectedUsers, onModalClose }) => {
     return (
         <Consumer>
             {({ state, hideAddPeople}) =>
@@ -19,7 +13,7 @@ const AddPeople = ({ allUsers, roomName, onUserSelect, onSubmit, selectedUsers, 
                     title        = {"Add people to # " + roomName}
                     visible      = {state.addPeopleModalVisible}
                     onOk         = {onSubmit}
-                    onCancel     = {() => _hideAddPeople(hideAddPeople)}
+                    onCancel     = {onModalClose}
                     width        = {380}
                     okText       = "Add"
                     maskClosable = {false}
