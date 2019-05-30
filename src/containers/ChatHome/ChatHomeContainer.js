@@ -112,7 +112,9 @@ export default class ChatHomeContainer extends Component {
                 showAddPeople : this._showAddPeopleModal,
                 hideAddPeople : this._hideAddPeopleModal
             }} >
-                <ChatHome />
+                <ChatHome
+                    messages = {this.state.messages}
+                />
             </Provider>
         )
     }

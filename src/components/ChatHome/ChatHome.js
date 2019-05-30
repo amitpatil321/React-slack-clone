@@ -4,12 +4,12 @@ import { Layout} from 'antd';
 
 import Sidebar from '../../containers/Sidebar';
 import SlackHeader from '../SlackHeader';
-
+import ListMessages from '../../containers/Contents/ListMessages';
 const {
     Header, Content, Footer, Sider,
 } = Layout;
 
-const ChatHome = ({ user, room, rooms}) =>
+const ChatHome = ({ messages }) =>
     <Layout>
         <Sider className="sidebar">
             <Sidebar />
@@ -19,7 +19,7 @@ const ChatHome = ({ user, room, rooms}) =>
                 <SlackHeader />
             </Header>
             <Content className="content">
-                content
+                <ListMessages messages={messages} />
             </Content>
             <Footer className="footer">
                 Footer
