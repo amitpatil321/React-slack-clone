@@ -8,6 +8,7 @@ import ChatHome from '../../components/ChatHome';
 import { subscribeToRoom } from '../../utils/ChatKitUtil';
 import { Provider } from '../../store/store';
 
+//TODO : Improve performance of all components
 export default class ChatHomeContainer extends Component {
     state = {
         chatkitReady: false,
