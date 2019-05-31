@@ -7,8 +7,6 @@ import RemovePeopleModal from '../../../components/SlackHeader/RemovePeople'
 import { getRoomUsers, getUserName, setGeneralSelected } from '../../../utils/SlackUtils';
 import { removeUserFromRoom } from '../../../utils/ChatKitUtil';
 
-//TODO : Sort users list ascending
-//TODO : After removing 2 users from channel they still show up if we open remove people modal again
 //TODO : After adding users and then immediately opening "remove people", it shows IDs instead of user names
 class RemovePeopleContainer extends Component {
     static contextType = SlackContext;
@@ -21,10 +19,14 @@ class RemovePeopleContainer extends Component {
     componentDidMount = () => this.setState({ existingRoomUsers: getRoomUsers(this.context.state.rooms, this.context.state.room) })
 
     componentDidUpdate(prevProps, prevState){
-        // Load existing users of this room
+        // Refresh data on modal visibility change
         let { state } = this.context;
         if (this.state.showModal !== state.remPeopleModalVisible){
-            this.setState({ selectedUsers: state.room.userIds, showModal: state.remPeopleModalVisible })
+            this.setState({
+                selectedUsers   : state.room.userIds,
+                showModal       : state.remPeopleModalVisible,
+                existingRoomUsers: getRoomUsers(this.context.state.rooms, this.context.state.room)
+            })
         }
     }
 
