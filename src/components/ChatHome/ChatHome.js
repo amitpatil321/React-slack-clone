@@ -105,7 +105,7 @@ const ChatHome = ({ messages }) =>
                         <Content className="content">
                             <div className="screen-center text-center">
                                 <Title level={3}>Thanks you for using Slack Clone. We appreciate it!</Title>
-                                <p className="text-light">- Your friends at slack</p>
+                                <p className="text-light">- Your friends at slack Clone</p>
                                 <Spin indicator={antIcon} />
                             </div>
                         </Content>
