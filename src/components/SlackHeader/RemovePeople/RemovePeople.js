@@ -1,6 +1,6 @@
 import React from 'react'
-import { Modal, Select, Empty } from 'antd';
 
+import { Modal, Select, Empty } from 'antd';
 import { Consumer } from '../../../store/store';
 
 const Option = Select.Option;
@@ -9,7 +9,6 @@ const RemovePeople = ({ showModal, selectedUsers, existingRoomUsers, handleRemov
     return (
         <Consumer>
             {({ state }) => {
-                // console.log(state.room, state.rooms);
                 return (
                     <Modal
                         title        = {"Remove people from #" + state.room.name}

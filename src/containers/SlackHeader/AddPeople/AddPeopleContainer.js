@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
+import { orderBy } from 'lodash';
+
 import { SlackContext } from '../../../store/store';
 import AddPeopleModal from '../../../components/SlackHeader/AddPeople'
-
 import { addUserToRoom, sendMessage } from '../../../utils/ChatKitUtil';
 import { peopleJoinedMessage, getJoinableUsers, getUserName } from '../../../utils/SlackUtils';
 
@@ -67,7 +68,7 @@ class AddPeopleContainer extends Component {
     render() {
         return (
             <AddPeopleModal
-                allUsers      = {this._getAllUsers()}
+                allUsers      = {orderBy(this._getAllUsers(), ['name'], ['asc'])}
                 onSubmit      = {this._onSubmit}
                 onUserSelect  = {this._onUserSelect}
                 selectedUsers = {this.state.selectedUsers}

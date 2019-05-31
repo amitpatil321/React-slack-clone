@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { orderBy } from 'lodash';
 
 import Notification from '../../../components/Notification';
 import { SlackContext } from '../../../store/store';
@@ -6,6 +7,8 @@ import RemovePeopleModal from '../../../components/SlackHeader/RemovePeople'
 import { getRoomUsers, getUserName, setGeneralSelected } from '../../../utils/SlackUtils';
 import { removeUserFromRoom } from '../../../utils/ChatKitUtil';
 
+//TODO : Sort users list ascending
+//TODO : After removing 2 users from channel they still show up if we open remove people modal again
 //TODO : After adding users and then immediately opening "remove people", it shows IDs instead of user names
 class RemovePeopleContainer extends Component {
     static contextType = SlackContext;
@@ -20,8 +23,9 @@ class RemovePeopleContainer extends Component {
     componentDidUpdate(prevProps, prevState){
         // Load existing users of this room
         let { state } = this.context;
-        if (this.state.showModal !== state.remPeopleModalVisible)
+        if (this.state.showModal !== state.remPeopleModalVisible){
             this.setState({ selectedUsers: state.room.userIds, showModal: state.remPeopleModalVisible })
+        }
     }
 
     // Handle people remove change
@@ -61,7 +65,7 @@ class RemovePeopleContainer extends Component {
             <RemovePeopleModal
                 showModal         = {this.state.showModal}
                 selectedUsers     = {this.state.selectedUsers}
-                existingRoomUsers = {this.state.existingRoomUsers}
+                existingRoomUsers = {orderBy(this.state.existingRoomUsers,['name'], ['asc'])}
                 handleRemovePeople= {this._handleRemovePeople}
                 handleChange      = {this._onChange}
                 onModalClose      = {this._onModalClose}
