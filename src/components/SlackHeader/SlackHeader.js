@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component, lazy, Suspense } from 'react'
 import { Button, Row, Col, Icon } from 'antd';
 import { Consumer } from '../../store/store';
 
 import HeaderOptions from '../../containers/SlackHeader/HeaderOptions';
-import AddPeopleModal from '../../containers/SlackHeader/AddPeople';
-import RemovePeopleModal from '../../containers/SlackHeader/RemovePeople';
-
 import './SlackHeader.css';
+
+const AddPeopleModal = lazy(() => import('../../containers/SlackHeader/AddPeople'));
+const RemovePeopleModal = lazy(() => import('../../containers/SlackHeader/RemovePeople'));
 
 class SlackHeader extends Component {
     render() {
@@ -29,8 +29,11 @@ class SlackHeader extends Component {
                                 <HeaderOptions />
                             </Col>
                         </Row>
-                        <AddPeopleModal />
-                        <RemovePeopleModal />
+                        {/* We will load this lazy, Because no these components will be rarely used by user */}
+                        <Suspense fallback={""}>
+                            <AddPeopleModal />
+                            <RemovePeopleModal />
+                        </Suspense>
                     </>
                 )
             }}
