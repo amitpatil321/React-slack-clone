@@ -17,7 +17,6 @@ class RemovePeopleContainer extends Component {
     }
 
     componentDidMount = () => this.setState({ existingRoomUsers: getRoomUsers(this.context.state.rooms, this.context.state.room) })
-
     componentDidUpdate(prevProps, prevState){
         // Refresh data on modal visibility change
         let { state } = this.context;

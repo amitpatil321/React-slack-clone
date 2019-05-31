@@ -35,7 +35,7 @@ class HeaderOptionsContainer extends Component {
                 <Menu.Item key="setting:3">View channel details</Menu.Item>
                 {
                     (room.id !== process.env.REACT_APP_CHATKIT_GENERAL_ROOM) ?
-                    <Menu.Item key="setting:5" onClick={this._leaveRoom}>Leave #{roomName}</Menu.Item>
+                        <Menu.Item key="setting:5" onClick={this.context.leaveRoom}>Leave #{roomName}</Menu.Item>
                     : ''
                 }
                 {/* User can remove users and delete room only if he's slack admin user and its not "general" room */}

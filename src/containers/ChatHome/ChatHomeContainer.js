@@ -5,7 +5,9 @@ import { uniqBy, filter } from 'lodash';
 
 import ChatKit from '../../Chatkit';
 import ChatHome from '../../components/ChatHome';
-import { subscribeToRoom } from '../../utils/ChatKitUtil';
+import Notification from '../../components/Notification';
+import { subscribeToRoom, leaveRoom, removeUserFromRoom } from '../../utils/ChatKitUtil';
+import { setGeneralSelected } from '../../utils/SlackUtils';
 import { Provider } from '../../store/store';
 
 //TODO : Improve performance of all components
@@ -23,7 +25,8 @@ export default class ChatHomeContainer extends Component {
 
     actions = {
         connected: rooms => this.setState({ rooms, chatkitReady: true }),
-        isTyping: () => {
+        refresh  : ()    => this.forceUpdate(),
+        isTyping : ()    => {
             console.log("isTyping");
         },
         notTyping: () => {
@@ -45,7 +48,6 @@ export default class ChatHomeContainer extends Component {
             this.setState({ rooms: [...filter(this.state.rooms, (eachRoom) => eachRoom.id !== room.id)] })
         },
         setUserPresence: () => {
-            // console.log("setUserPresence");
             //setUserPresence doesnt cause re-render so we forcefully update the view
             this.forceUpdate()
         },
@@ -91,6 +93,13 @@ export default class ChatHomeContainer extends Component {
     _showRemovePeopleModal = () => this.setState({ remPeopleModalVisible: true })
     _hideRemovePeopleModal = () => this.setState({ remPeopleModalVisible: false })
 
+    // Leave room
+    _leaveRoom = () => {
+        let { user, room } = this.state
+        // LeaveRoom API doesnt have any hook so we are using removeuser API method
+        removeUserFromRoom(user, room.id, user.id, () => setGeneralSelected(), (err) => Notification("error", "Error leaving channel", err))
+    }
+
     //TODO : Impliment should component update with deep object comaprison for cyclic objects to improve performance
     // shouldComponentUpdate(nextProps, nextState){
     //     let { user, room, rooms } = this.state;
@@ -117,7 +126,8 @@ export default class ChatHomeContainer extends Component {
                 showAddPeople   : this._showAddPeopleModal,
                 hideAddPeople   : this._hideAddPeopleModal,
                 showRemovePeople: this._showRemovePeopleModal,
-                hideRemovePeople: this._hideRemovePeopleModal
+                hideRemovePeople: this._hideRemovePeopleModal,
+                leaveRoom       : this._leaveRoom
             }} >
                 <ChatHome
                     messages = {this.state.messages}
