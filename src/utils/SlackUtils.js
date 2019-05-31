@@ -56,3 +56,12 @@ export function peopleJoinedMessage(currentUser, channel, people, type) {
 
     }
 }
+
+export function getUserName(room, id){
+    return room.userStore.users[id].name;
+}
+
+export function setGeneralSelected() {
+    // Set `general` channel selected
+    document.querySelector(".channel-"+process.env.REACT_APP_CHATKIT_GENERAL_ROOM).click()
+}
