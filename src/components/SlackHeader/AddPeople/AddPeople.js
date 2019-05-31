@@ -5,7 +5,7 @@ import { Consumer } from '../../../store/store';
 
 const Option = Select.Option;
 
-const AddPeople = ({ allUsers, roomName, onUserSelect, onSubmit, selectedUsers, onModalClose }) => {
+const AddPeople = ({ allUsers, onUserSelect, onSubmit, selectedUsers, onModalClose }) => {
     return (
         <Consumer>
             {({ state }) =>
