@@ -3,7 +3,7 @@ import { SlackContext } from '../../../store/store';
 import AddPeopleModal from '../../../components/SlackHeader/AddPeople'
 
 import { addUserToRoom, sendMessage } from '../../../utils/ChatKitUtil';
-import { peopleJoinedMessage, getJoinableUsers } from '../../../utils/SlackUtils';
+import { peopleJoinedMessage, getJoinableUsers, getUserName } from '../../../utils/SlackUtils';
 
 class AddPeopleContainer extends Component {
     static contextType = SlackContext;
@@ -57,7 +57,7 @@ class AddPeopleContainer extends Component {
                     count++;
                     if (newlyAdded.length === count) resolve(addSuccess);
                 }, err => {
-                    Notification("error", "Error adding " + this._getUserName(userId) + " to room, Please try again", err)
+                    Notification("error", "Error adding " + getUserName(room, userId) + " to room, Please try again", err)
                     reject(err, userId)
                 })
             })
