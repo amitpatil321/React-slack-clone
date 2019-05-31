@@ -26,7 +26,11 @@ export default (userId, actions) => {
             user.rooms.map(room =>
                 user.subscribeToRoom({
                     roomId: room.id,
-                    hooks: { onMessage : actions.addMessage },
+                    hooks: {
+                        onUserJoined: actions.refresh,
+                        onMessage : actions.addMessage,
+                        onUserLeft : actions.refresh // force update app on user removal
+                    },
                 })
             )
         ).then(rooms => {
