@@ -60,6 +60,9 @@ export function peopleJoinedMessage(currentUser, channel, people, type) {
 export function getUserName(room, id){
     return room.userStore.users[id].name;
 }
+export function getUserPic(room, id){
+    return room.userStore.users[id].avatarURL;
+}
 
 export function setGeneralSelected() {
     // Set `general` channel selected
