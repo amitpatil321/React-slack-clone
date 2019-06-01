@@ -35,7 +35,7 @@ const Sidebar = ({ onSelection, onLogoutSuccess }) => {
                 let { user, rooms, room } = state
                 return <>
                     <div className="logged-user">
-                        <Avatar src={user.imageUrl}></Avatar>
+                        <Avatar src={user.avatarURL}></Avatar>
                         <span>{user.name}</span>
                         <GoogleLogout
                             clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
