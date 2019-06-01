@@ -11,6 +11,9 @@ import { setGeneralSelected } from '../../utils/SlackUtils';
 import { Provider } from '../../store/store';
 
 //TODO : Improve performance of all components
+//TDOD : Handle no internet connection error
+//TDOD : Show no internet timeout screen
+//TODO : Add prop types again
 export default class ChatHomeContainer extends Component {
     state = {
         chatkitReady: false,
@@ -20,7 +23,8 @@ export default class ChatHomeContainer extends Component {
         messages    : {},
         error       : null,
         addPeopleModalVisible : false,
-        remPeopleModalVisible : false
+        remPeopleModalVisible : false,
+        channelInfoVisible    : false
     }
 
     actions = {
@@ -93,6 +97,9 @@ export default class ChatHomeContainer extends Component {
     _showRemovePeopleModal = () => this.setState({ remPeopleModalVisible: true })
     _hideRemovePeopleModal = () => this.setState({ remPeopleModalVisible: false })
 
+    // Show hide channel info drawer
+    _showDrawer = () => this.setState({ channelInfoVisible : true })
+    _hideDrawer = () => this.setState({ channelInfoVisible: false })
     // Leave room
     _leaveRoom = () => {
         let { user, room } = this.state
@@ -127,7 +134,9 @@ export default class ChatHomeContainer extends Component {
                 hideAddPeople   : this._hideAddPeopleModal,
                 showRemovePeople: this._showRemovePeopleModal,
                 hideRemovePeople: this._hideRemovePeopleModal,
-                leaveRoom       : this._leaveRoom
+                leaveRoom       : this._leaveRoom,
+                showDrawer      : this._showDrawer,
+                hideDrawer      : this._hideDrawer
             }} >
                 <ChatHome
                     messages = {this.state.messages}

@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { Layout, Typography, Spin, Icon } from 'antd';
 import ContentLoader from 'react-content-loader'
 
-import { Consumer } from '../../store/store';
 import Sidebar from '../../containers/Sidebar';
-import SlackHeader from '../SlackHeader';
 import ListMessages from '../../containers/Contents/ListMessages';
+import SlackHeader from '../SlackHeader';
+import ChannelInfoDrawer from '../ChannelInfoDrawer';
+import { Consumer } from '../../store/store';
+
 const {
     Header, Content, Footer, Sider,
 } = Layout;
@@ -34,6 +36,9 @@ const ChatHome = ({ messages }) =>
                                 Footer
                             </Footer>
                         </Layout>
+                        {context.state.channelInfoVisible &&
+                            <ChannelInfoDrawer />
+                        }
                     </Layout>
                 )
             return (
