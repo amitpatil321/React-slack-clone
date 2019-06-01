@@ -23,7 +23,7 @@ const ListMessages = ({ canGroup, message }) => {
                     {time}
                 </Col>
                 <Col span={21}>
-                    {text}
+                    <span className="message-text">{text}</span>
                 </Col>
             </Row>
             :
@@ -36,7 +36,7 @@ const ListMessages = ({ canGroup, message }) => {
                         key={id}
                         author={<div className="message-sender">{author} {time}</div>}
                         avatar={<Avatar src={avatar} alt={author} />}
-                        content={text}
+                        content={<span className="message-text">{text}</span>}
                     >
                     </Comment>
                 }}

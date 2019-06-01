@@ -9,7 +9,7 @@
 }
 .message-sender{
     font-weight: bold;
-    font-size: 13px;
+    font-size: 14px;
     color: #525252 !important;
 }
 .message-sender small {
@@ -20,6 +20,9 @@
 }
 .ant-comment:hover, .grouped-message:hover{
     background: rgb(245, 244, 244);
+}
+.message-text{
+    font-size: 13px;
 }
 
 .grouped-message{
