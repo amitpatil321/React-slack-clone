@@ -12,8 +12,9 @@ class ListMessagesContainer extends Component {
 
     render() {
         let { messages } = this.props;
-        let old, canGroup = false, thisMessage;
+        let old, thisMessage;
         return Object.keys(messages).map((message, index) => {
+            let canGroup = false;
             // Check if message can be combined?
             // TODO : Time span should be between first message from same author and current message.
             // existing funtion is matching current message and previous one.
