@@ -9,14 +9,6 @@ const SubMenu = Menu.SubMenu;
 class HeaderOptionsContainer extends Component {
     static contextType = SlackContext;
 
-    componentDidMount(){
-        // console.log("mounted");
-    }
-
-    componentDidUpdate(prevProps, prevState){
-        // console.log("did update");
-    }
-
     _availabeOptions() {
         let { user, room } =  this.context.state;
         if(room === null) return false;
@@ -36,7 +28,7 @@ class HeaderOptionsContainer extends Component {
                 {
                     (room.id !== process.env.REACT_APP_CHATKIT_GENERAL_ROOM) ?
                         <Menu.Item key="setting:5" onClick={this.context.leaveRoom}>Leave #{roomName}</Menu.Item>
-                    : ''
+                    : ""
                 }
                 {/* User can remove users and delete room only if he's slack admin user and its not "general" room */}
                 {
