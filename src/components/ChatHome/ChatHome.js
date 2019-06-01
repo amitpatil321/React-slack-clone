@@ -7,6 +7,7 @@ import Sidebar from '../../containers/Sidebar';
 import ListMessages from '../../containers/Contents/ListMessages';
 import SlackHeader from '../SlackHeader';
 import ChannelInfoDrawer from '../ChannelInfoDrawer';
+import SendMessage from '../../containers/Footer/SendMessage';
 import { Consumer } from '../../store/store';
 
 const {
@@ -33,7 +34,7 @@ const ChatHome = ({ messages }) =>
                                 {messages[room.id] && <ListMessages messages={messages[room.id]} />}
                             </Content>
                             <Footer className="footer">
-                                Footer
+                                <SendMessage />
                             </Footer>
                         </Layout>
                         {context.state.channelInfoVisible &&
