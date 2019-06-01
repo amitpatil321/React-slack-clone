@@ -27,6 +27,7 @@ html, body{
   bottom: 80px;
   left: 200px;
   width: 100%;
+  padding: 0px 10px 10px 0px;
 }
 .footer{
   position: absolute;

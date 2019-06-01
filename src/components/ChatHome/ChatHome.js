@@ -30,7 +30,7 @@ const ChatHome = ({ messages }) =>
                                 <SlackHeader />
                             </Header>
                             <Content className="content">
-                                <ListMessages messages={messages} />
+                                {messages[room.id] && <ListMessages messages={messages[room.id]} />}
                             </Content>
                             <Footer className="footer">
                                 Footer
