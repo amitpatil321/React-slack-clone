@@ -14,6 +14,9 @@ import { Provider } from '../../store/store';
 //TDOD : Handle no internet connection error
 //TDOD : Show no internet timeout screen
 //TODO : Add prop types again
+//TODO : repalce <Consumer></Consumer> with useContext  :(
+//TODO : Remove all ../ from path as we now have .env node_path settings
+//TODO : Test all errors, and make sure they get printed properly
 export default class ChatHomeContainer extends Component {
     state = {
         chatkitReady: false,
@@ -24,7 +27,8 @@ export default class ChatHomeContainer extends Component {
         error       : null,
         addPeopleModalVisible : false,
         remPeopleModalVisible : false,
-        channelInfoVisible    : false
+        channelInfoVisible    : false,
+        addChannelModalVisible: false
     }
 
     actions = {
@@ -90,16 +94,21 @@ export default class ChatHomeContainer extends Component {
     }
 
     // Handle show/hide add people modal
-    _showAddPeopleModal = () => this.setState({ addPeopleModalVisible: true })
-    _hideAddPeopleModal = () => this.setState({ addPeopleModalVisible: false })
+    _showAddPeopleModal = () => this.setState({ addPeopleModalVisible : true })
+    _hideAddPeopleModal = () => this.setState({ addPeopleModalVisible : false })
 
     // Handle show/hide remove people modal
-    _showRemovePeopleModal = () => this.setState({ remPeopleModalVisible: true })
-    _hideRemovePeopleModal = () => this.setState({ remPeopleModalVisible: false })
+    _showRemovePeopleModal = () => this.setState({ remPeopleModalVisible : true })
+    _hideRemovePeopleModal = () => this.setState({ remPeopleModalVisible : false })
 
     // Show hide channel info drawer
     _showDrawer = () => this.setState({ channelInfoVisible : true })
-    _hideDrawer = () => this.setState({ channelInfoVisible: false })
+    _hideDrawer = () => this.setState({ channelInfoVisible : false })
+
+    // Show/hide add channel modal
+    _showAddChannelModal = () => this.setState({ addChannelModalVisible : true })
+    _hideAddChannelModal = () => this.setState({ addChannelModalVisible : false })
+
     // Leave room
     _leaveRoom = () => {
         let { user, room } = this.state
@@ -136,7 +145,9 @@ export default class ChatHomeContainer extends Component {
                 hideRemovePeople: this._hideRemovePeopleModal,
                 leaveRoom       : this._leaveRoom,
                 showDrawer      : this._showDrawer,
-                hideDrawer      : this._hideDrawer
+                hideDrawer      : this._hideDrawer,
+                showAddChannel  : this._showAddChannelModal,
+                hideAddChannel  : this._hideAddChannelModal
             }} >
                 <ChatHome
                     messages = {this.state.messages}
