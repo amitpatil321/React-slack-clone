@@ -31,8 +31,8 @@ const Sidebar = ({ onSelection, onLogoutSuccess }) => {
 
     return (
         <Consumer>
-            {({state}) => {
-                let { user, rooms, room } = state
+            {(context) => {
+                let { user, rooms, room } = context.state
                 return <>
                     <div className="logged-user">
                         <Avatar src={user.avatarURL}></Avatar>
@@ -54,12 +54,12 @@ const Sidebar = ({ onSelection, onLogoutSuccess }) => {
                         className           = "rooms-list"
                         mode                = "inline"
                         theme               = "dark"
-                        defaultSelectedKeys={[room ? room.id : process.env.REACT_APP_CHATKIT_GENERAL_ROOM]}
+                        selectedKeys={[room ? room.id : process.env.REACT_APP_CHATKIT_GENERAL_ROOM]}
                     >
                         <MenuItemGroup key="g1" title="Channels" className="channel-group" id="channels">
                             {getRoomsList(rooms)}
                         </MenuItemGroup>
-                        <Menu.Item className="add-channel">
+                        <Menu.Item className="add-channel" onClick={context.showAddChannel}>
                             <strong><Icon type="plus" />Add a channel</strong>
                         </Menu.Item>
                         <MenuItemGroup key="g2" title="Direct Message" className="channel-group" id="users">
