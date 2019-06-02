@@ -1,4 +1,4 @@
-import { filter } from 'lodash';
+import { filter, orderBy } from 'lodash';
 
 // Returns list of users which are not a member of room yet
 export function getJoinableUsers(rooms, currentRoom) {
@@ -55,6 +55,14 @@ export function peopleJoinedMessage(currentUser, channel, people, type) {
             return "joined #" + channel;
 
     }
+}
+
+// Returns list of alll the available users
+export function getAllUsers(user) {
+    // Find general room as We are storing all the users in 'general' room
+    let generalRoom = filter(user.rooms, { id: process.env.REACT_APP_CHATKIT_GENERAL_ROOM })
+    if (generalRoom.length)
+        return orderBy(generalRoom[0].users, ['name'], ['asc']);
 }
 
 export function getUserName(room, id){
