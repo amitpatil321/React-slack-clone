@@ -1,7 +1,7 @@
 import React from 'react'
 import { Menu, Icon } from 'antd';
 
-import { Consumer } from '../../../store/store';
+import { Consumer } from 'store/store';
 
 export default function HeaderOptions({options}) {
     return (

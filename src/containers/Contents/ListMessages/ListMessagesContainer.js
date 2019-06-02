@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import { Row, Col, Comment, Avatar } from 'antd';
 import moment from 'moment';
 
-import { SlackContext } from '../../../store/store';
-import ListMessages from '../../../components/Content/ListMessages';
-import * as CONFIG from '../../../config';
+import { SlackContext } from 'store/store';
+import ListMessages from 'components/Content/ListMessages';
+import * as CONFIG from 'config';
 
 let old;
 class ListMessagesContainer extends Component {

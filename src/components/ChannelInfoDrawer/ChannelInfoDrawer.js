@@ -2,8 +2,8 @@ import React from 'react'
 import { Drawer, Collapse, Icon, Menu, Avatar } from 'antd';
 import moment from 'moment';
 
-import { Consumer } from '../../store/store';
-import { getUserName, getUserPic } from '../../utils/SlackUtils';
+import { Consumer } from 'store/store';
+import { getUserName, getUserPic } from 'utils/SlackUtils';
 import './ChannelInfoDrawer.css';
 
 const Panel = Collapse.Panel;

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
 
-import { SlackContext } from '../../store/store';
-import Sidebar from '../../components/Sidebar'
+import { SlackContext } from 'store/store';
+import Sidebar from 'components/Sidebar'
 
 export default class SidebarContainer extends Component {
     static contextType = SlackContext;

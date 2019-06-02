@@ -1,3 +1,1 @@
-import SlackHeader from './SlackHeader';
-
-export default SlackHeader;
+export { default } from './SlackHeader';

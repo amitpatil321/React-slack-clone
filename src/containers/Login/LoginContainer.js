@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 
-import * as CONFIG from '../../config';
-import Login from '../../components/Login';
-import Alert from '../../components/Alert'
+import * as CONFIG from 'config';
+import Login from 'components/Login';
+import Alert from 'components/Alert'
 
 export default class LoginContainer extends Component {
     state = {

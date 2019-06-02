@@ -1,7 +1,7 @@
 import React from 'react'
 import { Modal, Input, Checkbox, Alert, Select, Form } from 'antd';
 
-import { Consumer } from '../../../store/store';
+import { Consumer } from 'store/store';
 import './AddChannel.css';
 
 const AddChannel = ({

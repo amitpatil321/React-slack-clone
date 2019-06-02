@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import { Layout, Typography, Spin, Icon } from 'antd';
 import ContentLoader from 'react-content-loader'
 
-import { Consumer } from '../../store/store';
-import Sidebar from '../../containers/Sidebar';
-import ListMessages from '../../containers/Contents/ListMessages';
+import { Consumer } from 'store/store';
+import Sidebar from 'containers/Sidebar';
+import ListMessages from 'containers/Contents/ListMessages';
 import SlackHeader from '../SlackHeader';
-import SendMessage from '../../containers/Footer/SendMessage';
+import SendMessage from 'containers/Footer/SendMessage';
 
-const AddPeopleModal    = lazy(() => import('../../containers/SlackHeader/AddPeople'));
-const RemovePeopleModal = lazy(() => import('../../containers/SlackHeader/RemovePeople'));
+const AddPeopleModal    = lazy(() => import('containers/SlackHeader/AddPeople'));
+const RemovePeopleModal = lazy(() => import('containers/SlackHeader/RemovePeople'));
 const ChannelInfoDrawer = lazy(() => import('../ChannelInfoDrawer'));
-const AddChannelModal   = lazy(() => import('../../containers/Sidebar/AddChannel'));
+const AddChannelModal   = lazy(() => import('containers/Sidebar/AddChannel'));
 
 const {
     Header, Content, Footer, Sider,

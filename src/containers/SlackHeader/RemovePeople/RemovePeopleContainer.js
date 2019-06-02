@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { orderBy } from 'lodash';
 
-import Notification from '../../../components/Notification';
-import { SlackContext } from '../../../store/store';
-import RemovePeopleModal from '../../../components/SlackHeader/RemovePeople'
-import { getRoomUsers, getUserName, setGeneralSelected } from '../../../utils/SlackUtils';
-import { removeUserFromRoom } from '../../../utils/ChatKitUtil';
+import Notification from 'components/Notification';
+import { SlackContext } from 'store/store';
+import RemovePeopleModal from 'components/SlackHeader/RemovePeople'
+import { getRoomUsers, getUserName, setGeneralSelected } from 'utils/SlackUtils';
+import { removeUserFromRoom } from 'utils/ChatKitUtil';
 
 //TODO : After adding users and then immediately opening "remove people", it shows IDs instead of user names
 class RemovePeopleContainer extends Component {

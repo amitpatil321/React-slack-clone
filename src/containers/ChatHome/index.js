@@ -1,3 +1,1 @@
-import ChatHome from './ChatHomeContainer';
-
-export default ChatHome
+export { default } from './ChatHomeContainer';

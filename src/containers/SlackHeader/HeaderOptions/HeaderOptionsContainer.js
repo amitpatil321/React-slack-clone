@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { SlackContext } from '../../../store/store';
+import { SlackContext } from 'store/store';
 import { Menu, Icon } from 'antd';
 
-import HeaderOptions from '../../../components/SlackHeader/HeaderOptions';
+import HeaderOptions from 'components/SlackHeader/HeaderOptions';
 
 const SubMenu = Menu.SubMenu;
 

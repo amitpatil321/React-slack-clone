@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import GoogleLogout from 'react-google-login';
 import { filter } from 'lodash';
 
-import { Consumer } from '../../store/store';
-import '../Sidebar/Sidebar.css';
+import { Consumer } from 'store/store';
+import './Sidebar.css';
 
 const MenuItemGroup = Menu.ItemGroup;
 
@@ -32,6 +32,7 @@ const Sidebar = ({ onSelection, onLogoutSuccess }) => {
     return (
         <Consumer>
             {(context) => {
+                console.log(context);
                 let { user, rooms, room } = context.state
                 return <>
                     <div className="logged-user">

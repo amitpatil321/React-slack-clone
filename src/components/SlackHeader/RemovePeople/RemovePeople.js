@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Modal, Select, Empty } from 'antd';
-import { Consumer } from '../../../store/store';
+import { Consumer } from 'store/store';
 
 const Option = Select.Option;
 

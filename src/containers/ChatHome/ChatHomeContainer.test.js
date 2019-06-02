@@ -1,10 +1,8 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { Redirect } from 'react-router-dom';
-import { MemoryRouter } from 'react-router';
 
-import ChatHome from '../../containers/ChatHome';
-import ChatHomeComponent from '../../components/ChatHome';
+import ChatHome from 'containers/ChatHome';
 
 let wrapper;
 const props = {

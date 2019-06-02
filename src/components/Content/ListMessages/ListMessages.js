@@ -2,9 +2,9 @@ import React from 'react';
 import { Row, Col } from 'antd';
 import { Comment, Avatar } from 'antd';
 import moment from 'moment';
-import { getUserName, getUserPic } from '../../../utils/SlackUtils';
+import { getUserName, getUserPic } from 'utils/SlackUtils';
 
-import { Consumer } from '../../../store/store';
+import { Consumer } from 'store/store';
 
 import './ListMessages.css'
 

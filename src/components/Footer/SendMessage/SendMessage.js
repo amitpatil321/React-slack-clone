@@ -1,7 +1,7 @@
 import React from 'react'
 import { Input } from 'antd';
 
-import { Consumer } from '../../../store/store';
+import { Consumer } from 'store/store';
 
 const { TextArea } = Input;
 
