@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { Layout, Typography, Spin, Icon } from 'antd';
 import ContentLoader from 'react-content-loader'
 
+import { Consumer } from '../../store/store';
 import Sidebar from '../../containers/Sidebar';
 import ListMessages from '../../containers/Contents/ListMessages';
 import SlackHeader from '../SlackHeader';
-import ChannelInfoDrawer from '../ChannelInfoDrawer';
 import SendMessage from '../../containers/Footer/SendMessage';
-import { Consumer } from '../../store/store';
+
+const AddPeopleModal    = lazy(() => import('../../containers/SlackHeader/AddPeople'));
+const RemovePeopleModal = lazy(() => import('../../containers/SlackHeader/RemovePeople'));
+const ChannelInfoDrawer = lazy(() => import('../ChannelInfoDrawer'));
+const AddChannelModal   = lazy(() => import('../../containers/Sidebar/AddChannel'));
 
 const {
     Header, Content, Footer, Sider,
@@ -22,25 +26,31 @@ const ChatHome = ({ messages }) =>
             let { user, room, rooms } = context.state;
             if (Object.keys(user).length && room !== null && rooms.length)
                 return (
-                    <Layout>
-                        <Sider className="sidebar">
-                            <Sidebar />
-                        </Sider>
+                    <>
                         <Layout>
-                            <Header className="header" >
-                                <SlackHeader />
-                            </Header>
-                            <Content className="content">
-                                {messages[room.id] && <ListMessages messages={messages[room.id]} />}
-                            </Content>
-                            <Footer className="footer">
-                                <SendMessage />
-                            </Footer>
+                            <Sider className="sidebar">
+                                <Sidebar />
+                            </Sider>
+                            <Layout>
+                                <Header className="header" >
+                                    <SlackHeader />
+                                </Header>
+                                <Content className="content">
+                                    {messages[room.id] && <ListMessages messages={messages[room.id]} />}
+                                </Content>
+                                <Footer className="footer">
+                                    <SendMessage />
+                                </Footer>
+                            </Layout>
                         </Layout>
-                        {context.state.channelInfoVisible &&
+                        {/* TODO : Load below components only if flag is true instead of lazy loading */}
+                        <Suspense fallback={""}>
+                            <AddPeopleModal />
+                            <RemovePeopleModal />
                             <ChannelInfoDrawer />
-                        }
-                    </Layout>
+                            <AddChannelModal />
+                        </Suspense>
+                    </>
                 )
             return (
                 <Layout>
