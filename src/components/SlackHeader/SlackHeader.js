@@ -1,22 +1,19 @@
-import React, { Component, lazy, Suspense } from 'react'
+import React, { Component } from 'react'
 import { Button, Row, Col, Icon } from 'antd';
 import { Consumer } from '../../store/store';
 
 import HeaderOptions from '../../containers/SlackHeader/HeaderOptions';
 import './SlackHeader.css';
 
-const AddPeopleModal = lazy(() => import('../../containers/SlackHeader/AddPeople'));
-const RemovePeopleModal = lazy(() => import('../../containers/SlackHeader/RemovePeople'));
-
 class SlackHeader extends Component {
     render() {
         return (
             <Consumer>
-            {({state}) => {
-                let { room } = state;
+            {(context) => {
+                let { room } = context.state;
                 let roomName, users;
                 if (room) {
-                    users = [<Icon type="user" key={room.id} />, room.userIds.length]
+                    users = [<Icon type="user" key={room.id} onClick={context.showDrawer}/>, room.userIds.length]
                     roomName = "#" + room.name
                 }
                 return (
@@ -30,10 +27,6 @@ class SlackHeader extends Component {
                             </Col>
                         </Row>
                         {/* We will load this lazy, Because no these components will be rarely used by user */}
-                        <Suspense fallback={""}>
-                            <AddPeopleModal />
-                            <RemovePeopleModal />
-                        </Suspense>
                     </>
                 )
             }}
