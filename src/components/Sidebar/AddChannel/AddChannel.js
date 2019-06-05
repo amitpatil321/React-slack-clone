@@ -4,6 +4,7 @@ import { Modal, Input, Checkbox, Alert, Select, Form } from 'antd';
 import { Consumer } from 'store/store';
 import './AddChannel.css';
 
+//TODO : check if channel name already exists
 const AddChannel = ({
     error,
     allUsers,
