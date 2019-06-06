@@ -8,18 +8,19 @@ import { getUserName } from 'utils/SlackUtils';
 import { SlackContext } from 'store/store';
 import './ListChannels.css';
 
-const ListChannels = ({ text, onChange, existingRooms, joinableRooms, onChannelClick, selected, gotoRoom, error }) => {
+const ListChannels = ({ text, onChange, joinableRooms, existingRooms, error }) => {
     let context = useContext(SlackContext);
-    const isSelected = (room) => {
-        return (selected.find(each => each.id == room.id) === undefined) ? false : true;
+
+    // Filter absed on search string
+    if (text){
+        existingRooms = existingRooms.filter(each => each.name.toUpperCase().startsWith(text.toUpperCase()));
+        joinableRooms = joinableRooms.filter(each => each.name.toUpperCase().startsWith(text.toUpperCase()));
     }
 
     const description = (room) => {
         let author = (room.createdByUserId === context.state.user.id) ? "You" : getUserName(context.state.room, room.createdByUserId);
         return 'Created by ' + author +' on '+ moment(room.createdAt).format("MMM D, YYYY hh: mm A");
     }
-
-    console.log(joinableRooms);
 
     return (
         <Modal
@@ -49,47 +50,21 @@ const ListChannels = ({ text, onChange, existingRooms, joinableRooms, onChannelC
             <br/>
             <div className="channels-list">
                 <div className="chann-divider">Channels you can join</div>
-                {(joinableRooms == null)  ?
-                    <ContentLoader
-                        height={160}
-                        width={400}
-                        speed={2}
-                        primaryColor="#f3f3f3"
-                        secondaryColor="#ecebeb"
-                    >
-                        <rect x="5" y="15" rx="5" ry="5" width="128" height="7" />
-                        <rect x="5" y="35" rx="5" ry="5" width="140" height="6" />
-                        <rect x="159" y="35" rx="5" ry="5" width="85" height="6" />
-                        <rect x="261" y="35" rx="5" ry="5" width="85" height="6" />
-
-                        <rect x="5" y="60" rx="5" ry="5" width="128" height="7" />
-                        <rect x="5" y="80" rx="5" ry="5" width="140" height="6" />
-                        <rect x="159" y="80" rx="5" ry="5" width="85" height="6" />
-                        <rect x="261" y="80" rx="5" ry="5" width="85" height="6" />
-
-                        <rect x="5" y="105" rx="5" ry="5" width="128" height="7" />
-                        <rect x="5" y="125" rx="5" ry="5" width="140" height="6" />
-                        <rect x="159" y="125" rx="5" ry="5" width="85" height="6" />
-                        <rect x="261" y="125" rx="5" ry="5" width="85" height="6" />
-                    </ContentLoader>
-                    :
+                {joinableRooms ?
                     <List
                         itemLayout="horizontal"
                         dataSource={joinableRooms}
                         renderItem={room => (
-                            <List.Item
-                                onClick={() => onChannelClick(room)}
-                                className={(isSelected(room)) ? "selected" : null}
-                            >
+                            <List.Item>
                                 <List.Item.Meta
-                                    title={ room.name }
-                                    description={ description(room) }
+                                    title={room.name}
+                                    description={description(room)}
                                 />
-                                <span><Icon type="check" /></span>
+                                <span onClick={() => { context.hideListChannels(); context.joinRoom(room); }}><Icon type="user-add" /></span>
                             </List.Item>
                         )}
                     />
-                }
+                : null }
                 <br />
                 <div className="chann-divider">Channels you belong to</div>
                 <List
@@ -116,9 +91,6 @@ ListChannels.propTypes = {
     onChange       : PropTypes.func,
     existingRooms  : PropTypes.array,
     joinableRooms  : PropTypes.array,
-    selected       : PropTypes.array,
-    onChannelClick : PropTypes.func,
-    gotoRoom       : PropTypes.func,
     error          : PropTypes.string
 }
 
