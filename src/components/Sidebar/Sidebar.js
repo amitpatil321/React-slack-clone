@@ -32,7 +32,6 @@ const Sidebar = ({ onSelection, onLogoutSuccess }) => {
     return (
         <Consumer>
             {(context) => {
-                console.log(context);
                 let { user, rooms, room } = context.state
                 return <>
                     <div className="logged-user">

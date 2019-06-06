@@ -1,3 +1,4 @@
+
 export function addUserToRoom(currentUser, roomId, userId, successCallback, errorCallback){
     currentUser.addUserToRoom({
         userId: userId,
@@ -45,5 +46,11 @@ export function subscribeToRoom(currentUser, roomId, hooks){
 export function leaveRoom(currentUser, roomId, successCallback, errorCallback){
     currentUser.leaveRoom({ roomId: roomId })
     .then(room => successCallback(room))
+    .catch(err => errorCallback(err));
+}
+
+export function getJoinableRooms(currentUser, successCallback, errorCallback) {
+    currentUser.getJoinableRooms()
+    .then(rooms => successCallback(rooms))
     .catch(err => errorCallback(err));
 }

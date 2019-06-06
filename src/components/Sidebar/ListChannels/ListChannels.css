@@ -1,0 +1,58 @@
+.list-channels .ant-modal-body{
+    min-height: 300px !important;
+}
+.list-channels .channels-list{
+    min-height: 300px;
+    max-height: 300px;
+    overflow-y: scroll;
+}
+.list-channels .ant-list-item{
+    cursor: pointer;
+    padding: 5px 10px 0px 10px;
+    border: 1px solid rgb(197, 196, 196);
+    border-right-color: #fff;
+    border-left-color: #fff;
+    border-top-color: #fff;
+}
+
+.list-channels .ant-list-item span {
+    visibility: hidden;
+}
+
+.list-channels .ant-list-item:hover{
+    background: #e0f0ff;
+    border: 1px solid #6fb6f8;
+    border-radius: 4px;
+}
+
+.list-channels .ant-list-item:hover span{
+    visibility: visible;
+}
+
+.list-channels .selected{
+    background: #bcdbf8;
+    border: 1px solid #6fb6f8;
+    border-radius: 2px;
+}
+.list-channels .selected span{
+    visibility: visible;
+    color: rgb(4, 155, 4);
+    font-weight: bold;
+}
+
+
+.list-channels .chann-divider{
+    height: 30px;
+    background: #eee;
+    padding-left: 10px;
+    line-height: 30px;
+    border-bottom: 1px solid rgb(202, 202, 202);
+}
+
+.list-channels .ant-list-item-meta-title{
+    font-weight: bold;
+}
+
+.list-channels .ant-list-item-meta-description{
+    font-size: 12px;
+}

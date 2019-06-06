@@ -28,7 +28,8 @@ export default class ChatHomeContainer extends Component {
         addPeopleModalVisible : false,
         remPeopleModalVisible : false,
         channelInfoVisible    : false,
-        addChannelModalVisible: false
+        addChannelModalVisible: false,
+        listChannelsModalVisible: false
     }
 
     actions = {
@@ -109,6 +110,10 @@ export default class ChatHomeContainer extends Component {
     _showAddChannelModal = () => this.setState({ addChannelModalVisible : true })
     _hideAddChannelModal = () => this.setState({ addChannelModalVisible : false })
 
+    // Show/hide list channels modal
+    _showListChannelsModal = () => this.setState({ listChannelsModalVisible : true })
+    _hideListChannelsModal = () => this.setState({ listChannelsModalVisible : false })
+
     // Leave room
     _leaveRoom = () => {
         let { user, room } = this.state
@@ -147,7 +152,9 @@ export default class ChatHomeContainer extends Component {
                 showDrawer      : this._showDrawer,
                 hideDrawer      : this._hideDrawer,
                 showAddChannel  : this._showAddChannelModal,
-                hideAddChannel  : this._hideAddChannelModal
+                hideAddChannel  : this._hideAddChannelModal,
+                showListChannels: this._showListChannelsModal,
+                hideListChannels: this._hideListChannelsModal
             }} >
                 <ChatHome
                     messages = {this.state.messages}

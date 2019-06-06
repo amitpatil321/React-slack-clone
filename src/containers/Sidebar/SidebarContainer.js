@@ -1,17 +1,14 @@
 import React, { Component } from 'react'
 
-
 import { SlackContext } from 'store/store';
 import Sidebar from 'components/Sidebar'
-
 export default class SidebarContainer extends Component {
     static contextType = SlackContext;
-    // TODO : Improve component performance by deep comapring curcular objects
-    // shouldComponentUpdate(prevProps, prevState){
-    //     if (this.props.rooms.length)
-    //         return true;
-    //     return false;
-    // }
+
+    componentDidMount(){
+        // Bind click event to "channels" word
+        document.querySelector("#channels .ant-menu-item-group-title").addEventListener("click", this.context.showListChannels)
+    }
 
     _onLogoutSuccess = () => {
         console.log("On logout Success");

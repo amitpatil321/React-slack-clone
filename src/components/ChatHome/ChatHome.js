@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { Layout, Typography, Spin, Icon } from 'antd';
-import ContentLoader from 'react-content-loader'
+import ContentLoader from 'react-content-loader';
 
 import { Consumer } from 'store/store';
 import Sidebar from 'containers/Sidebar';
@@ -13,6 +13,7 @@ const AddPeopleModal    = lazy(() => import('containers/SlackHeader/AddPeople'))
 const RemovePeopleModal = lazy(() => import('containers/SlackHeader/RemovePeople'));
 const ChannelInfoDrawer = lazy(() => import('../ChannelInfoDrawer'));
 const AddChannelModal   = lazy(() => import('containers/Sidebar/AddChannel'));
+const ListChannelsModal = lazy(() => import('containers/Sidebar/ListChannels'));
 
 const {
     Header, Content, Footer, Sider,
@@ -43,12 +44,12 @@ const ChatHome = ({ messages }) =>
                                 </Footer>
                             </Layout>
                         </Layout>
-                        {/* TODO : Load below components only if flag is true instead of lazy loading */}
                         <Suspense fallback={""}>
                             <AddPeopleModal />
                             <RemovePeopleModal />
                             <ChannelInfoDrawer />
                             <AddChannelModal />
+                            <ListChannelsModal />
                         </Suspense>
                     </>
                 )
@@ -113,9 +114,11 @@ const ChatHome = ({ messages }) =>
                                 primaryColor="#f3f3f3"
                                 secondaryColor="#888"
                             >
-                                <rect x="0" y="8" rx="4" ry="4" width="20" height="4" />
-                                <rect x="22" y="8" rx="4" ry="4" width="8" height="4" />
-                                <rect x="98%" y="8" rx="4" ry="4" width="5" height="4" />
+                                <rect x="0" y="8" rx="3" ry="3" width="30" height="3" />
+                                <circle cx="35" cy="10" r="3" />
+
+                                <circle cx="93%" cy="10" r="3" />
+                                <circle cx="97%" cy="10" r="3" />
                             </ContentLoader>
                         </Header>
                         <Content className="content">

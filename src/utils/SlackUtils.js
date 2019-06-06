@@ -57,12 +57,20 @@ export function peopleJoinedMessage(currentUser, channel, people, type) {
     }
 }
 
-// Returns list of alll the available users
+// Returns list of all the available users
 export function getAllUsers(user) {
     // Find general room as We are storing all the users in 'general' room
     let generalRoom = filter(user.rooms, { id: process.env.REACT_APP_CHATKIT_GENERAL_ROOM })
     if (generalRoom.length)
         return orderBy(generalRoom[0].users, ['name'], ['asc']);
+}
+
+// Returns list of all joinable(public) available rooms
+export function getSubscribedRooms(rooms) {
+    // Find general room as We are storing all the users in 'general' room
+    // let generalRoom = filter(user.rooms, { id: process.env.REACT_APP_CHATKIT_GENERAL_ROOM })
+    // if (generalRoom.length)
+    //     return orderBy(generalRoom[0].users, ['name'], ['asc']);
 }
 
 export function getUserName(room, id){

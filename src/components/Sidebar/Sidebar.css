@@ -38,6 +38,11 @@
     margin: 10px 0px 10px 0px !important;
 }
 
+#channels{
+    cursor: pointer;
+    user-select: none;
+}
+
 .online-status{
   display: inline-block;
   width: 12px;
