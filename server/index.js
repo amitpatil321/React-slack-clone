@@ -62,9 +62,22 @@ const authData = chatkit.authenticate({ userId: req.query.user_id })
     res.status(authData.status).send(authData.body)
 })
 
-app.get("/rooms",(req,res) => {
-    chatkit.getRooms({})
-    .then(rooms => console.log('got rooms :', rooms))
+app.get("/delete", (req, res) => {
+    let count = 0;
+    chatkit.getRooms({ includePrivate  : true})
+    .then(rooms => {
+        rooms.forEach(room => {
+            console.log(room.custom_data);
+            if (room.custom_data !== undefined){
+                chatkit.deleteRoom({
+                    id: room.id
+                })
+                .then(() => count++ )
+                .catch(err => console.error(err))
+            }
+        })
+        res.status(200).send("Removed " + count + " rooms " + JSON.stringify(rooms))
+    })
     .catch(err => console.error(err))
 })
 
