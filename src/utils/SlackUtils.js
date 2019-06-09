@@ -1,3 +1,4 @@
+import React from 'react';
 import { filter, orderBy } from 'lodash';
 
 // TODO : Instead of getting rooms, currentRoom as 2 params, do it like  ({ rooms, room }) in hasRoom function
@@ -81,6 +82,10 @@ export function getUserPic(room, id){
     return room.userStore.users[id].avatarURL;
 }
 
+export function getUserDetails(room, id) {
+    return room.userStore.users[id];
+}
+
 export function setGeneralSelected() {
     // Set `general` channel selected
     document.querySelector(".channel-"+process.env.REACT_APP_CHATKIT_GENERAL_ROOM).click()
@@ -92,4 +97,25 @@ export function hasRoom(context, receiverId){
     let roomUsers = [user.id, receiverId];
     // find if room already exists for this users ?
     return filter(rooms, { name: roomUsers.sort().join(''), customData: { privateChat : true } });
+}
+
+// Checks if its a private chat or channel
+export function isPrivateChat(room){
+    if (room.customData !== undefined && room.customData.privateChat) return true;
+    return false;
+}
+
+// Returns true if ligged in user is chat admin
+export function isAdmin(user){
+    return process.env.REACT_APP_CHATKIT_APP_ADMIN === user.id
+}
+
+// Returns true if its a general room
+export function isGeneralRoom(room){
+    return process.env.REACT_APP_CHATKIT_GENERAL_ROOM === room.id
+}
+
+export function onlineStatus(user){
+    let status = user.presenceStore[user.id];
+    return <><span className={"online-status " + status}></span> <small>{(status == "online") ? "active" : "away"}</small></>
 }

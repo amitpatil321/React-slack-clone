@@ -5,7 +5,7 @@ import { filter } from 'lodash';
 
 import HeaderOptions from 'containers/SlackHeader/HeaderOptions';
 import './SlackHeader.css';
-import { getUserName } from 'utils/SlackUtils';
+import { getUserName, onlineStatus, getUserDetails } from 'utils/SlackUtils';
 
 class SlackHeader extends Component {
     render() {
@@ -25,9 +25,10 @@ class SlackHeader extends Component {
                             roomName = getUserName(room, receiver);
                         else{
                             // It means sender and receiver is same
+                            receiver = user.id;
                             roomName = user.name + " (you)";
-                            users = "";
                         }
+                        users = onlineStatus(getUserDetails(room, receiver));
                     }
                 }
                 return (

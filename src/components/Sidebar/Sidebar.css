@@ -51,7 +51,7 @@
 }
 .online {
   background-color: #7D0;
-  box-shadow: #000 0 -1px 7px 1px, inset #460 0 -1px 9px, #7D0 0 2px 12px;
+  /* box-shadow: #000 0 -1px 7px 1px, inset #460 0 -1px 9px, #7D0 0 2px 12px; */
 }
 
 .offline {
