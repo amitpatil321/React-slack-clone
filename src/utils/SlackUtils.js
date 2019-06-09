@@ -1,5 +1,6 @@
 import { filter, orderBy } from 'lodash';
 
+// TODO : Instead of getting rooms, currentRoom as 2 params, do it like  ({ rooms, room }) in hasRoom function
 // Returns list of users which are not a member of room yet
 export function getJoinableUsers(rooms, currentRoom) {
     let allUsers = [];
@@ -83,4 +84,12 @@ export function getUserPic(room, id){
 export function setGeneralSelected() {
     // Set `general` channel selected
     document.querySelector(".channel-"+process.env.REACT_APP_CHATKIT_GENERAL_ROOM).click()
+}
+
+// Check if current user and clicked user has a private room?
+export function hasRoom(context, receiverId){
+    let { user, rooms } = context;
+    let roomUsers = [user.id, receiverId];
+    // find if room already exists for this users ?
+    return filter(rooms, { name: roomUsers.sort().join(''), customData: { privateChat : true } });
 }

@@ -17,6 +17,7 @@ import { Provider } from 'store/store';
 //TODO : repalce <Consumer></Consumer> with useContext  :(
 //TODO : Remove all ../ from path as we now have .env node_path settings
 //TODO : Test all errors, and make sure they get printed properly
+//TODO : Add comments and function param description etc like @param
 export default class ChatHomeContainer extends Component {
     state = {
         chatkitReady: false,
@@ -29,7 +30,8 @@ export default class ChatHomeContainer extends Component {
         remPeopleModalVisible : false,
         channelInfoVisible    : false,
         addChannelModalVisible: false,
-        listChannelsModalVisible: false
+        listChannelsModalVisible: false,
+        isLoading : { show : false, message : null }
     }
 
     actions = {
@@ -94,6 +96,9 @@ export default class ChatHomeContainer extends Component {
             ChatKit(JSON.parse(localStorage.getItem("slack")).googleId, this.actions);
     }
 
+    _showLoading = (message = null) => this.setState({ isLoading: {show : true, message : message } })
+    _hideLoading = () => this.setState({ isLoading: { show: false, message: null } })
+
     // Handle show/hide add people modal
     _showAddPeopleModal = () => this.setState({ addPeopleModalVisible : true })
     _hideAddPeopleModal = () => this.setState({ addPeopleModalVisible : false })
@@ -144,6 +149,8 @@ export default class ChatHomeContainer extends Component {
             <Provider value={{
                 state           : this.state,
                 joinRoom        : this.actions.joinRoom,
+                showLoading     : this._showLoading,
+                hideLoading     : this._hideLoading,
                 showAddPeople   : this._showAddPeopleModal,
                 hideAddPeople   : this._hideAddPeopleModal,
                 showRemovePeople: this._showRemovePeopleModal,

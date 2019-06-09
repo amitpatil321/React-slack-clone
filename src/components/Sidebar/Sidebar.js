@@ -11,10 +11,12 @@ const MenuItemGroup = Menu.ItemGroup;
 
 const Sidebar = ({ onSelection, onLogoutSuccess }) => {
     let getRoomsList = (rooms) => rooms.map(room => {
-        return <Menu.Item key={room.id} onClick={() => onSelection(room)} className={"channel-"+room.id}>
-            {(room.isPrivate) ? <Icon type="lock" style={{}} /> : <span>#</span>}
-            {room.name}
-        </Menu.Item>
+        // Ignore private chat room
+        if(!room.customData || room.customData.privateChat !== true)
+            return <Menu.Item key={room.id} onClick={() => onSelection(room)} className={"channel-"+room.id}>
+                {(room.isPrivate) ? <Icon type="lock" style={{}} /> : <span>#</span>}
+                {room.name}
+            </Menu.Item>
     });
 
     let getUsersList = (rooms) => {

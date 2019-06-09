@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
 
 import { SlackContext } from 'store/store';
-import Sidebar from 'components/Sidebar'
+import { hasRoom } from 'utils/SlackUtils';
+import { createRoom } from 'utils/ChatKitUtil';
+import Notification from 'components/Notification';
+
+import Sidebar from 'components/Sidebar';
+
 export default class SidebarContainer extends Component {
     static contextType = SlackContext;
 
@@ -15,8 +20,25 @@ export default class SidebarContainer extends Component {
     }
 
     _onSelection = (item) => {
-        // TODO : Impliment join personal chat feature
-        this.context.joinRoom(item)
+        // Check if its a room or direct chat?
+        if (item.avatarURL === undefined)
+            this.context.joinRoom(item)
+        else{
+            // check if room exists for logged in user and clicked user ?
+            let findRoom = hasRoom(this.context.state, item.id);
+            if (findRoom.length){
+                this.context.joinRoom(findRoom[0])
+            }else{
+                let { user } = this.context.state;
+                let roomUsers = [user.id, item.id].sort().join('');
+                this.context.showLoading("Wait a moment!");
+                // Room doesnt exists, Lets create new room for them
+                createRoom(user, roomUsers, [user.id, item.id], true, { privateChat: true, userIds: [user.id, item.id] },  (newRoom) => {
+                    this.context.joinRoom(newRoom);
+                    this.context.hideLoading();
+                },(error) => Notification("error", "Error", "Error creating private room, Please try again!"))
+            }
+        }
     }
 
     render() {
@@ -26,9 +48,3 @@ export default class SidebarContainer extends Component {
         />
     }
 }
-
-// SidebarContainer.propTypes = {
-//     user : PropTypes.object.isRequired,
-//     rooms: PropTypes.array.isRequired,
-//     room : PropTypes.object
-// }

@@ -26,11 +26,12 @@ export function sendMessage(currentUser, roomId, message, successCallback, error
     .catch(err => errorCallback(err));
 }
 
-export function createRoom(currentUser, channelName, selectedUsers, isPrivate, successCallback, errorCallback){
+export function createRoom(currentUser, channelName, selectedUsers, isPrivate, customData = { privateChat : false }, successCallback, errorCallback){
     currentUser.createRoom({
         name      : channelName,
         addUserIds: selectedUsers,
-        private   : isPrivate
+        private   : isPrivate,
+        customData: customData,
     })
     .then(room => successCallback(room))
     .catch(err => errorCallback(err));

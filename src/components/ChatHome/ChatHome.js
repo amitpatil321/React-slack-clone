@@ -37,6 +37,11 @@ const ChatHome = ({ messages }) =>
                                     <SlackHeader />
                                 </Header>
                                 <Content className="content">
+                                    {context.state.isLoading.show &&
+                                        <div className="screen-center text-center">
+                                            <Spin indicator={antIcon} tip={context.state.isLoading.message} />
+                                        </div>
+                                    }
                                     {messages[room.id] && <ListMessages messages={messages[room.id]} />}
                                 </Content>
                                 <Footer className="footer">
