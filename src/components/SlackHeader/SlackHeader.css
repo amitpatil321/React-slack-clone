@@ -1,3 +1,7 @@
+.room-title{
+  font-size: 16px;
+  font-weight: bold;
+}
 .room-settings .ant-menu-horizontal{
   border-bottom: none;
   width: 50px;
