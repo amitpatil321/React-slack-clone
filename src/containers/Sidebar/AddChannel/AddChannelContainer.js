@@ -40,7 +40,7 @@ class AddChannelContainer extends Component {
         let { channelName, isPrivate, selectedUsers } = this.state;
         if (channelName.trim().length) {
             // Create room
-            createRoom(user, channelName, selectedUsers, isPrivate, (newRoom) => {
+            createRoom(user, channelName, selectedUsers, isPrivate, null , (newRoom) => {
                 // Create message and post to new channel
                 let message = peopleJoinedMessage(user, newRoom.name, selectedUsers, "NEW");
 
