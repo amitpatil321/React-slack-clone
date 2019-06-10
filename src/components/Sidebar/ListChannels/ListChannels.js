@@ -8,7 +8,7 @@ import { getUserName } from 'utils/SlackUtils';
 import { SlackContext } from 'store/store';
 import './ListChannels.css';
 
-const ListChannels = ({ text, onChange, joinableRooms, existingRooms, error }) => {
+const ListChannels = ({ text, onChange, joinableRooms, existingRooms, joinRoom, error }) => {
     let context = useContext(SlackContext);
 
     // Filter absed on search string
@@ -27,7 +27,6 @@ const ListChannels = ({ text, onChange, joinableRooms, existingRooms, error }) =
             title    = "Browse Channels"
             className= "list-channels"
             visible  = {context.state.listChannelsModalVisible}
-            okText   = "Join"
             onCancel = {context.hideListChannels}
             style    = {{ top : "5%" }}
             destroyOnClose = {true}
@@ -60,12 +59,13 @@ const ListChannels = ({ text, onChange, joinableRooms, existingRooms, error }) =
                                     title={room.name}
                                     description={description(room)}
                                 />
-                                <span onClick={() => { context.hideListChannels(); context.joinRoom(room); }}><Icon type="user-add" /></span>
+                                <span onClick={() => {joinRoom(room)}}>
+                                    <Button type="primary" size="small">Join <Icon type="user-add" /></Button>
+                                </span>
                             </List.Item>
                         )}
                     />
                 : null }
-                <br />
                 <div className="chann-divider">Channels you belong to</div>
                 <List
                     itemLayout="horizontal"

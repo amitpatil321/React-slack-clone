@@ -22,7 +22,7 @@
 .list-channels .ant-list-item:hover{
     background: #e0f0ff;
     border: 1px solid #6fb6f8;
-    border-radius: 4px;
+    border-radius: 3px;
 }
 
 .list-channels .ant-list-item:hover span{
@@ -55,4 +55,13 @@
 
 .list-channels .ant-list-item-meta-description{
     font-size: 12px;
+}
+
+.list-channels .ant-modal-footer button + button{
+    display: none;
+}
+
+.list-channels .ant-list-empty-text{
+    margin: 0px;
+    padding: 0px;
 }

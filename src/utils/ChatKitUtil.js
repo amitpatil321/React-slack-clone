@@ -7,6 +7,11 @@ export function addUserToRoom(currentUser, roomId, userId, successCallback, erro
     .then(() => successCallback())
     .catch(err => errorCallback(err))
 }
+export function joinRoom(currentUser, room, successCallback, errorCallback){
+    currentUser.joinRoom({ roomId: room.id })
+    .then((room) => successCallback(room))
+    .catch(err => errorCallback(err))
+}
 
 export function removeUserFromRoom(currentUser, roomId, userId, successCallback, errorCallback) {
     currentUser.removeUserFromRoom({
