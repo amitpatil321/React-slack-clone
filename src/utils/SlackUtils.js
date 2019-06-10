@@ -1,5 +1,6 @@
 import React from 'react';
 import { filter, orderBy } from 'lodash';
+import { Icon } from 'antd';
 
 // TODO : Instead of getting rooms, currentRoom as 2 params, do it like  ({ rooms, room }) in hasRoom function
 // Returns list of users which are not a member of room yet
@@ -118,4 +119,8 @@ export function isGeneralRoom(room){
 export function onlineStatus(user){
     let status = user.presenceStore[user.id];
     return <><span className={"online-status " + status}></span> <small>{(status == "online") ? "active" : "away"}</small></>
+}
+
+export function roomTypeIcon(room){
+    return (room.isPrivate) ? <Icon type = "lock" />: "#";
 }
