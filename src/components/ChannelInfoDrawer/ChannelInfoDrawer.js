@@ -48,8 +48,8 @@ const ChannelInfoDrawer = () => {
                 <Meta title={roomUser.name} description={onlineStatus(roomUser)}/>
             </Card>
         :
-            <Collapse bordered={false} expandIconPosition="right" >
-                <Panel header={<strong><Icon type="info-circle" style={{ color: 'blue' }} /> Channel Details</strong>} key="1">
+            <Collapse bordered={false} expandIconPosition="right" defaultActiveKey={['1']}>
+                <Panel key="1" header={<strong ><Icon type="info-circle" style={{ color: 'blue' }} /> Channel Details</strong>}>
                     <div id="channel-creator">
                         Created by {<strong>{(room.createdByUserId === user.id) ? "You" : getUserName(room, room.createdByUserId)}</strong>} on {moment(room.createdAt).format("MMM D, YYYY hh:mm A")}
                     </div>
