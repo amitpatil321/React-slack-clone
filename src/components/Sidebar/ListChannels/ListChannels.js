@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { Modal, Input, Icon, Alert, List, Row, Col, Button } from 'antd';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import ContentLoader from 'react-content-loader';
 
 import { getUserName } from 'utils/SlackUtils';
 import { SlackContext } from 'store/store';

@@ -16,7 +16,6 @@ class AddChannelContainer extends Component {
         addChannel     : false,
         channelName    : '',
         validationError: false,
-        error          : null,
         isPrivate      : false,
         selectedUsers  : []
     }

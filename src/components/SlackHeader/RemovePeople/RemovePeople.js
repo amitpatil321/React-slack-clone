@@ -16,7 +16,7 @@ const RemovePeople = ({ showModal, selectedUsers, existingRoomUsers, handleRemov
                         onOk         = {handleRemovePeople}
                         onCancel     = {onModalClose}
                         width        = {350}
-                        okText       = "Remove"
+                        okText       = "Save"
                         maskClosable = {false}
                     >
                         <Select

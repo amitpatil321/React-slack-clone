@@ -5,7 +5,6 @@ import { SlackContext } from 'store/store';
 import ListMessages from 'components/Content/ListMessages';
 import * as CONFIG from 'config';
 
-let old;
 class ListMessagesContainer extends Component {
     static contextType = SlackContext;
 

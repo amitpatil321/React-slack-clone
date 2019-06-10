@@ -6,7 +6,7 @@ import { uniqBy, filter } from 'lodash';
 import ChatKit from 'Chatkit';
 import ChatHome from 'components/ChatHome';
 import Notification from 'components/Notification';
-import { subscribeToRoom, leaveRoom, removeUserFromRoom } from 'utils/ChatKitUtil';
+import { subscribeToRoom, removeUserFromRoom } from 'utils/ChatKitUtil';
 import { setGeneralSelected } from 'utils/SlackUtils';
 import { Provider } from 'store/store';
 

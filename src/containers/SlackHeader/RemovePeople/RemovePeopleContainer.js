@@ -17,7 +17,7 @@ class RemovePeopleContainer extends Component {
     }
 
     componentDidMount = () => this.setState({ existingRoomUsers: getRoomUsers(this.context.state.rooms, this.context.state.room) })
-    componentDidUpdate(prevProps, prevState){
+    componentDidUpdate(){
         // Refresh data on modal visibility change
         let { state } = this.context;
         if (this.state.showModal !== state.remPeopleModalVisible){
@@ -51,7 +51,7 @@ class RemovePeopleContainer extends Component {
                     this.context.hideRemovePeople();
                     // If removed user is the logged in user, that means he removed himself from this room
                     // So set default room as focused
-                    if (user.id == userId) setGeneralSelected()
+                    if (user.id === userId) setGeneralSelected()
                 }, (err) => {
                     Notification("error", "Error removing " + getUserName(room, userId) + " from #" + room.name+" , Please try again", err)
                 })

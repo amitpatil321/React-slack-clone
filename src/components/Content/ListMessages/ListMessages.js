@@ -12,7 +12,7 @@ import './ListMessages.css'
 const ListMessages = ({ canGroup, message }) => {
     let { state } = useContext(SlackContext)
 
-    if (message == undefined) return false;
+    if (message === undefined) return false;
 
     let { id, senderId, text, createdAt } = message;
     let time = <small>{moment(createdAt).format("hh:mm A")}</small>;

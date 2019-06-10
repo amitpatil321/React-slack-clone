@@ -54,7 +54,7 @@ const ChannelInfoDrawer = () => {
                         Created by {<strong>{(room.createdByUserId === user.id) ? "You" : getUserName(room, room.createdByUserId)}</strong>} on {moment(room.createdAt).format("MMM D, YYYY hh:mm A")}
                     </div>
                 </Panel>
-                <Panel header={<strong><Icon type="user" style={{ color: '#52c41a' }}/> {room.userIds.length} {(room.userIds.length == 1) ? "Member" : "Members"} </strong>} key="2">
+                <Panel header={<strong><Icon type="user" style={{ color: '#52c41a' }}/> {room.userIds.length} {(room.userIds.length === 1) ? "Member" : "Members"} </strong>} key="2">
                     <Menu className="channel-users">
                         {members}
                     </Menu>
