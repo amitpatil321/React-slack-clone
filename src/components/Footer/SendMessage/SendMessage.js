@@ -41,7 +41,7 @@ const SendMessage = ({ message, onChange, onKeyDown}) => {
                     style       = {{ fontWeight : "bold" }}
                     disabled    = {true}
                 />
-                <small>You are offline, so messages can’t be sent yet.</small>
+                <small className="text-red">You are offline, so messages can’t be sent yet.</small>
             </Offline>
         </>
     )

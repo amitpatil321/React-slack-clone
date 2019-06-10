@@ -57,6 +57,9 @@ html, body{
 .text-light{
   color: #888;
 }
+.text-red{
+  color: red;
+}
 .seperator{
   color: #888;
 }
