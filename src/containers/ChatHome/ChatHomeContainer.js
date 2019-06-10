@@ -10,12 +10,13 @@ import { subscribeToRoom, leaveRoom, removeUserFromRoom } from 'utils/ChatKitUti
 import { setGeneralSelected } from 'utils/SlackUtils';
 import { Provider } from 'store/store';
 
+//TODO : Show unread message badge
 //TODO : Improve performance of all components
-//TDOD : Handle no internet connection error
-//TDOD : Show no internet timeout screen
+//TDOD : Handle no internet connection error - DONE
+//TDOD : Show no internet timeout screen in the beginning
 //TODO : Add prop types again
 //TODO : repalce <Consumer></Consumer> with useContext  :(
-//TODO : Remove all ../ from path as we now have .env node_path settings
+//TODO : Remove all ../ from path as we now have .env node_path settings - DONE
 //TODO : Test all errors, and make sure they get printed properly
 //TODO : Add comments and function param description etc like @param
 export default class ChatHomeContainer extends Component {
