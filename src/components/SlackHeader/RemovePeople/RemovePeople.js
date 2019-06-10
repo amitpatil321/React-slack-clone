@@ -27,9 +27,11 @@ const RemovePeople = ({ showModal, selectedUsers, existingRoomUsers, handleRemov
                             value       = {selectedUsers}
                             notFoundContent = {<Empty description = "We ran out of people, Thanos killed all of them." image = {Empty.PRESENTED_IMAGE_SIMPLE} />}
                         >
-                            {existingRoomUsers.length && existingRoomUsers.map(({id, name}) =>
-                               <Option key={id}>{name}</Option>
-                            )}
+                            {existingRoomUsers.length && existingRoomUsers.map(user => {
+                               let { id, name } = user;
+                               console.log(user);
+                               return <Option key={id}>{name}</Option>
+                            })}
                         </Select>
                     </Modal>
                 )
