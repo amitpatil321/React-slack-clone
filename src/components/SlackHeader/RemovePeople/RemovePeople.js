@@ -29,7 +29,6 @@ const RemovePeople = ({ showModal, selectedUsers, existingRoomUsers, handleRemov
                         >
                             {existingRoomUsers.length && existingRoomUsers.map(user => {
                                let { id, name } = user;
-                               console.log(user);
                                return <Option key={id}>{name}</Option>
                             })}
                         </Select>

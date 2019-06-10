@@ -24,7 +24,6 @@ export function getRoomUsers(rooms, currentRoom){
     let generalRoom = filter(rooms, { id: process.env.REACT_APP_CHATKIT_GENERAL_ROOM })
     if (generalRoom.length)
         // List all users except which are already member of this room
-        console.log(generalRoom[0].users);
         generalRoom[0].users.forEach(eachUser => {
             if (currentRoom.userIds.includes(eachUser.id.toString()))
                 allUsers.push(eachUser);
