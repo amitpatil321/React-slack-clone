@@ -8,15 +8,13 @@ export function getJoinableUsers(rooms, currentRoom) {
     let allUsers = [];
     // Find general room, as We are storing all the users in 'general' room
     let generalRoom = filter(rooms, { id: process.env.REACT_APP_CHATKIT_GENERAL_ROOM })
-    if (generalRoom.length){
+    if (generalRoom.length)
         // List all users except which are already member of this room
-        let list = generalRoom[0].userStore.users;
-        Object.keys(list).forEach(key => {
-            if (!currentRoom.userIds.includes(list[key].id.toString()))
-                allUsers.push(list[key]);
-        });
+        generalRoom[0].users.forEach(eachUser => {
+            if (!currentRoom.userIds.includes(eachUser.id.toString()))
+                allUsers.push(eachUser);
+        })
         return allUsers;
-    }
 }
 
 // Returns list of users which are member of room
@@ -120,7 +118,7 @@ export function isGeneralRoom(room){
 
 export function onlineStatus(user){
     let status = user.presenceStore[user.id];
-    return <><span className={"online-status " + status}></span> <small>{(status === "online") ? "active" : "away"}</small></>
+    return <><span className={"online-status " + status}></span> <small>{(status == "online") ? "active" : "away"}</small></>
 }
 
 export function roomTypeIcon(room){
