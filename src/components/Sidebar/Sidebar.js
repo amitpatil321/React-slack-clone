@@ -10,7 +10,7 @@ import './Sidebar.css';
 const MenuItemGroup = Menu.ItemGroup;
 
 const Sidebar = ({ onSelection, onLogoutSuccess }) => {
-    let getRoomsList = (rooms) => sortBy(rooms, each => each.name.toLowerCase()).map(room => {
+    let getRoomsList = (rooms) => sortBy(rooms, each => each.name).map(room => {
         // Ignore private chat room
         if(!room.customData || room.customData.privateChat !== true)
             return <Menu.Item key={room.id} onClick={() => onSelection(room)} className={"channel-"+room.id}>
