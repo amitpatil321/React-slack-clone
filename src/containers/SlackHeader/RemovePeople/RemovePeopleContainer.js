@@ -43,7 +43,7 @@ class RemovePeopleContainer extends Component {
         let newUsers = this.state.selectedUsers;
 
         // Find differences and remove
-        let removed = oldUsers.filter(x => !newUsers.includes(x)).concat(newUsers.filter(x => !newUsers.includes(x)));
+        let removed = oldUsers.filter(eachUser => !newUsers.includes(eachUser)).concat(newUsers.filter(eachUser => !newUsers.includes(eachUser)));
         if (removed.length)
             removed.forEach(userId => {
                 removeUserFromRoom(user, room.id, userId, () => {

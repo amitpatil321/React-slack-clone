@@ -31,7 +31,7 @@ const ChannelInfoDrawer = () => {
 
     return <Drawer
         className    = "channel-info"
-        title        = {<strong>About {isPrivateChat(room) ? " this conversation" : <>{roomTypeIcon(room)} {room.name}</>}</strong> }
+        title        = {<strong>About {isPrivateChat(room) ? " this conversation" : <>{roomTypeIcon(room)}{room.name}</>}</strong> }
         placement    = "right"
         width        = "250"
         closable     = {true}
