@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Input } from 'antd';
-import { filter } from 'lodash'
+import { filter } from 'lodash';
+import { Offline, Online } from 'react-detect-offline';
 
 import { SlackContext } from 'store/store';
 import { getUserName } from 'utils/SlackUtils';
@@ -22,14 +23,27 @@ const SendMessage = ({ message, onChange, onKeyDown}) => {
     }
 
     return (
-        <TextArea
-            value       = {message}
-            onChange    = {onChange}
-            onKeyDown   = {onKeyDown}
-            placeholder = {roomName}
-            autosize    = {{ minRows: 1, maxRows: 4 }}
-            style       = {{ fontWeight : "bold" }}
-        />
+        <>
+            <Online>
+                <TextArea
+                    value       = {message}
+                    onChange    = {onChange}
+                    onKeyDown   = {onKeyDown}
+                    placeholder = {roomName}
+                    autosize    = {{ minRows: 1, maxRows: 4 }}
+                    style       = {{ fontWeight : "bold" }}
+                />
+            </Online>
+            <Offline>
+                <TextArea
+                    placeholder = {roomName}
+                    autosize    = {{ minRows: 1, maxRows: 4 }}
+                    style       = {{ fontWeight : "bold" }}
+                    disabled    = {true}
+                />
+                <small>You are offline, so messages can’t be sent yet.</small>
+            </Offline>
+        </>
     )
 }
 

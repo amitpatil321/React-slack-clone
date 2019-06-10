@@ -63,8 +63,8 @@ class AddChannelContainer extends Component {
             this.setState({ validationError: true })
     }
     _closeModal = () => {
-        // Clear validation error on modal close
-        this.setState({ validationError : false, error : null })
+        // Clear validation error and form on modal close
+        this.setState({ validationError: false, error: null, channelName: '', selectedUsers: [], isPrivate : false })
         this.context.hideAddChannel()
     }
     _onInputChange = (event) => this.setState({ channelName: event.target.value })

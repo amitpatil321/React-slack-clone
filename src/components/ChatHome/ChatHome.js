@@ -1,7 +1,8 @@
 import React, { lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
-import { Layout, Typography, Spin, Icon } from 'antd';
+import { Layout, Typography, Spin, Icon, Alert } from 'antd';
 import ContentLoader from 'react-content-loader';
+import { Offline } from 'react-detect-offline';
 
 import { Consumer } from 'store/store';
 import Sidebar from 'containers/Sidebar';
@@ -37,6 +38,10 @@ const ChatHome = ({ messages }) =>
                                     <SlackHeader />
                                 </Header>
                                 <Content className="content">
+                                    {/* handle internet offline event */}
+                                    <Offline>
+                                        <Alert message="Your computer seems to be offline. We’ll keep trying to reconnect." type="warning" />
+                                    </Offline>
                                     {context.state.isLoading.show &&
                                         <div className="screen-center text-center">
                                             <Spin indicator={antIcon} tip={context.state.isLoading.message} />
