@@ -12,7 +12,7 @@ class SlackHeader extends Component {
         return (
             <Consumer>
             {(context) => {
-                let { room, user } = context.state;
+                let { user, room } = context.state;
                 let roomName, users;
                 if (room) {
                     if (room.customData === undefined || room.customData.privateChat === false){
