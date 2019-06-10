@@ -2,7 +2,7 @@ import React from 'react';
 import { Avatar, Tooltip, Button, Icon, Menu } from 'antd'
 import PropTypes from 'prop-types';
 import GoogleLogout from 'react-google-login';
-import { filter } from 'lodash';
+import { filter, sortBy } from 'lodash';
 
 import { Consumer } from 'store/store';
 import './Sidebar.css';
@@ -10,7 +10,7 @@ import './Sidebar.css';
 const MenuItemGroup = Menu.ItemGroup;
 
 const Sidebar = ({ onSelection, onLogoutSuccess }) => {
-    let getRoomsList = (rooms) => rooms.map(room => {
+    let getRoomsList = (rooms) => sortBy(rooms, each => each.name.toLowerCase()).map(room => {
         // Ignore private chat room
         if(!room.customData || room.customData.privateChat !== true)
             return <Menu.Item key={room.id} onClick={() => onSelection(room)} className={"channel-"+room.id}>
@@ -23,7 +23,7 @@ const Sidebar = ({ onSelection, onLogoutSuccess }) => {
         // List all users
         let general = filter(rooms, { id: process.env.REACT_APP_CHATKIT_GENERAL_ROOM });
         if (general.length) {
-            return general[0].users.map(user => {
+            return sortBy(general[0].users, each => each.name.toLowerCase()).map(user => {
                 return <Menu.Item key={user.id} onClick={() => onSelection(user)}>
                     <span className={"online-status " + user.presence.state}></span>  {user.name}
                 </Menu.Item>
