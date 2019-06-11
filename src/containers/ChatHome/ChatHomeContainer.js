@@ -71,7 +71,9 @@ export default class ChatHomeContainer extends Component {
         setUser: user => this.setState({ user }),
         joinRoom: room => this.setState({ room }), // Set current room
         roomDeleted: room => this.actions.removedFromRoom(room), // Remove room from rooms list
-        readCursorUpdated : cursor => this.actions.joinRoom(this.state.rooms.find(room => room.id === cursor.roomId)),
+        readCursorUpdated : cursor => {
+            // this.actions.joinRoom(this.state.rooms.find(room => room.id === cursor.roomId))
+        },
         error : error => this.setState({ error : error })
     }
 

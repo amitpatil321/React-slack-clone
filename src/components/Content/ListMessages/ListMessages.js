@@ -11,7 +11,6 @@ import './ListMessages.css'
 // TODO :  Combine messages from same auther only if they are sent in a span of given time, starting from first message from same author
 const ListMessages = ({ canGroup, message }) => {
     let { state } = useContext(SlackContext)
-
     if (message === undefined) return false;
 
     let { id, senderId, text, createdAt } = message;
