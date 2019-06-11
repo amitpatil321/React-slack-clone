@@ -37,6 +37,7 @@ const ChatHome = ({ messages }) => {
                             <SlackHeader />
                         </Header>
                         <Content className="content">
+                            {context.state.error && <Alert message={context.state.error} type="error" />}
                             {/* handle internet offline event */}
                             <Offline>
                                 <Alert message="Your computer seems to be offline. We’ll keep trying to reconnect." type="warning" />
