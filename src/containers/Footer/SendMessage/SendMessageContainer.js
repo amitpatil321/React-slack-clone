@@ -16,10 +16,12 @@ class SendMessageContainer extends Component {
     _onKeyDown = (event) => {
         if (event.key === "Enter"){
             let { user, room } = this.context.state;
-            // send message in room
-            sendMessage(user, room.id, this.state.message, () => this.setState({ message: '' }), (err) => {
-                Notification("error", "Error", "Failed to send message, Please try again. " + err);
-            });
+            if (this.state.message && this.state.message.trim().length){
+                // send message in room
+                sendMessage(user, room.id, this.state.message, () => this.setState({ message: '' }), (err) => {
+                    Notification("error", "Error", "Failed to send message, Please try again. " + err);
+                });
+            }
             event.preventDefault()
             event.stopPropagation();
         }
