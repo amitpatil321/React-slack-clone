@@ -10,12 +10,15 @@ class ListMessagesContainer extends Component {
     static contextType = SlackContext;
 
     componentDidUpdate(){
-        console.log("Updated");
         let {user, room, messages } = this.context.state;
         let messageList = Object.values(messages[room.id]);
         // Set read cursor only if there are unread messages and last message wasnt send my loggedin suer itself
-        if (room.unreadCount && user.id !== messageList.find(message => message.id === messageList[messageList.length - 1].id).senderId)
+        if (room.unreadCount)
             setReadCursor(user, room, messages[room.id], () => {}, () => console.log("Failed to set read cursor"))
+
+        //Scroll to bottom of page
+        let elem = document.querySelector(".content");
+        elem.scrollTop = elem.scrollHeight;
     }
     render() {
         let { messages } = this.props;
