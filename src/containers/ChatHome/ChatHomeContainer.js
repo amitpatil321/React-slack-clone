@@ -67,9 +67,6 @@ export default class ChatHomeContainer extends Component {
                     }
                 }
             }))
-
-            // Force refresh to re-render sidebar and show unread messages
-            this.actions.refresh()
         },
         setUser: user => this.setState({ user }),
         joinRoom: room => this.setState({ room }), // Set current room
