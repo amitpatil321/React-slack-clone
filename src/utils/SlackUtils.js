@@ -124,3 +124,8 @@ export function onlineStatus(user){
 export function roomTypeIcon(room){
     return (room.isPrivate) ? <Icon type = "lock" />: "#";
 }
+
+export function getLastMessageInRoom(room, messages){
+    let msgArray = Object.values(messages[room.id]);
+    return msgArray[msgArray.length - 1]
+}
