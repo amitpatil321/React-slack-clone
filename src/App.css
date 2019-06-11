@@ -25,9 +25,9 @@ html, body{
 .content{
   position: absolute;
   top: 60px;
-  bottom: 40px;
+  bottom: 45px;
   left: 200px;
-  width: 87%;
+  width: calc(100% - 200px);
   padding: 0px 10px 10px 0px;
   font-weight: bold;
   overflow-x: scroll;
