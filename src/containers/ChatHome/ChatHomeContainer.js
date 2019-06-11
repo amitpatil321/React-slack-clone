@@ -38,12 +38,8 @@ export default class ChatHomeContainer extends Component {
     actions = {
         connected: rooms => this.setState({ rooms, chatkitReady: true }),
         refresh  : ()    => this.forceUpdate(),
-        isTyping : ()    => {
-            console.log("isTyping");
-        },
-        notTyping: () => {
-            console.log("notTyping");
-        },
+        isTyping : ()    => console.log("isTyping"),
+        notTyping: ()    => console.log("notTyping"),
         subscribeToRoom: rooms => {
             console.log("Subscribe/added to room");
             // Add room in rooms array and then remove duplicates.
@@ -55,14 +51,9 @@ export default class ChatHomeContainer extends Component {
                 onMessage: this.actions.addMessage
             })
         },
-        removedFromRoom: room => {
-            // Remove room from rooms array
-            this.setState({ rooms: [...filter(this.state.rooms, (eachRoom) => eachRoom.id !== room.id)] })
-        },
-        setUserPresence: () => {
-            //setUserPresence doesnt cause re-render so we forcefully update the view
-            this.forceUpdate()
-        },
+        // Remove room from rooms array
+        removedFromRoom: room => this.setState({ rooms: [...filter(this.state.rooms, (eachRoom) => eachRoom.id !== room.id)] }),
+        setUserPresence: () => this.forceUpdate(),  //setUserPresence doesnt cause re-render so we forcefully update the view
         addMessage: payload => {
             const roomId = payload.room.id
             const messageId = payload.id
@@ -76,18 +67,15 @@ export default class ChatHomeContainer extends Component {
                     }
                 }
             }))
+
+            // Force refresh to re-render sidebar and show unread messages
+            this.actions.refresh()
         },
-        setUser: user => {
-            this.setState({ user })
-        },
-        joinRoom: room => {
-            // Set current room
-            this.setState({ room })
-        },
-        roomDeleted: room => {
-            // Remove room from rooms list
-            this.actions.removedFromRoom(room)
-        }
+        setUser: user => this.setState({ user }),
+        joinRoom: room => this.setState({ room }), // Set current room
+        roomDeleted: room => this.actions.removedFromRoom(room), // Remove room from rooms list
+        readCursorUpdated : cursor => this.actions.joinRoom(this.state.rooms.find(room => room.id === cursor.roomId)),
+        error : error => this.setState({ error : error })
     }
 
     componentDidMount() {
