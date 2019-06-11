@@ -21,14 +21,16 @@ html, body{
   border-bottom: 1px solid #eee;
   padding: 0px 20px;
 }
+/* TODO : make width dynamic insted of static */
 .content{
   position: absolute;
   top: 60px;
-  bottom: 80px;
+  bottom: 40px;
   left: 200px;
-  width: 100%;
+  width: 87%;
   padding: 0px 10px 10px 0px;
   font-weight: bold;
+  overflow-x: scroll;
 }
 .footer{
   position: absolute;
