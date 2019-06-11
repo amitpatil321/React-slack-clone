@@ -1,4 +1,5 @@
 
+// TODO : remove unwanted ROOM variable in callbacks where its not needed
 export function addUserToRoom(currentUser, roomId, userId, successCallback, errorCallback){
     currentUser.addUserToRoom({
         userId: userId,
@@ -58,5 +59,14 @@ export function leaveRoom(currentUser, roomId, successCallback, errorCallback){
 export function getJoinableRooms(currentUser, successCallback, errorCallback) {
     currentUser.getJoinableRooms()
     .then(rooms => successCallback(rooms))
+    .catch(err => errorCallback(err));
+}
+
+export function setReadCursor(currentUser, room, messages, successCallback, errorCallback){
+    currentUser.setReadCursor({
+        roomId: room.id,
+        position: parseInt(Object.keys(messages)[Object.keys(messages).length - 1]) // Finds last message
+    })
+    .then(successCallback())
     .catch(err => errorCallback(err));
 }
