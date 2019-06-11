@@ -2,12 +2,21 @@ import React, { Component } from 'react'
 import moment from 'moment';
 
 import { SlackContext } from 'store/store';
+import { setReadCursor } from 'utils/ChatKitUtil';
 import ListMessages from 'components/Content/ListMessages';
 import * as CONFIG from 'config';
 
 class ListMessagesContainer extends Component {
     static contextType = SlackContext;
 
+    componentDidUpdate(){
+        console.log("Updated");
+        let {user, room, messages } = this.context.state;
+        let messageList = Object.values(messages[room.id]);
+        // Set read cursor only if there are unread messages and last message wasnt send my loggedin suer itself
+        if (room.unreadCount && user.id !== messageList.find(message => message.id === messageList[messageList.length - 1].id).senderId)
+            setReadCursor(user, room, messages[room.id], () => {}, () => console.log("Failed to set read cursor"))
+    }
     render() {
         let { messages } = this.props;
         let old, thisMessage;
