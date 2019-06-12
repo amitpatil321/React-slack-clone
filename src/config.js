@@ -1,3 +1,4 @@
+export const APP_NAME = "Slack Clone";
 export const SERVER = "http://localhost:4000";
 
 export const LOCAL_STORAGE_OBJECT = "slackUser";

@@ -9,6 +9,7 @@ import Sidebar from 'containers/Sidebar';
 import ListMessages from 'containers/Contents/ListMessages';
 import SlackHeader from '../SlackHeader';
 import SendMessage from 'containers/Footer/SendMessage';
+import * as CONFIG from 'config';
 
 const AddPeopleModal    = lazy(() => import('containers/SlackHeader/AddPeople'));
 const RemovePeopleModal = lazy(() => import('containers/SlackHeader/RemovePeople'));
@@ -132,8 +133,8 @@ const ChatHome = () => {
                 </Header>
                 <Content className="content">
                     <div className="screen-center text-center">
-                        <Title level={3}>Thanks you for using Slack Clone. We appreciate it!</Title>
-                        <p className="text-light">- Your friends at slack Clone</p>
+                        <Title level={3}>Thanks you for using {CONFIG.APP_NAME}. We appreciate it!</Title>
+                        <p className="text-light">- Your friends at {CONFIG.APP_NAME}</p>
                         <Spin indicator={antIcon} />
                     </div>
                 </Content>
