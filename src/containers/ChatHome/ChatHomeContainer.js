@@ -45,7 +45,6 @@ export default class ChatHomeContainer extends Component {
             console.log("Subscribe/added to room");
             // Add room in rooms array and then remove duplicates.
             let allRooms = uniqBy([...this.state.rooms, rooms], function (room) { return room.id; });
-
             this.setState({ rooms: allRooms })
             // Subscribe current user to newly created room to receive new messages
             subscribeToRoom(this.state.user, rooms.id, {
@@ -56,18 +55,20 @@ export default class ChatHomeContainer extends Component {
         removedFromRoom: room => this.setState({ rooms: [...filter(this.state.rooms, (eachRoom) => eachRoom.id !== room.id)] }),
         setUserPresence: () => this.forceUpdate(),  //setUserPresence doesnt cause re-render so we forcefully update the view
         addMessage: payload => {
-            const roomId = payload.room.id
-            const messageId = payload.id
-            // Update local message cache with new message
-            this.setState(prevState => ({
-                messages: {
-                    ...prevState.messages,
-                    [roomId]: {
-                        ...prevState.messages[roomId],
-                        [messageId]: payload
+            setTimeout(() => {
+                const roomId = payload.room.id
+                const messageId = payload.id
+                // Update local message cache with new message
+                this.setState(prevState => ({
+                    messages: {
+                        ...prevState.messages,
+                        [roomId]: {
+                            ...prevState.messages[roomId],
+                            [messageId]: payload
+                        }
                     }
-                }
-            }))
+                }))
+            }, 100);
         },
         setUser: user => this.setState({ user }),
         joinRoom: room => this.setState({ room }), // Set current room
@@ -152,9 +153,7 @@ export default class ChatHomeContainer extends Component {
                 showListChannels: this._showListChannelsModal,
                 hideListChannels: this._hideListChannelsModal
             }} >
-                <ChatHome
-                    messages = {this.state.messages}
-                />
+                <ChatHome />
             </Provider>
         )
     }

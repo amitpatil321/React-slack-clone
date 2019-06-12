@@ -126,9 +126,18 @@ export function roomTypeIcon(room){
 }
 
 export function getLastMessageInRoom(room, messages){
-    if (messages[room.id] !== undefined){
+    if (room && messages[room.id] !== undefined){
         let msgArray = Object.values(messages[room.id]);
         return msgArray[msgArray.length - 1]
     }
     return false;
+}
+
+{/* Show badge only if
+    - There are unread messages
+    - Last message wasn't sent by logged in user (that means he has read old message)
+    - and he's not already viewing same room where new message came
+*/}
+export function canShowUnreadBadge(user, room, chatRoom, messages){
+    return (chatRoom && chatRoom.unreadCount && getLastMessageInRoom(chatRoom, messages).senderId !== user.id && chatRoom.id !== room.id)
 }

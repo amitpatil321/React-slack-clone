@@ -62,11 +62,10 @@ export function getJoinableRooms(currentUser, successCallback, errorCallback) {
     .catch(err => errorCallback(err));
 }
 
-export function setReadCursor(currentUser, room, messages, successCallback, errorCallback){
+export function setReadCursor(currentUser, room, messages){
     currentUser.setReadCursor({
         roomId: room.id,
         position: parseInt(Object.keys(messages)[Object.keys(messages).length - 1]) // Finds last message
     })
-    .then(successCallback())
-    .catch(err => errorCallback(err));
+    .catch(err => console.log("Error setting read cursor!"));
 }

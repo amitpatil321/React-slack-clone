@@ -13,17 +13,7 @@ class ListMessagesContainer extends Component {
         let {user, room, messages } = this.context.state;
         // Set read cursor only if there are unread messages and last message wasnt send my loggedin suer itself
         if (room.unreadCount)
-            setReadCursor(user, room, messages[room.id], () => {
-                let parent = document.querySelector(".channel-" + room.id);
-                // remove unread-messages class if its public chat room
-                if (room.customData === undefined)
-                    setTimeout(() => parent.classList.remove("unread-message"), 300)
-                if (room.customData !== undefined && room.customData.privateChat){
-                    if(parent.children[1])
-                        parent.children[1].remove();
-                }
-            }, () => console.log("Failed to set read cursor"))
-
+            setReadCursor(user, room, messages[room.id])
         //Scroll to bottom of page
         let elem = document.querySelector(".content");
         elem.scrollTop = elem.scrollHeight;
