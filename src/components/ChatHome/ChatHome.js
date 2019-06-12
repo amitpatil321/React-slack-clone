@@ -22,9 +22,8 @@ const {
 const { Title } = Typography;
 const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
 
-const ChatHome = ({ messages }) => {
-    let context = useContext(SlackContext)
-    let { user, room, rooms } = context.state;
+const ChatHome = () => {
+    let { user, room, rooms, messages, error, isLoading } = useContext(SlackContext).state;
     if (Object.keys(user).length && room !== null && rooms.length)
         return (
             <>
@@ -37,14 +36,14 @@ const ChatHome = ({ messages }) => {
                             <SlackHeader />
                         </Header>
                         <Content className="content">
-                            {context.state.error && <Alert message={context.state.error} type="error" />}
+                            {error && <Alert message={error} type="error" />}
                             {/* handle internet offline event */}
                             <Offline>
                                 <Alert message="Your computer seems to be offline. We’ll keep trying to reconnect." type="warning" />
                             </Offline>
-                            {context.state.isLoading.show &&
+                            {isLoading.show &&
                                 <div className="screen-center text-center">
-                                    <Spin indicator={antIcon} tip={context.state.isLoading.message} />
+                                    <Spin indicator={antIcon} tip={isLoading.message} />
                                 </div>
                             }
                             {messages[room.id] && <ListMessages messages={messages[room.id]} />}
