@@ -19,6 +19,7 @@ import { Provider } from 'store/store';
 //TODO : Remove all ../ from path as we now have .env node_path settings - DONE
 //TODO : Test all errors, and make sure they get printed properly
 //TODO : Add comments and function param description etc like @param
+//TODO : On clicking user, "Selected" class is not getting applied to it
 export default class ChatHomeContainer extends Component {
     state = {
         chatkitReady: false,
