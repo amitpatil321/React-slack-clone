@@ -5,7 +5,7 @@ import GoogleLogout from 'react-google-login';
 import { filter, sortBy } from 'lodash';
 
 import { SlackContext } from 'store/store';
-import { roomTypeIcon, getLastMessageInRoom } from 'utils/SlackUtils';
+import { roomTypeIcon, getLastMessageInRoom, getDirectChatRoom, getUserName } from 'utils/SlackUtils';
 import './Sidebar.css';
 
 const MenuItemGroup = Menu.ItemGroup;
@@ -21,13 +21,26 @@ const Sidebar = ({ onSelection, onLogoutSuccess }) => {
             </Menu.Item>
     });
 
-    let getUsersList = (rooms) => {
+    let getUsersList = (context) => {
+        let { user, rooms, messages } = context.state;
         // List all users
         let general = filter(rooms, { id: process.env.REACT_APP_CHATKIT_GENERAL_ROOM });
         if (general.length) {
-            return sortBy(general[0].users, each => each.name.toLowerCase()).map(user => {
-                return <Menu.Item key={user.id} onClick={() => onSelection(user)}>
-                    <span className={"online-status " + user.presence.state}></span>  {user.name}
+            return sortBy(general[0].users, each => each.name.toLowerCase()).map(eachUser => {
+                let privateRoom = getDirectChatRoom(context.state, eachUser.id)[0];
+                let badge;
+                if(getLastMessageInRoom(privateRoom, messages).senderId,user.id)
+                    badge = <Badge className="float-right" count={privateRoom.unreadCount} overflowCount={10}></Badge>
+                // console.log(getLastMessageInRoom(privateRoom, messages).senderId);
+                return <Menu.Item key={privateRoom.id} onClick={() => onSelection(eachUser)} className={"channel-" + privateRoom.id}>
+                    <span className={"online-status " + eachUser.presence.state}></span>
+                    &nbsp;{eachUser.name} -> {privateRoom.unreadCount}
+                    {badge}
+
+                    {/* Mark message as unread only if its not sent by logged in user */}
+                    {/* {getLastMessageInRoom(privateRoom, messages).senderId !== user.id &&
+                        <Badge className="float-right" count={privateRoom.unreadCount} overflowCount={10}></Badge>
+                    } */}
                 </Menu.Item>
             })
         }
@@ -66,7 +79,7 @@ const Sidebar = ({ onSelection, onLogoutSuccess }) => {
                     <strong><Icon type="plus" />Add a channel</strong>
                 </Menu.Item>
                 <MenuItemGroup key="g2" title="Direct Message" className="channel-group" id="users">
-                    {getUsersList(rooms)}
+                    {getUsersList(context)}
                 </MenuItemGroup>
             </Menu>
         </>

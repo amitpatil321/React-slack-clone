@@ -10,11 +10,13 @@
     margin-top: 20px !important;
 }
 
-.channel-group .ant-menu-item,{
-    color: #eee !important;
+.channel-group .ant-menu-item{
+    color: rgb(216, 216, 216) !important;
+    overflow-x : scroll;
 }
 .sidebar {
     letter-spacing: 0.5px;
+
 }
 .channel-group .ant-menu-item, .add-channel{
     height: 30px !important;
@@ -35,7 +37,6 @@
 } */
 
 .channel-group .ant-badge-count{
-    box-shadow : none;
     border-radius: 16px;
     color: #fff;
     display: inline-block;
@@ -44,6 +45,8 @@
     height: 18px;
     line-height: 18px;
     margin-left: 4px;
+    margin-top: 6px;
+    box-shadow : none;
     padding: 0 9px;
 }
 .channel-group .unread-message{
