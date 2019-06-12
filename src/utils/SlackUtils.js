@@ -93,7 +93,7 @@ export function setGeneralSelected() {
 }
 
 // Check if current user and clicked user has a private room?
-export function hasRoom(context, receiverId){
+export function getDirectChatRoom(context, receiverId){
     let { user, rooms } = context;
     let roomUsers = [user.id, receiverId];
     // find if room already exists for this users ?
@@ -126,6 +126,9 @@ export function roomTypeIcon(room){
 }
 
 export function getLastMessageInRoom(room, messages){
-    let msgArray = Object.values(messages[room.id]);
-    return msgArray[msgArray.length - 1]
+    if (messages[room.id] !== undefined){
+        let msgArray = Object.values(messages[room.id]);
+        return msgArray[msgArray.length - 1]
+    }
+    return false;
 }
