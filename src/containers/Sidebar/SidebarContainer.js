@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import { SlackContext } from 'store/store';
-import { hasRoom } from 'utils/SlackUtils';
+import { getDirectChatRoom } from 'utils/SlackUtils';
 import { createRoom } from 'utils/ChatKitUtil';
 import Notification from 'components/Notification';
 
@@ -25,7 +25,7 @@ export default class SidebarContainer extends Component {
             this.context.joinRoom(item)
         else{
             // check if room exists for logged in user and clicked user ?
-            let findRoom = hasRoom(this.context.state, item.id);
+            let findRoom = getDirectChatRoom(this.context.state, item.id);
             if (findRoom.length){
                 this.context.joinRoom(findRoom[0])
             }else{
@@ -33,7 +33,7 @@ export default class SidebarContainer extends Component {
                 let roomUsers = [user.id, item.id].sort().join('');
                 this.context.showLoading("Wait a moment!");
                 // Room doesnt exists, Lets create new room for them
-                createRoom(user, roomUsers, [user.id, item.id], true, { privateChat: true, userIds: [user.id, item.id] },  (newRoom) => {
+                createRoom(user, roomUsers, [user.id, item.id], true, { privateChat: true, userIds: [user.id, item.id].sort() },  (newRoom) => {
                     this.context.joinRoom(newRoom);
                     this.context.hideLoading();
                 },(error) => Notification("error", "Error", "Error creating private room, Please try again!"))
