@@ -4,6 +4,8 @@ import SendMessage from 'components/Footer/SendMessage';
 import Notification from 'components/Notification';
 import { SlackContext } from 'store/store';
 import { sendMessage } from 'utils/ChatKitUtil';
+import { emojiIndex } from 'emoji-mart';
+import * as CONFIG from 'config';
 
 // TODO : Use refs instead of querySelector
 class SendMessageContainer extends Component {
@@ -33,7 +35,16 @@ class SendMessageContainer extends Component {
         }
     }
     _onChange = (event) => {
-        this.setState({ message: event.target.value })
+        let message = event.target.value;
+        // check if text contains emoji codes ?
+        CONFIG.EMOJI_CODES.map(eachCode => {
+            if (message.indexOf(eachCode) !== -1){
+                let find = emojiIndex.search(eachCode).map((o) => o.native)
+                if (find.length)
+                    message = message.replace(eachCode, find[0])
+            }
+        })
+        this.setState({ message })
     }
     _onKeyDown = (event) => {
         if (event.key === "Enter"){
