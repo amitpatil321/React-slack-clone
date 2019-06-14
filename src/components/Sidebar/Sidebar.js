@@ -43,7 +43,7 @@ const Sidebar = ({ onSelection, onLogoutSuccess }) => {
                         className={"channel-" + (privateRoom ? privateRoom.id : eachUser.id)}
                        >
                         <span className={"online-status " + eachUser.presence.state}></span>
-                        {eachUser.name}
+                    {eachUser.name} {(eachUser.id === user.id) && <small>(you)</small>}
                         {unreadCount}
                 </Menu.Item>
             })
