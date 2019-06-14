@@ -38,10 +38,15 @@ class SendMessageContainer extends Component {
         let message = event.target.value;
         // check if text contains emoji codes ?
         CONFIG.EMOJI_CODES.map(eachCode => {
-            if (message.indexOf(eachCode) !== -1){
-                let find = emojiIndex.search(eachCode).map((o) => o.native)
-                if (find.length)
-                    message = message.replace(eachCode, find[0])
+            let pos = message.indexOf(eachCode);
+            if (pos !== -1){
+                // Exception : http:// and :/ both contains ":/" so while typing urls it gets replaced with smiley
+                // So before replacing ":/" with smiley we have to check if its a url or individual text
+                if (message.substring(pos, pos - 4) !== "http"){
+                    var find = emojiIndex.search(eachCode).map((o) => o.native)
+                    if (find.length)
+                        message = message.replace(eachCode, find[0])
+                }
             }
         })
         this.setState({ message })
