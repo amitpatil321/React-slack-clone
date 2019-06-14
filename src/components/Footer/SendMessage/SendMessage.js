@@ -8,7 +8,7 @@ import { SlackContext } from 'store/store';
 import { getUserName } from 'utils/SlackUtils';
 import * as CONFIG from 'config';
 import "./SendMessage.css";
-import 'emoji-mart/css/emoji-mart.css'
+import 'emoji-mart/css/emoji-mart.css';
 
 const { TextArea } = Input;
 
@@ -50,6 +50,10 @@ const SendMessage = ({ message, onChange, onKeyDown, onEmojiSelected }) => {
                                     style        = {{ position: 'absolute', bottom: '35px', right: '0px' }}
                                     title        = {CONFIG.APP_NAME + "™"}
                                     emojiTooltip = {true}
+                                    sheetSize    = {32}
+                                    backgroundImageFn={() =>
+                                        require('./images/32.png')
+                                    }
                                     onSelect     = {(emoji)=>{
                                         onEmojiSelected(emoji);
                                         changeShowEmojiPicker(!showEmojiPicker);
