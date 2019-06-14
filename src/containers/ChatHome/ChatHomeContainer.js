@@ -20,6 +20,7 @@ import { Provider } from 'store/store';
 //TODO : Test all errors, and make sure they get printed properly
 //TODO : Add comments and function param description etc like @param
 //TODO : On clicking user, "Selected" class is not getting applied to it
+//TODO : Replace moment.js with some light weight library or plain javascript code
 export default class ChatHomeContainer extends Component {
     state = {
         chatkitReady: false,

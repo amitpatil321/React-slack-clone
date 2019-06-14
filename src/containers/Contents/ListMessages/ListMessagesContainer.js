@@ -6,6 +6,7 @@ import { setReadCursor } from 'utils/ChatKitUtil';
 import ListMessages from 'components/Content/ListMessages';
 import * as CONFIG from 'config';
 
+//TODO : Group messages based on day (Like : today, yesterday)
 class ListMessagesContainer extends Component {
     static contextType = SlackContext;
 
