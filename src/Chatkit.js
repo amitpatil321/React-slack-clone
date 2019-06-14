@@ -14,8 +14,6 @@ export default (userId, actions) => {
     })
     // Register global events
     .connect({
-        onUserStartedTyping: actions.isTyping,
-        onUserStoppedTyping: actions.notTyping,
         onAddedToRoom      : actions.subscribeToRoom,
         onRemovedFromRoom  : actions.removedFromRoom,
         onPresenceChanged  : actions.setUserPresence,
@@ -31,7 +29,9 @@ export default (userId, actions) => {
                     hooks: {
                         onUserJoined: actions.refresh,
                         onMessage : actions.addMessage,
-                        onUserLeft : actions.refresh // force update app on user removal
+                        onUserLeft : actions.refresh, // force update app on user removal
+                        onUserStartedTyping: actions.isTyping,
+                        onUserStoppedTyping: actions.notTyping
                     },
                 })
             )
