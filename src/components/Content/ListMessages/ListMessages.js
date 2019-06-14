@@ -2,8 +2,9 @@ import React, { useContext } from 'react';
 import { Row, Col, Tooltip } from 'antd';
 import { Comment, Avatar } from 'antd';
 import moment from 'moment';
-import { getUserName, getUserPic } from 'utils/SlackUtils';
+import Linkify from 'react-linkify';
 
+import { getUserName, getUserPic } from 'utils/SlackUtils';
 import { SlackContext } from 'store/store';
 
 import './ListMessages.css'
@@ -36,7 +37,7 @@ const ListMessages = ({ canGroup, message }) => {
                     key    = {id}
                     author = {<div className = "message-sender">{author} {time}</div>}
                     avatar = {<Avatar src = {avatar} alt = {author} />}
-                    content= {<span className="message-text">{text}</span>}
+                content={<span className="message-text"><Linkify properties={{target: '_blank'}}>{text}</Linkify></span>}
                 >
                 </Comment>
         )
