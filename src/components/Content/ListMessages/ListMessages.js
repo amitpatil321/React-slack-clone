@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Tooltip } from 'antd';
 import { Comment, Avatar } from 'antd';
 import moment from 'moment';
 import { getUserName, getUserPic } from 'utils/SlackUtils';
@@ -14,7 +14,9 @@ const ListMessages = ({ canGroup, message }) => {
     if (message === undefined) return false;
 
     let { id, senderId, text, createdAt } = message;
-    let time = <small>{moment(createdAt).format("hh:mm A")}</small>;
+    let time = <Tooltip title={moment(createdAt).format("MMM D, YYYY [at] hh:mm:ss A")}>
+        <small>{moment(createdAt).format("hh:mm A")}</small>
+    </Tooltip>;
     let author = getUserName(state.room, senderId);
     let avatar = getUserPic(state.room, senderId);
 
