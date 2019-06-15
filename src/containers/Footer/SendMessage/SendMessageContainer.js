@@ -41,9 +41,8 @@ class SendMessageContainer extends Component {
         CONFIG.EMOJI_CODES.map(eachCode => {
             let pos = message.indexOf(eachCode);
             if (pos !== -1){
-                // Exception : http:// and :/ both contains ":/" so while typing urls it gets replaced with smiley
+                // Exception : http://, https:// and :/ both contains ":/" so while typing urls it gets replaced with smiley
                 // So before replacing ":/" with smiley we have to check if its a url or individual text
-                console.log(message.substring(pos, pos - 4));
                 if (!filter.includes(message.substring(pos, pos - 4))){
                     var find = emojiIndex.search(eachCode).map((o) => o.native)
                     if (find.length)
