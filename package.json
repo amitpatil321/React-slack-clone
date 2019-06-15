@@ -20,7 +20,6 @@
     "react-reveal": "^1.2.2",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
-    "react-tiny-link": "^1.0.1",
     "styled-components": "^4.2.0"
   },
   "scripts": {
