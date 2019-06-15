@@ -10,16 +10,16 @@ import { subscribeToRoom, removeUserFromRoom } from 'utils/ChatKitUtil';
 import { setGeneralSelected } from 'utils/SlackUtils';
 import { Provider } from 'store/store';
 
-//TODO : Show unread message badge
+//TODO : Show unread message badge - DONE
 //TODO : Improve performance of all components
 //TDOD : Handle no internet connection error - DONE
 //TDOD : Show no internet timeout screen in the beginning
 //TODO : Add prop types again
-//TODO : repalce <Consumer></Consumer> with useContext  :(
+//TODO : repalce <Consumer></Consumer> with useContext  :( - DONE
 //TODO : Remove all ../ from path as we now have .env node_path settings - DONE
 //TODO : Test all errors, and make sure they get printed properly
 //TODO : Add comments and function param description etc like @param
-//TODO : On clicking user, "Selected" class is not getting applied to it
+//TODO : On clicking user, "Selected" class is not getting applied to it - DONE
 //TODO : Replace moment.js with some light weight library or plain javascript code
 export default class ChatHomeContainer extends Component {
     state = {
