@@ -10,6 +10,7 @@ import { subscribeToRoom, removeUserFromRoom } from 'utils/ChatKitUtil';
 import { setGeneralSelected } from 'utils/SlackUtils';
 import { Provider } from 'store/store';
 
+//TODO : Delete channel feature not completed yet
 //TODO : Show unread message badge - DONE
 //TODO : Improve performance of all components
 //TDOD : Handle no internet connection error - DONE
