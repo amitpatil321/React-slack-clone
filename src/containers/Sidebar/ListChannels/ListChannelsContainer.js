@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import filter from 'lodash/filter';
+import { filter } from 'lodash';
 
 import ListChannels from 'components/Sidebar/ListChannels';
 import { SlackContext } from 'store/store';
