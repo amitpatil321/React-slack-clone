@@ -31,6 +31,9 @@ export const hideAddPeople = () => (
 export const showRemovePeople = () => (
     { type: "SHOW_REMOVEPEOPLE"}
 );
+export const hideRemovePeople = () => (
+    { type: "HIDE_REMOVEPEOPLE"}
+);
 export const showChannelInfoDrawer = () => (
     { type: "SHOW_CHANNELINFODRAWER"}
 );
@@ -39,4 +42,10 @@ export const hideChannelInfoDrawer = () => (
 );
 export const leaveRoom = () => (
     { type: "LEAVE_ROOM"}
+);
+export const showDeleteChannelConfirm = () => (
+    { type: "SHOW_CHANNELDELCONFIRM"}
+);
+export const hideDeleteChannelConfirm = () => (
+    { type: "HIDE_CHANNELDELCONFIRM"}
 );

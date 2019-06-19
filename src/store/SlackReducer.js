@@ -10,6 +10,7 @@ let initialState = {
     channelInfoVisible      : false,
     addChannelModalVisible  : false,
     listChannelsModalVisible: false,
+    deleteChannelConfirmVisible:false,
     isLoading               : { show: false, message: null }
 }
 
@@ -28,31 +29,18 @@ const reducer = (state = initialState, action) => {
             }
         break;
         case "MESSAGE_RECEIVED":
-            // setTimeout(() => {
-                const roomId = action.payload.room.id
-                const messageId = action.payload.id
-                // // Update local message cache with new message
-                // this.setState(prevState => ({
-                //     messages: {
-                //         ...prevState.messages,
-                //         [roomId]: {
-                //             ...prevState.messages[roomId],
-                //             [messageId]: action.payload
-                //         }
-                //     }
-                // }))
-
-                return {
-                    ...state,
-                    messages: {
-                        ...state.messages,
-                        [roomId]: {
-                            ...state.messages[roomId],
-                            [messageId]: action.payload
-                        }
+            const roomId = action.payload.room.id
+            const messageId = action.payload.id
+            return {
+                ...state,
+                messages: {
+                    ...state.messages,
+                    [roomId]: {
+                        ...state.messages[roomId],
+                        [messageId]: action.payload
                     }
                 }
-            // }, 100);
+            }
         case "CURRENT_USER":
             return {
                 ...state,
@@ -113,10 +101,22 @@ const reducer = (state = initialState, action) => {
                 remPeopleModalVisible: true
             }
         break;
-        case "LEAVE_ROOM":
+        case "HIDE_REMOVEPEOPLE":
             return {
                 ...state,
-                remPeopleModalVisible: true
+                remPeopleModalVisible: false
+            }
+        break;
+        case "SHOW_CHANNELDELCONFIRM":
+            return {
+                ...state,
+                deleteChannelConfirmVisible: true
+            }
+        break;
+        case "HIDE_CHANNELDELCONFIRM":
+            return {
+                ...state,
+                deleteChannelConfirmVisible: false
             }
         break;
         default:

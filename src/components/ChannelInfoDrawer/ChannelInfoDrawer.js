@@ -1,7 +1,7 @@
 import React from 'react'
 import { Drawer, Collapse, Icon, Menu, Avatar, Card } from 'antd';
 import moment from 'moment';
-import filter from 'lodash/filter';
+import { filter } from 'lodash';
 
 import { getUserName, getUserPic, isPrivateChat, getUserDetails, onlineStatus, roomTypeIcon } from 'utils/SlackUtils';
 import './ChannelInfoDrawer.css';

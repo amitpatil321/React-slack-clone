@@ -2,16 +2,17 @@ import React, { Component } from 'react'
 import { Menu, Icon } from 'antd';
 import { connect } from 'react-redux';
 
-import { showAddPeople, showChannelInfoDrawer, showRemovePeople } from 'store/SlackActions';
+import Notification from 'components/Notification';
+import { showAddPeople, showChannelInfoDrawer, showRemovePeople, showDeleteChannelConfirm } from 'store/SlackActions';
 import HeaderOptions from 'components/SlackHeader/HeaderOptions';
 import { isPrivateChat, isAdmin, isGeneralRoom, roomTypeIcon, setGeneralSelected } from 'utils/SlackUtils';
-import { removeUserFromRoom } from 'utils/ChatKitUtil';
+import { removeUserFromRoom, deleteRoom } from 'utils/ChatKitUtil';
 
 const SubMenu = Menu.SubMenu;
 
 class HeaderOptionsContainer extends Component {
     _availabeOptions() {
-        let { user, room, showChannelInfoDrawer, showAddPeople, showRemovePeople, leaveRoom } =  this.props;
+        let { user, room, showChannelInfoDrawer, showAddPeople, showRemovePeople, showDeleteChannelConfirm } =  this.props;
         if(room === null) return false;
 
         let roomName = room.name, options;
@@ -30,18 +31,19 @@ class HeaderOptionsContainer extends Component {
                     <Menu.Item key="setting:2" onClick={showRemovePeople}>Remove People from {roomTypeIcon(room)}{roomName}</Menu.Item>}
                     <Menu.Item key="setting:3" onClick={showChannelInfoDrawer}>View channel details</Menu.Item>
                     {!isGeneralRoom(room) &&
-                    <Menu.Item key="setting:5" onClick={leaveRoom}>Leave {roomTypeIcon(room)}{roomName}</Menu.Item>
+                    <Menu.Item key="setting:5" onClick={this._leaveRoom}>Leave {roomTypeIcon(room)}{roomName}</Menu.Item>
                     }
                     {/* User can remove users and delete room only if he's slack admin user and its not "general" room */}
                     {isAdmin(user) && !isGeneralRoom(room) &&
-                        <Menu.Item key="setting:4">Delete channel</Menu.Item>
+                        <Menu.Item key="setting:4" onClick={showDeleteChannelConfirm}>Delete channel</Menu.Item>
                     }
                 </SubMenu>
         return options
     }
 
-    _leaveRoom(){
-        let { user, room } = this.props
+    // Leave room
+    _leaveRoom = () => {
+        let { user, room } = this.props;
         // LeaveRoom API doesnt have any hook so we are using removeuser API method
         removeUserFromRoom(user, room.id, user.id, () => setGeneralSelected(), (err) => Notification("error", "Error leaving channel", err))
     }
@@ -70,6 +72,7 @@ const mapDispatchToProps = dispatch => {
         showChannelInfoDrawer: () => dispatch(showChannelInfoDrawer()),
         showAddPeople        : () => dispatch(showAddPeople()),
         showRemovePeople     : () => dispatch(showRemovePeople()),
+        showDeleteChannelConfirm: () => dispatch(showDeleteChannelConfirm()),
     }
 }
 

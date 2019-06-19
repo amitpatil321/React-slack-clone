@@ -56,6 +56,12 @@ export function leaveRoom(currentUser, roomId, successCallback, errorCallback){
     .catch(err => errorCallback(err));
 }
 
+export function deleteRoom(currentUser, room, successCallback, errorCallback){
+    currentUser.deleteRoom({ roomId: room.id })
+    .then(() => successCallback())
+    .catch(err => errorCallback(err))
+}
+
 export function getJoinableRooms(currentUser, successCallback, errorCallback) {
     currentUser.getJoinableRooms()
     .then(rooms => successCallback(rooms))

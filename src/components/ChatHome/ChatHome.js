@@ -16,15 +16,14 @@ const RemovePeopleModal = lazy(() => import('containers/SlackHeader/RemovePeople
 const ChannelInfoDrawer = lazy(() => import('../ChannelInfoDrawer'));
 const AddChannelModal   = lazy(() => import('containers/Sidebar/AddChannel'));
 const ListChannelsModal = lazy(() => import('containers/Sidebar/ListChannels'));
+const DeleteChannelConfirm = lazy(() => import('containers/SlackHeader/DeleteChannelConfirm'));
 
-const {
-    Header, Content, Footer, Sider,
-} = Layout;
+const { Header, Content, Footer, Sider } = Layout;
 const { Title } = Typography;
 const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
 
 const ChatHome = (props) => {
-    let { user, room, rooms, messages, channelInfoVisible, showChannelInfoDrawer, hideChannelInfoDrawer, isLoading, error } = props;
+    let { user, room, rooms, channelInfoVisible, showChannelInfoDrawer, hideChannelInfoDrawer, isLoading, error } = props;
 
     if (Object.keys(user).length && room !== null && rooms.length)
         return (
@@ -58,7 +57,8 @@ const ChatHome = (props) => {
                 <Suspense fallback={""}>
                     <AddChannelModal />
                     <AddPeopleModal />
-                    {/* <RemovePeopleModal /> */}
+                    <RemovePeopleModal />
+                    <DeleteChannelConfirm />
                     <ChannelInfoDrawer
                         user                  = {user}
                         room                  = {room}
