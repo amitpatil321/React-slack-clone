@@ -1,16 +1,17 @@
-import React, {useContext} from 'react'
+import React from 'react'
 
 import { Modal, Select, Empty } from 'antd';
-import { SlackContext } from 'store/store';
-
+import { filter } from 'lodash';
 const Option = Select.Option;
 
-const RemovePeople = ({ showModal, selectedUsers, existingRoomUsers, handleRemovePeople, handleChange, onModalClose }) => {
-    let { state } = useContext(SlackContext);
+const RemovePeople = ({ user, room, showModal, selectedUsers, existingRoomUsers, handleRemovePeople, handleChange, onModalClose }) => {
+    // remove loggedin user from list
+    selectedUsers = selectedUsers.filter(eachUser => eachUser !== user.id);
+    existingRoomUsers = filter(existingRoomUsers, eachUser => eachUser.id !== user.id);
 
     return (
         <Modal
-            title        = {"Remove people from #" + state.room.name}
+            title        = {"Remove people from #" + room.name}
             visible      = {showModal}
             onOk         = {handleRemovePeople}
             onCancel     = {onModalClose}
@@ -26,8 +27,7 @@ const RemovePeople = ({ showModal, selectedUsers, existingRoomUsers, handleRemov
                 value       = {selectedUsers}
                 notFoundContent = {<Empty description = "We ran out of people, Thanos killed all of them." image = {Empty.PRESENTED_IMAGE_SIMPLE} />}
             >
-                {existingRoomUsers.length && existingRoomUsers.map(user => {
-                    let { id, name } = user;
+                {existingRoomUsers.length && existingRoomUsers.map(({ id, name }) => {
                     return <Option key={id}>{name}</Option>
                 })}
             </Select>
