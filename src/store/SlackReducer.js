@@ -21,6 +21,12 @@ const reducer = (state = initialState, action) => {
                 rooms : action.payload,
                 chatkitReady: true
             }
+        case "UPDATE_ROOMS":
+            return {
+                ...state,
+                rooms : action.payload
+            }
+        break;
         case "MESSAGE_RECEIVED":
             // setTimeout(() => {
                 const roomId = action.payload.room.id
@@ -69,6 +75,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 addChannelModalVisible: true
+            }
+        break;
+        case "HIDE_ADDCHANNEL":
+            return {
+                ...state,
+                addChannelModalVisible: false
             }
         break;
         case "SHOW_CHANNELINFODRAWER":

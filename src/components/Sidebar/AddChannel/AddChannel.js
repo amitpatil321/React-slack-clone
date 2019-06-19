@@ -1,12 +1,12 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Modal, Input, Checkbox, Alert, Select, Form } from 'antd';
 
-import { SlackContext } from 'store/store';
 import './AddChannel.css';
 
 //TODO : check if channel name already exists
 const AddChannel = ({
     error,
+    addChannelModalVisible,
     allUsers,
     hideModal,
     validationError,
@@ -18,11 +18,10 @@ const AddChannel = ({
     handleDropdownChange,
     onCheckboxChange
 }) => {
-    let {state} = useContext(SlackContext);
     return (
         <Modal
             title         = "Add Channel"
-            visible       = {state.addChannelModalVisible}
+            visible       = {addChannelModalVisible}
             okButtonProps = {{ form: "frmAddChannel", htmlType: "submit" }}
             onCancel      = {hideModal}
             width         = {350}

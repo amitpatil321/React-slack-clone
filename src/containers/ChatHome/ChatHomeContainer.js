@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { uniqBy, filter } from 'lodash';
 
-import { connected, setMessages, currentUser, joinRoom, showChannelInfoDrawer, hideChannelInfoDrawer } from 'store/SlackActions';
+import { connected, updateRooms, setMessages, currentUser, joinRoom, showChannelInfoDrawer, hideChannelInfoDrawer } from 'store/SlackActions';
 import ChatKit from 'Chatkit';
 import ChatHome from 'components/ChatHome';
 import Notification from 'components/Notification';
@@ -30,17 +30,23 @@ class ChatHomeContainer extends Component {
     isTyping: () => console.log("isTyping"),
     notTyping: () => console.log("notTyping"),
     subscribeToRoom: rooms => {
+      console.log(rooms);
       console.log("Subscribe/added to room");
       // Add room in rooms array and then remove duplicates.
-      let allRooms = uniqBy([...this.state.rooms, rooms], function (room) { return room.id; });
-      this.setState({ rooms: allRooms })
+      let allRooms = uniqBy([...this.props.rooms, rooms], function (room) { return room.id; });
+      this.props.updateRooms(allRooms);
       // Subscribe current user to newly created room to receive new messages
-      subscribeToRoom(this.state.user, rooms.id, {
+      subscribeToRoom(this.props.user, rooms.id, {
         onMessage: this.actions.addMessage
       })
     },
     // Remove room from rooms array
-    removedFromRoom: room => this.setState({ rooms: [...filter(this.state.rooms, (eachRoom) => eachRoom.id !== room.id)] }),
+    removedFromRoom: removedRoom => {
+      let {room, rooms} = this.props;
+      // If current room is the removed one then goto general room
+      if (removedRoom.id === room.id) this.props.joinRoom(rooms.find(room => room.id === process.env.REACT_APP_CHATKIT_GENERAL_ROOM));
+      this.props.updateRooms(filter(rooms, (eachRoom) => eachRoom.id !== removedRoom.id));
+    },
     setUserPresence: () => this.forceUpdate(),  //setUserPresence doesnt cause re-render so we forcefully update the view
     addMessage: message => this.props.setMessages(message),
     setUser: user => this.props.currentUser(user),
@@ -71,12 +77,12 @@ class ChatHomeContainer extends Component {
   _hideRemovePeopleModal = () => this.setState({ remPeopleModalVisible: false })
 
   // Show hide channel info drawer
-  _showDrawer = () => this.setState({ channelInfoVisible: true })
-  _hideDrawer = () => this.setState({ channelInfoVisible: false })
+  // _showDrawer = () => this.setState({ channelInfoVisible: true })
+  // _hideDrawer = () => this.setState({ channelInfoVisible: false })
 
   // Show/hide add channel modal
-  _showAddChannelModal = () => this.setState({ addChannelModalVisible: true })
-  _hideAddChannelModal = () => this.setState({ addChannelModalVisible: false })
+  // _showAddChannelModal = () => this.setState({ addChannelModalVisible: true })
+  // _hideAddChannelModal = () => this.setState({ addChannelModalVisible: false })
 
   // Show/hide list channels modal
   _showListChannelsModal = () => this.setState({ listChannelsModalVisible: true })
@@ -144,6 +150,7 @@ const mapStateToProps = ({ chatkitReady, user, room, rooms, messages, channelInf
 const mapDispatchToProps = dispatch => {
   return {
     connected            : (rooms)    => dispatch(connected(rooms)),
+    updateRooms          : (rooms) => dispatch(updateRooms(rooms)),
     currentUser          : (user)     => dispatch(currentUser(user)),
     joinRoom             : (room)     => dispatch(joinRoom(room)),
     setMessages          : (messages) => dispatch(setMessages(messages)),

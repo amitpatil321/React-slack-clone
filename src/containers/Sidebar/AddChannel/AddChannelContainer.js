@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Select } from 'antd';
+import { connect } from 'react-redux';
 
-import { SlackContext } from 'store/store';
+import { joinRoom, hideAddChannel } from 'store/SlackActions';
 import { getAllUsers, peopleJoinedMessage } from 'utils/SlackUtils';
 import { createRoom, sendMessage } from 'utils/ChatKitUtil';
 import AddChannel from 'components/Sidebar/AddChannel';
@@ -9,7 +10,6 @@ import AddChannel from 'components/Sidebar/AddChannel';
 const Option = Select.Option;
 
 class AddChannelContainer extends Component {
-    static contextType = SlackContext;
 
     state = {
         error          : null,
@@ -22,12 +22,13 @@ class AddChannelContainer extends Component {
 
     // Returns all users as dropdown value
     _getAllUsers = () => {
-        let allUsers = getAllUsers(this.context.state.user);
+        let { user } =  this.props;
+        let allUsers = getAllUsers(user);
         if(allUsers){
-            return allUsers.map(user => {
+            return allUsers.map(({id, name}) => {
                 // List all users except logged in user, Coz he will be default member of channel
-                if (this.context.state.user.id !== user.id)
-                    return <Option key={user.id}>{user.name}</Option>;
+                if (user.id !== id)
+                    return <Option key={id}>{name}</Option>;
             })
         }
     }
@@ -35,7 +36,7 @@ class AddChannelContainer extends Component {
     // Handle form submit
     _onSubmitForm = (event) => {
         event.preventDefault()
-        let { user } = this.context.state;
+        let { user } = this.props;
         let { channelName, isPrivate, selectedUsers } = this.state;
         if (channelName.trim().length) {
             // Create room
@@ -45,16 +46,16 @@ class AddChannelContainer extends Component {
 
                 if (message)
                 // send messge to newly created channel
-                sendMessage(user, newRoom.id, message, () => { }, () => { })
-                // Hide modal
-                this._closeModal()
-                // clear form text
-                this.setState({ channelName: '', isPrivate: false, selectedUsers: [], error: null })
+                sendMessage(user, newRoom.id, message, () => {}, () => { console.log("Error sendind people joined message"); })
                 setTimeout(() => {
                     // Set newly created channel as active channel
-                    this.context.joinRoom(newRoom)
+                    this.props.joinRoom(newRoom)
                     // document.querySelector(".channel-"+newRoom.id).click()
                 }, 500);
+                // clear form text
+                this.setState({ channelName: '', isPrivate: false, selectedUsers: [], error: null })
+                // Hide modal
+                this._closeModal()
             }, (error) => {
                 this.setState({ error : error.error });
             })
@@ -64,15 +65,17 @@ class AddChannelContainer extends Component {
     _closeModal = () => {
         // Clear validation error and form on modal close
         this.setState({ validationError: false, error: null, channelName: '', selectedUsers: [], isPrivate : false })
-        this.context.hideAddChannel()
+        this.props.hideAddChannel()
     }
     _onInputChange = (event) => this.setState({ channelName: event.target.value })
     _onCheckboxChange = (event) => this.setState({ isPrivate: event.target.checked })
     _onHandleDropdownChange = (selectedUsers) => this.setState({ selectedUsers: selectedUsers })
     render() {
+        let { addChannelModalVisible } = this.props;
         return (
             <AddChannel
                 error                = {this.state.error}
+                addChannelModalVisible={addChannelModalVisible}
                 allUsers             = {this._getAllUsers()}
                 validationError      = {this.state.validationError}
                 channelName          = {this.state.channelName}
@@ -88,4 +91,18 @@ class AddChannelContainer extends Component {
     }
 }
 
-export default AddChannelContainer;
+const mapStateToProps = ({ user, addChannelModalVisible }) => {
+    return {
+        user,
+        addChannelModalVisible
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        joinRoom: (room) => dispatch(joinRoom(room)),
+        hideAddChannel: () => dispatch(hideAddChannel()),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddChannelContainer);

@@ -64,7 +64,7 @@ const mapStateToProps = ({ user, room, rooms }) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        showAddChannel: () => dispatch(showAddChannel),
+        showAddChannel: () => dispatch(showAddChannel()),
         showLoading: (msg) => dispatch(showLoading(msg)),
         joinRoom: (room) => dispatch(joinRoom(room)),
     }

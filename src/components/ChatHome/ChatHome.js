@@ -56,6 +56,7 @@ const ChatHome = (props) => {
                     </Layout>
                 </Layout>
                 <Suspense fallback={""}>
+                    <AddChannelModal />
                     <AddPeopleModal />
                     {/* <RemovePeopleModal /> */}
                     <ChannelInfoDrawer
@@ -64,7 +65,6 @@ const ChatHome = (props) => {
                         channelInfoVisible    = {channelInfoVisible}
                         hideChannelInfoDrawer = {hideChannelInfoDrawer}
                     />
-                    {/* <AddChannelModal /> */}
                     {/* <ListChannelsModal /> */}
                 </Suspense>
             </>

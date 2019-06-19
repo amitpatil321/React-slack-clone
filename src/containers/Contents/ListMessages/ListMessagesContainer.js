@@ -21,6 +21,8 @@ class ListMessagesContainer extends Component {
         let { room, messages } = this.props;
         let old, thisMessage;
         messages = messages[room.id];
+        // Return null if there are no message (this is unlikely to happen)
+        if(!messages) return null;
 
         return Object.keys(messages).map((message, index) => {
             let canGroup = false;

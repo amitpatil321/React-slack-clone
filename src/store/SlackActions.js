@@ -1,6 +1,9 @@
 export const connected = (rooms) => (
     { type: "CHATKIT_READY", payload : rooms }
 );
+export const updateRooms = (rooms) => (
+    { type: "UPDATE_ROOMS", payload: rooms }
+);
 export const setMessages = (messages) => (
     { type: "MESSAGE_RECEIVED", payload: messages }
 );
@@ -15,6 +18,9 @@ export const showLoading = (message) => (
 );
 export const showAddChannel = () => (
     { type: "SHOW_ADDCHANNEL"}
+);
+export const hideAddChannel = () => (
+    { type: "HIDE_ADDCHANNEL"}
 );
 export const showAddPeople = () => (
     { type: "SHOW_ADDPEOPLE"}

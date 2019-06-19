@@ -125,8 +125,7 @@ export function roomTypeIcon(room){
 }
 
 export function getLastMessageInRoom(room, messages){
-    console.log(messages);
-    if (room && messages[room.id] !== undefined){
+    if (room && messages && messages[room.id] !== undefined){
         let msgArray = Object.values(messages[room.id]);
         return msgArray[msgArray.length - 1]
     }
