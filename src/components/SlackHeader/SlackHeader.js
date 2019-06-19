@@ -10,7 +10,7 @@ const SlackHeader = ({ user, room, showChannelInfoDrawer }) => {
     let roomName, users;
     // Check if its a channel or private chat header?
     if (room.customData === undefined || room.customData.privateChat === false) {
-        users = [<Icon type="user" key={room.id} onClick={showChannelInfoDrawer} />, room.userIds.length]
+        users = [<Icon type="user" key={room.id} />, room.userIds.length]
         roomName = <>{roomTypeIcon(room)}{room.name}</>
     } else {
         // Find id which is not same as logged user id
@@ -28,7 +28,7 @@ const SlackHeader = ({ user, room, showChannelInfoDrawer }) => {
     return (
         <Row>
             <Col span={20}>
-                <span className="room-title">{roomName}</span> <span className="seperator"> </span><Button type="link" shape="circle"><small>{users}</small></Button>
+                <span className="room-title">{roomName}</span> <span className="seperator"> </span><Button type="link" shape="circle" onClick={showChannelInfoDrawer}><small>{users}</small></Button>
             </Col>
             <Col span={4} className="room-settings">
                 <HeaderOptions />
