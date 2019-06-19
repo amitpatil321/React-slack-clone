@@ -1,6 +1,7 @@
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Login from './containers/Login';
 import ChatHome from './containers/ChatHome';
@@ -15,7 +16,7 @@ function App() {
         <Route exact path="/" component={ChatHome} />
         <Route path="/login" component={Login} />
       </Switch>
-    </BrowserRouter>  );
+    </BrowserRouter>);
 }
 
-export default hot(App);
+export default hot(connect()(App));

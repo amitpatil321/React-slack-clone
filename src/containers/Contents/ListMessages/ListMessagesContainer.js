@@ -1,17 +1,15 @@
 import React, { Component } from 'react'
 import moment from 'moment';
+import { connect } from 'react-redux';
 
-import { SlackContext } from 'store/store';
 import { setReadCursor } from 'utils/ChatKitUtil';
 import ListMessages from 'components/Content/ListMessages';
 import * as CONFIG from 'config';
 
 //TODO : Group messages based on day (Like : today, yesterday)
 class ListMessagesContainer extends Component {
-    static contextType = SlackContext;
-
     componentDidUpdate(){
-        let {user, room, messages } = this.context.state;
+        let {user, room, messages } = this.props;
         // Set read cursor only if there are unread messages and last message wasnt send my loggedin suer itself
         if (room.unreadCount)
             setReadCursor(user, room, messages[room.id])
@@ -20,8 +18,10 @@ class ListMessagesContainer extends Component {
         elem.scrollTop = elem.scrollHeight;
     }
     render() {
-        let { messages } = this.props;
+        let { room, messages } = this.props;
         let old, thisMessage;
+        messages = messages[room.id];
+
         return Object.keys(messages).map((message, index) => {
             let canGroup = false;
             // Check if message can be combined?
@@ -37,9 +37,9 @@ class ListMessagesContainer extends Component {
                 }
             }
             old = thisMessage;
-
             return (
                 <ListMessages
+                    room     = {room}
                     key      = {index}
                     canGroup = {canGroup}
                     message  = {messages[message]}
@@ -49,4 +49,16 @@ class ListMessagesContainer extends Component {
     }
 }
 
-export default ListMessagesContainer
+const mapStateToProps = ({ user, room, rooms, messages }) => {
+    return {
+        user, room, rooms, messages
+    }
+}
+
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         hideAddPeople: () => dispatch(hideAddPeople())
+//     }
+// }
+
+export default connect(mapStateToProps)(ListMessagesContainer)

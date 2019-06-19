@@ -1,10 +1,10 @@
-import React, { lazy, Suspense, useContext } from 'react';
+import React, { lazy, Suspense } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Layout, Typography, Spin, Icon, Alert } from 'antd';
 import ContentLoader from 'react-content-loader';
 import { Offline } from 'react-detect-offline';
 
-import { SlackContext } from 'store/store';
 import Sidebar from 'containers/Sidebar';
 import ListMessages from 'containers/Contents/ListMessages';
 import SlackHeader from '../SlackHeader';
@@ -23,8 +23,9 @@ const {
 const { Title } = Typography;
 const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
 
-const ChatHome = () => {
-    let { user, room, rooms, messages, error, isLoading } = useContext(SlackContext).state;
+const ChatHome = (props) => {
+    let { user, room, rooms, messages, channelInfoVisible, showChannelInfoDrawer, hideChannelInfoDrawer, isLoading, error } = props;
+
     if (Object.keys(user).length && room !== null && rooms.length)
         return (
             <>
@@ -34,7 +35,7 @@ const ChatHome = () => {
                     </Sider>
                     <Layout>
                         <Header className="header" >
-                            <SlackHeader />
+                            <SlackHeader room={room} user={user} showChannelInfoDrawer={showChannelInfoDrawer}/>
                         </Header>
                         <Content className="content">
                             {error && <Alert message={error} type="error" />}
@@ -47,19 +48,24 @@ const ChatHome = () => {
                                     <Spin indicator={antIcon} tip={isLoading.message} />
                                 </div>
                             }
-                            {messages[room.id] && <ListMessages messages={messages[room.id]} />}
+                            <ListMessages />
                         </Content>
-                        <Footer className="footer">
+                        {/* <Footer className="footer">
                             <SendMessage />
-                        </Footer>
+                        </Footer> */}
                     </Layout>
                 </Layout>
                 <Suspense fallback={""}>
                     <AddPeopleModal />
-                    <RemovePeopleModal />
-                    <ChannelInfoDrawer />
-                    <AddChannelModal />
-                    <ListChannelsModal />
+                    {/* <RemovePeopleModal /> */}
+                    <ChannelInfoDrawer
+                        user                  = {user}
+                        room                  = {room}
+                        channelInfoVisible    = {channelInfoVisible}
+                        hideChannelInfoDrawer = {hideChannelInfoDrawer}
+                    />
+                    {/* <AddChannelModal /> */}
+                    {/* <ListChannelsModal /> */}
                 </Suspense>
             </>
         )

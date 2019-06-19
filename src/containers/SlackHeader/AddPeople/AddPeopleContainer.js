@@ -1,20 +1,20 @@
 import React, { Component } from 'react'
 import { orderBy } from 'lodash';
+import { connect } from 'react-redux';
 
-import { SlackContext } from 'store/store';
+import { hideAddPeople } from 'store/SlackActions';
 import AddPeopleModal from 'components/SlackHeader/AddPeople'
 import { addUserToRoom, sendMessage } from 'utils/ChatKitUtil';
 import { peopleJoinedMessage, getJoinableUsers, getUserName } from 'utils/SlackUtils';
 
 class AddPeopleContainer extends Component {
-    static contextType = SlackContext;
     state = {
         selectedUsers : []
     }
 
     // Returns list of all available users except existing members
     _getAllUsers(){
-        let {rooms, room} = this.context.state;
+        let {rooms, room} = this.props;
         if(rooms.length){
             return getJoinableUsers(rooms, room);
         }
@@ -24,7 +24,7 @@ class AddPeopleContainer extends Component {
     _clearSelected = () => this.setState({ selectedUsers : [] })
     // Handle submit button click
     _onSubmit = () => {
-        let { room, user } = this.context.state;
+        let { room, user } = this.props;
         // Add newly added users to room
         this._addPeopleSync(user, room, this.state.selectedUsers)
         .then(addSuccess => {
@@ -36,7 +36,7 @@ class AddPeopleContainer extends Component {
             // clear existing selection
             this._clearSelected();
             // Hide modal
-            this.context.hideAddPeople();
+            this.props.hideAddPeople();
         })
     }
 
@@ -44,7 +44,7 @@ class AddPeopleContainer extends Component {
         // clear existing selection
         this._clearSelected();
         // Hide modal
-        this.context.hideAddPeople();
+        this.props.hideAddPeople();
     }
 
     // add people to channel (a)synchronously
@@ -66,8 +66,11 @@ class AddPeopleContainer extends Component {
     }
 
     render() {
+        let { room, addPeopleModalVisible } = this.props;
         return (
             <AddPeopleModal
+                room = {room}
+                addPeopleModalVisible = {addPeopleModalVisible}
                 allUsers      = {orderBy(this._getAllUsers(), ['name'], ['asc'])}
                 onSubmit      = {this._onSubmit}
                 onUserSelect  = {this._onUserSelect}
@@ -78,4 +81,15 @@ class AddPeopleContainer extends Component {
     }
 }
 
-export default AddPeopleContainer;
+const mapStateToProps = ({ user, room, rooms, addPeopleModalVisible}) => {
+    return {
+        user, room, rooms, addPeopleModalVisible
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        hideAddPeople: () => dispatch(hideAddPeople())
+   }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(AddPeopleContainer);

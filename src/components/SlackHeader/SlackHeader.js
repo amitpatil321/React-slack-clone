@@ -1,19 +1,16 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Button, Row, Col, Icon } from 'antd';
-import { SlackContext } from 'store/store';
 import { filter } from 'lodash';
 
 import HeaderOptions from 'containers/SlackHeader/HeaderOptions';
 import './SlackHeader.css';
 import { getUserName, onlineStatus, getUserDetails, roomTypeIcon } from 'utils/SlackUtils';
 
-const SlackHeader = () => {
-    let context = useContext(SlackContext);
-    let { user, room } = context.state;
+const SlackHeader = ({ user, room, showChannelInfoDrawer }) => {
     let roomName, users;
     // Check if its a channel or private chat header?
     if (room.customData === undefined || room.customData.privateChat === false) {
-        users = [<Icon type="user" key={room.id} onClick={context.showDrawer} />, room.userIds.length]
+        users = [<Icon type="user" key={room.id} onClick={showChannelInfoDrawer} />, room.userIds.length]
         roomName = <>{roomTypeIcon(room)}{room.name}</>
     } else {
         // Find id which is not same as logged user id

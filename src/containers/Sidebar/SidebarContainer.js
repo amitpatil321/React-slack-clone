@@ -1,18 +1,17 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 
-import { SlackContext } from 'store/store';
+import { joinRoom, showLoading, showAddChannel } from 'store/SlackActions';
 import { getDirectChatRoom } from 'utils/SlackUtils';
 import { createRoom } from 'utils/ChatKitUtil';
 import Notification from 'components/Notification';
 
 import Sidebar from 'components/Sidebar';
 
-export default class SidebarContainer extends Component {
-    static contextType = SlackContext;
-
+class SidebarContainer extends Component {
     componentDidMount(){
         // Bind click event to "channels" word
-        document.querySelector("#channels .ant-menu-item-group-title").addEventListener("click", this.context.showListChannels)
+        document.querySelector("#channels .ant-menu-item-group-title").addEventListener("click", this.props.showListChannels)
     }
 
     _onLogoutSuccess = () => {
@@ -20,31 +19,55 @@ export default class SidebarContainer extends Component {
     }
 
     _onSelection = (item) => {
+        let { user, room } = this.props;
         // Check if its a room or direct chat?
         if (item.avatarURL === undefined)
-            this.context.joinRoom(item)
+            this.props.joinRoom(item)
         else{
             // check if room exists for logged in user and clicked user ?
-            let findRoom = getDirectChatRoom(this.context.state, item.id);
+            let findRoom = getDirectChatRoom(user, room, item.id);
             if (findRoom.length){
-                this.context.joinRoom(findRoom[0])
+                this.props.joinRoom(findRoom[0])
             }else{
-                let { user } = this.context.state;
+                let { user } = this.props;
                 let roomUsers = [user.id, item.id].sort().join('');
-                this.context.showLoading("Wait a moment!");
+                this.props.showLoading("Wait a moment!");
                 // Room doesnt exists, Lets create new room for them
                 createRoom(user, roomUsers, [user.id, item.id], true, { privateChat: true, userIds: [user.id, item.id].sort() },  (newRoom) => {
-                    this.context.joinRoom(newRoom);
-                    this.context.hideLoading();
+                    this.props.joinRoom(newRoom);
+                    this.props.hideLoading();
                 },(error) => Notification("error", "Error", "Error creating private room, Please try again!"))
             }
         }
     }
 
     render() {
+        let { user, room, rooms } = this.props;
         return <Sidebar
+            user            = {user}
+            room            = {room}
+            rooms           = {rooms}
             onLogoutSuccess = {this._onLogoutSuccess}
             onSelection     = {this._onSelection}
+            showAddChannel  = {this.props.showAddChannel}
         />
     }
 }
+
+const mapStateToProps = ({ user, room, rooms }) => {
+    return {
+        user,
+        room,
+        rooms
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        showAddChannel: () => dispatch(showAddChannel),
+        showLoading: (msg) => dispatch(showLoading(msg)),
+        joinRoom: (room) => dispatch(joinRoom(room)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SidebarContainer)

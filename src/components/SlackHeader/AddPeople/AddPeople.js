@@ -1,17 +1,14 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Modal, Select, Empty } from 'antd';
-
-import { SlackContext } from 'store/store';
 
 const Option = Select.Option;
 
-const AddPeople = ({ allUsers, onUserSelect, onSubmit, selectedUsers, onModalClose }) => {
-    let { state } = useContext(SlackContext);
+const AddPeople = ({ room, addPeopleModalVisible, allUsers, onUserSelect, onSubmit, selectedUsers, onModalClose }) => {
 
     return (
         <Modal
-            title        = {"Add people to #" + state.room.name}
-            visible      = {state.addPeopleModalVisible}
+            title        = {"Add people to #" + room.name}
+            visible      = {addPeopleModalVisible}
             onOk         = {onSubmit}
             onCancel     = {onModalClose}
             width        = {380}

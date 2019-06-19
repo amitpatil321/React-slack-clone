@@ -1,18 +1,16 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Drawer, Collapse, Icon, Menu, Avatar, Card } from 'antd';
 import moment from 'moment';
 import filter from 'lodash/filter';
 
-import { SlackContext } from 'store/store';
 import { getUserName, getUserPic, isPrivateChat, getUserDetails, onlineStatus, roomTypeIcon } from 'utils/SlackUtils';
 import './ChannelInfoDrawer.css';
 
 const Panel = Collapse.Panel;
 const { Meta } = Card;
 
-const ChannelInfoDrawer = () => {
-    let context = useContext(SlackContext)
-    let { user, room } = context.state;
+const ChannelInfoDrawer = (props) => {
+    let { user, room, channelInfoVisible, hideChannelInfoDrawer } = props;
     let roomUser;
 
     if(isPrivateChat(room)){
@@ -36,8 +34,8 @@ const ChannelInfoDrawer = () => {
         width        = "250"
         closable     = {true}
         maskClosable = {true}
-        visible      = {context.state.channelInfoVisible}
-        onClose      = {context.hideDrawer}
+        visible      = {channelInfoVisible}
+        onClose={hideChannelInfoDrawer}
         destroyOnClose
     >
         {isPrivateChat(room) ?

@@ -1,20 +1,18 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Avatar, Tooltip, Button, Icon, Menu, Badge } from 'antd'
 import PropTypes from 'prop-types';
 import GoogleLogout from 'react-google-login';
 import { filter, sortBy } from 'lodash';
 
-import { SlackContext } from 'store/store';
 import { roomTypeIcon, canShowUnreadBadge, getDirectChatRoom } from 'utils/SlackUtils';
 import './Sidebar.css';
 
 const MenuItemGroup = Menu.ItemGroup;
 
-const Sidebar = ({ onSelection, onLogoutSuccess }) => {
-    let getRoomsList = (context) => {
-        let { user, room, rooms, messages } = context.state;
+const Sidebar = ({ user, room, rooms, messages, onSelection, onLogoutSuccess, showAddChannel }) => {
+    let getRoomsList = () => {
         return sortBy(rooms, each => each.name).map(eachRoom => {
-            let { id, name, customData } = eachRoom;
+            let { id, name } = eachRoom;
             // Show unread message flag, only if there are unread messages and message was not sent by same/logged in user and user is not in same room
             let hasUnread = (canShowUnreadBadge(user, room, eachRoom, messages)) ? "unread-message" : "";
             // Ignore private chat room
@@ -26,13 +24,12 @@ const Sidebar = ({ onSelection, onLogoutSuccess }) => {
         })
     }
 
-    let getUsersList = (context) => {
-        let { user, room, rooms, messages } = context.state;
+    let getUsersList = () => {
         // List all users
         let general = filter(rooms, { id: process.env.REACT_APP_CHATKIT_GENERAL_ROOM });
         if (general.length) {
             return sortBy(general[0].users, each => each.name.toLowerCase()).map(eachUser => {
-                let privateRoom = getDirectChatRoom(context.state, eachUser.id)[0];
+                let privateRoom = getDirectChatRoom(user, room, eachUser.id)[0];
                 let unreadCount = canShowUnreadBadge(user, room, privateRoom, messages) ?
                     <Badge className="float-right" count={privateRoom.unreadCount} overflowCount={10}></Badge>
                     : null;
@@ -50,8 +47,6 @@ const Sidebar = ({ onSelection, onLogoutSuccess }) => {
         }
     }
 
-    let context = useContext(SlackContext);
-    let { user, rooms, room } = context.state;
     return (
         <>
             <div className="logged-user">
@@ -77,13 +72,13 @@ const Sidebar = ({ onSelection, onLogoutSuccess }) => {
                 selectedKeys={[room ? room.id : process.env.REACT_APP_CHATKIT_GENERAL_ROOM]}
             >
                 <MenuItemGroup key="g1" title="Channels" className="channel-group" id="channels">
-                    {getRoomsList(context)}
+                    {getRoomsList()}
                 </MenuItemGroup>
-                <Menu.Item className="add-channel" onClick={context.showAddChannel}>
+                <Menu.Item className="add-channel" onClick={showAddChannel}>
                     <strong><Icon type="plus" />Add a channel</strong>
                 </Menu.Item>
                 <MenuItemGroup key="g2" title="Direct Message" className="channel-group" id="users">
-                    {getUsersList(context)}
+                    {getUsersList()}
                 </MenuItemGroup>
             </Menu>
         </>
