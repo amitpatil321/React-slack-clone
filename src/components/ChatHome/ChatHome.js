@@ -69,9 +69,9 @@ const ChatHome = props => {
 							)}
 							<ListMessages />
 						</Content>
-						{/* <Footer className="footer">
-                            <SendMessage />
-                        </Footer> */}
+						<Footer className="footer">
+							<SendMessage />
+						</Footer>
 					</Layout>
 				</Layout>
 				<Suspense fallback={''}>
