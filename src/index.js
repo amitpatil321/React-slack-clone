@@ -4,16 +4,16 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { createStore } from 'redux';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 
 import SlackReducer from './store/SlackReducer';
 
 const store = createStore(SlackReducer);
 
 const RootApp = (
-    <Provider store={store}>
-        <App />
-    </Provider>
+	<Provider store={store}>
+		<App />
+	</Provider>
 )
 
 ReactDOM.render(RootApp, document.getElementById('root'));
