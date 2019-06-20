@@ -47,7 +47,11 @@
   },
   "devDependencies": {
     "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.13.1"
+    "enzyme-adapter-react-16": "^1.13.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^5.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "prettier": "^1.18.2"
   },
   "jest": {
     "coverageReporters": [

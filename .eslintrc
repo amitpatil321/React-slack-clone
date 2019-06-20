@@ -1,0 +1,13 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": ["react-app", "prettier"],
+  "rules": {
+    "indent": [2, "tab"],
+    "linebreak-style": ["error", "windows"],
+    "no-tabs": 0
+  }
+}
