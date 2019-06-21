@@ -62,13 +62,14 @@ class ChatHomeContainer extends Component {
 			);
 		},
 		setUserPresence: () => this.forceUpdate(), //setUserPresence doesnt cause re-render so we forcefully update the view
-		addMessage: message => this.props.setMessages(message),
+		addMessage: message => {
+			setTimeout(() => {
+				this.props.setMessages(message);
+			}, 200);
+		},
 		setUser: user => this.props.currentUser(user),
 		joinRoom: room => this.props.joinRoom(room), // Set current room
 		roomDeleted: room => this.actions.removedFromRoom(room), // Remove room from rooms list
-		readCursorUpdated: cursor => {
-			// this.actions.joinRoom(this.state.rooms.find(room => room.id === cursor.roomId))
-		},
 		error: error => this.setState({ error: error })
 	};
 
