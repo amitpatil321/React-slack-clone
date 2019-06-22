@@ -34,6 +34,9 @@ export const hideAddChannel = () => (
 export const showAddPeople = () => (
 	{ type: "SHOW_ADDPEOPLE"}
 );
+export const newPeopleAdded = () => (
+	{ type: "NEWPEOPLEADDED"}
+);
 export const hideAddPeople = () => (
 	{ type: "HIDE_ADDPEOPLE"}
 );

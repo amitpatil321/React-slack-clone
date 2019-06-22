@@ -103,6 +103,10 @@ const reducer = (state = initialState, action) => {
 			...state,
 			addPeopleModalVisible: false
 		};
+	case 'NEWPEOPLEADDED':
+		return {
+			...state
+		};
 	case 'SHOW_REMOVEPEOPLE':
 		return {
 			...state,
