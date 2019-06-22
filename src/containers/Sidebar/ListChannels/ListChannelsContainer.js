@@ -23,6 +23,14 @@ class ListChannelsContainer extends Component {
 	};
 
 	componentDidMount() {
+		this._getJoinableRooms();
+	}
+
+	componentDidUpdate() {
+		this._getJoinableRooms();
+	}
+
+	_getJoinableRooms() {
 		getJoinableRooms(
 			this.props.user,
 			rooms => this.setState({ joinableRooms: rooms }),
