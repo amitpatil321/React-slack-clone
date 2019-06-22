@@ -13,7 +13,6 @@ import {
 
 const SlackHeader = ({ user, room, showChannelInfoDrawer }) => {
 	let roomName, users;
-
 	// Check if its a channel or private chat header?
 	if (room.customData === undefined || room.customData.privateChat === false) {
 		users = [<Icon type="user" key={room.id} />, room.userIds.length];

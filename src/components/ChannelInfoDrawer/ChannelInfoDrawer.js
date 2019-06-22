@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-	Drawer, Collapse, Icon, Menu, Avatar, Card,
-} from 'antd';
+import { Drawer, Collapse, Icon, Menu, Avatar, Card } from 'antd';
 import moment from 'moment';
 import { filter } from 'lodash';
 
@@ -11,17 +9,20 @@ import {
 	isPrivateChat,
 	getUserDetails,
 	onlineStatus,
-	roomTypeIcon,
+	roomTypeIcon
 } from 'utils/SlackUtils';
 import './ChannelInfoDrawer.css';
 
 const { Panel } = Collapse;
 const { Meta } = Card;
 
-const ChannelInfoDrawer = (props) => {
-	const {
-		user, room, channelInfoVisible, hideChannelInfoDrawer,
-	} = props;
+const ChannelInfoDrawer = ({
+	user,
+	room,
+	channelInfoVisible,
+	hideChannelInfoDrawer
+}) => {
+
 	let roomUser;
 
 	if (isPrivateChat(room)) {
@@ -41,12 +42,19 @@ const ChannelInfoDrawer = (props) => {
 	return (
 		<Drawer
 			className="channel-info"
-			title={(
-				    <strong>About{' '} {isPrivateChat(room) ? (' this conversation') : (
-                        <>{roomTypeIcon(room)}{room.name}</>
-				    )}
-				    </strong>
-			)}
+			title={
+				<strong>
+					About{' '}
+					{isPrivateChat(room) ? (
+						' this conversation'
+					) : (
+						<>
+							{roomTypeIcon(room)}
+							{room.name}
+						</>
+					)}
+				</strong>
+			}
 			placement="right"
 			width="250"
 			closable
@@ -70,31 +78,33 @@ const ChannelInfoDrawer = (props) => {
 				>
 					<Panel
 						key="1"
-						header={(
+						header={
 							<strong>
-								<Icon type="info-circle" style={{ color: 'blue' }} />&nbsp; Channel Details
+								<Icon type="info-circle" style={{ color: 'blue' }} />
+								&nbsp; Channel Details
 							</strong>
-						)}
+						}
 					>
 						<div id="channel-creator">
-                            Created by &nbsp;
+							Created by &nbsp;
 							{
 								<strong>
 									{room.createdByUserId === user.id
 										? 'You'
 										: getUserName(room, room.createdByUserId)}
 								</strong>
-							} on &nbsp; {moment(room.createdAt).format('MMM D, YYYY hh:mm A')}
+							}{' '}
+							on &nbsp; {moment(room.createdAt).format('MMM D, YYYY hh:mm A')}
 						</div>
 					</Panel>
 					<Panel
-						header={(
+						header={
 							<strong>
 								<Icon type="user" style={{ color: '#52c41a' }} />
 								&nbsp;{room.userIds.length}
-  								&nbsp;{room.userIds.length === 1 ? 'Member' : 'Members'}
+								&nbsp;{room.userIds.length === 1 ? 'Member' : 'Members'}
 							</strong>
-						)}
+						}
 						key="2"
 					>
 						<Menu className="channel-users">{members}</Menu>
