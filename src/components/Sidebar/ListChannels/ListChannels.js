@@ -54,7 +54,7 @@ const ListChannels = ({
 		>
 			{error ? (
 				<>
-					<Alert message={error} type="error" showIcon /> <br />{' '}
+					<Alert message={error} type="error" showIcon /> <br />&nbsp;
 				</>
 			) : (
 				''

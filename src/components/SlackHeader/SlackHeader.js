@@ -38,7 +38,7 @@ const SlackHeader = ({ user, room, showChannelInfoDrawer }) => {
 	return (
 		<Row>
 			<Col span={20}>
-				<span className="room-title">{roomName}</span>{' '}
+				<span className="room-title">{roomName}</span>&nbsp;
 				<span className="seperator"> </span>
 				<Button type="link" shape="circle" onClick={showChannelInfoDrawer}>
 					<small>{users}</small>

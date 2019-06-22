@@ -129,7 +129,7 @@ export function onlineStatus(user) {
 	let status = user.presenceStore[user.id];
 	return (
 		<>
-			<span className={'online-status ' + status}></span>{' '}
+			<span className={'online-status ' + status}></span>&nbsp;
 			<small>{status == 'online' ? 'active' : 'away'}</small>
 		</>
 	);
