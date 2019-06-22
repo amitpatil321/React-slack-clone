@@ -112,9 +112,7 @@ class ChatHomeContainer extends Component {
 			room,
 			rooms,
 			messages,
-			channelInfoVisible,
 			showChannelInfoDrawer,
-			hideChannelInfoDrawer,
 			isLoading,
 			error
 		} = this.props;
@@ -128,9 +126,7 @@ class ChatHomeContainer extends Component {
 				room={room}
 				rooms={rooms}
 				messages={messages}
-				channelInfoVisible={channelInfoVisible}
 				showChannelInfoDrawer={showChannelInfoDrawer}
-				hideChannelInfoDrawer={hideChannelInfoDrawer}
 				isLoading={isLoading}
 				error={error}
 			/>
@@ -168,7 +164,6 @@ const mapDispatchToProps = dispatch => {
 		joinRoom: room => dispatch(joinRoom(room)),
 		setMessages: messages => dispatch(setMessages(messages)),
 		showChannelInfoDrawer: () => dispatch(showChannelInfoDrawer()),
-		hideChannelInfoDrawer: () => dispatch(hideChannelInfoDrawer())
 	};
 };
 

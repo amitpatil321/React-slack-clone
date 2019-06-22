@@ -5,20 +5,12 @@ import { Offline } from 'react-detect-offline';
 
 import Sidebar from 'containers/Sidebar';
 import ListMessages from 'containers/Contents/ListMessages';
-import SlackHeader from '../SlackHeader';
+import SlackHeader from 'containers/SlackHeader/SlackHeaderContainer';
 import SendMessage from 'containers/Footer/SendMessage';
 import * as CONFIG from 'config';
 
-const AddPeopleModal = lazy(() => import('containers/SlackHeader/AddPeople'));
-const RemovePeopleModal = lazy(() =>
-	import('containers/SlackHeader/RemovePeople')
-);
-const ChannelInfoDrawer = lazy(() => import('../ChannelInfoDrawer'));
 const AddChannelModal = lazy(() => import('containers/Sidebar/AddChannel'));
 const ListChannelsModal = lazy(() => import('containers/Sidebar/ListChannels'));
-const DeleteChannelConfirm = lazy(() =>
-	import('containers/SlackHeader/DeleteChannelConfirm')
-);
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title } = Typography;
@@ -29,9 +21,6 @@ const ChatHome = props => {
 		user,
 		room,
 		rooms,
-		channelInfoVisible,
-		showChannelInfoDrawer,
-		hideChannelInfoDrawer,
 		isLoading,
 		error
 	} = props;
@@ -45,13 +34,7 @@ const ChatHome = props => {
 					</Sider>
 					<Layout>
 						<Header className="header">
-							{room &&
-                                <SlackHeader
-                                	room={room}
-                                	user={user}
-                                	showChannelInfoDrawer={showChannelInfoDrawer}
-                                />
-							}
+							<SlackHeader />
 						</Header>
 						<Content className="content">
 							{error && <Alert message={error} type="error" />}
@@ -77,15 +60,6 @@ const ChatHome = props => {
 				<Suspense fallback={''}>
 					<ListChannelsModal />
 					<AddChannelModal />
-					<AddPeopleModal />
-					<RemovePeopleModal />
-					<DeleteChannelConfirm />
-					<ChannelInfoDrawer
-						user={user}
-						room={room}
-						channelInfoVisible={channelInfoVisible}
-						hideChannelInfoDrawer={hideChannelInfoDrawer}
-					/>
 				</Suspense>
 			</>
 		);
