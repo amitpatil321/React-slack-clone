@@ -56,7 +56,7 @@ class HeaderOptionsContainer extends Component {
 				<SubMenu title={<Icon type="setting" style={{ fontSize: 18 }} />}>
 					<Menu.Item key="setting:1" onClick={showAddPeople}>
 						Add people to {roomTypeIcon(room)}
-						{roomName}{' '}
+						{roomName}&nbsp;
 					</Menu.Item>
 					{isAdmin(user) && !isGeneralRoom(room) && (
 						<Menu.Item key="setting:2" onClick={showRemovePeople}>

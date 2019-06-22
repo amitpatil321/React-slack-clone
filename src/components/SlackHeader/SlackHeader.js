@@ -1,17 +1,18 @@
-import React from "react";
-import { Button, Row, Col, Icon } from "antd";
-import { filter } from "lodash";
+import React from 'react';
+import { Button, Row, Col, Icon } from 'antd';
+import { filter } from 'lodash';
 
-import HeaderOptions from "containers/SlackHeader/HeaderOptions";
-import "./SlackHeader.css";
+import HeaderOptions from 'containers/SlackHeader/HeaderOptions';
+import './SlackHeader.css';
 import {
 	getUserName,
 	onlineStatus,
 	getUserDetails,
 	roomTypeIcon
-} from "utils/SlackUtils";
+} from 'utils/SlackUtils';
 
 const SlackHeader = ({ user, room, showChannelInfoDrawer }) => {
+	console.log(room);
 	let roomName, users;
 	// Check if its a channel or private chat header?
 	if (room.customData === undefined || room.customData.privateChat === false) {
@@ -29,7 +30,7 @@ const SlackHeader = ({ user, room, showChannelInfoDrawer }) => {
 		else {
 			// It means sender and receiver is same
 			receiver = user.id;
-			roomName = user.name + " (you)";
+			roomName = user.name + ' (you)';
 		}
 		users = onlineStatus(getUserDetails(room, receiver));
 	}
@@ -37,7 +38,7 @@ const SlackHeader = ({ user, room, showChannelInfoDrawer }) => {
 	return (
 		<Row>
 			<Col span={20}>
-				<span className="room-title">{roomName}</span>{" "}
+				<span className="room-title">{roomName}</span>{' '}
 				<span className="seperator"> </span>
 				<Button type="link" shape="circle" onClick={showChannelInfoDrawer}>
 					<small>{users}</small>

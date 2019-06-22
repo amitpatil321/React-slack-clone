@@ -3,12 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { createStore } from 'redux';
 import {Provider} from 'react-redux';
-
-import SlackReducer from './store/SlackReducer';
-
-const store = createStore(SlackReducer);
+import store from 'store/store';
 
 const RootApp = (
 	<Provider store={store}>

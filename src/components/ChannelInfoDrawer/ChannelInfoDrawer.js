@@ -44,7 +44,7 @@ const ChannelInfoDrawer = ({
 			className="channel-info"
 			title={
 				<strong>
-					About{' '}
+					About&nbsp;
 					{isPrivateChat(room) ? (
 						' this conversation'
 					) : (
@@ -93,7 +93,7 @@ const ChannelInfoDrawer = ({
 										? 'You'
 										: getUserName(room, room.createdByUserId)}
 								</strong>
-							}{' '}
+							}&nbsp;
 							on &nbsp; {moment(room.createdAt).format('MMM D, YYYY hh:mm A')}
 						</div>
 					</Panel>
