@@ -14,26 +14,25 @@ class SlackHeaderContainer extends Component {
 	// 		return true;
 	// 	return false;
 	// }
+
 	render() {
-		let { user, room, showChannelInfoDrawer } = this.props;
-		console.log(room.userIds);
-		return room ? (
-			<>
+		let { user, room, rooms, showChannelInfoDrawer } = this.props;
+		return room &&
 				<SlackHeader
-					room={room}
 					user={user}
+					room={room}
 					showChannelInfoDrawer={showChannelInfoDrawer}
 				/>
-			</>
-		) : null;
 	}
 }
 
-const mapStateToProps = ({ user, room, showChannelInfoDrawer }) => {
+const mapStateToProps = state => {
 	return {
-		user,
-		room,
-		showChannelInfoDrawer
+		user : state.user,
+		room : state.room,
+		rooms: state.rooms,
+		messages : state.messages, // We are not using messages but we are using it just to trigger change when we add/remove people
+		showChannelInfoDrawer : state.showChannelInfoDrawer
 	};
 };
 
