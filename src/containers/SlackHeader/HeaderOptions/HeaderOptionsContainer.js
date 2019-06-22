@@ -20,13 +20,9 @@ import {
 } from 'utils/SlackUtils';
 import { removeUserFromRoom } from 'utils/ChatKitUtil';
 const AddPeopleModal = lazy(() => import('containers/SlackHeader/AddPeople'));
-const RemovePeopleModal = lazy(() =>
-	import('containers/SlackHeader/RemovePeople')
-);
+const RemovePeopleModal = lazy(() => import('containers/SlackHeader/RemovePeople'));
 const ChannelInfoDrawer = lazy(() => import('components/ChannelInfoDrawer'));
-const DeleteChannelConfirm = lazy(() =>
-	import('containers/SlackHeader/DeleteChannelConfirm')
-);
+const DeleteChannelConfirm = lazy(() => import('containers/SlackHeader/DeleteChannelConfirm'));
 
 const SubMenu = Menu.SubMenu;
 
@@ -40,6 +36,7 @@ class HeaderOptionsContainer extends Component {
 			showRemovePeople,
 			showDeleteChannelConfirm
 		} = this.props;
+
 		if (room === null) return false;
 
 		let roomName = room.name,
