@@ -18,7 +18,7 @@ import {
 	roomTypeIcon,
 	setGeneralSelected
 } from 'utils/SlackUtils';
-import { removeUserFromRoom, deleteRoom } from 'utils/ChatKitUtil';
+import { removeUserFromRoom } from 'utils/ChatKitUtil';
 const AddPeopleModal = lazy(() => import('containers/SlackHeader/AddPeople'));
 const RemovePeopleModal = lazy(() =>
 	import('containers/SlackHeader/RemovePeople')
