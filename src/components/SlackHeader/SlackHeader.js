@@ -12,7 +12,6 @@ import {
 } from 'utils/SlackUtils';
 
 const SlackHeader = ({ user, room, showChannelInfoDrawer }) => {
-	console.log(room);
 	let roomName, users;
 	// Check if its a channel or private chat header?
 	if (room.customData === undefined || room.customData.privateChat === false) {
