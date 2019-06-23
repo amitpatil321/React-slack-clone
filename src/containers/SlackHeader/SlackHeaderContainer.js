@@ -17,22 +17,28 @@ class SlackHeaderContainer extends Component {
 
 	render() {
 		let { user, room, rooms, showChannelInfoDrawer } = this.props;
-		return room &&
+		return (
+			room && (
 				<SlackHeader
 					user={user}
 					room={room}
 					showChannelInfoDrawer={showChannelInfoDrawer}
 				/>
+			)
+		);
 	}
 }
 
 const mapStateToProps = state => {
 	return {
-		user : state.user,
-		room : state.room,
+		user: state.user,
+		room: state.room,
 		rooms: state.rooms,
-		messages : state.messages, // We are not using messages but we are using it just to trigger change when we add/remove people
-		showChannelInfoDrawer : state.showChannelInfoDrawer
+		showChannelInfoDrawer: state.showChannelInfoDrawer,
+		// We are not using below variables but we are using it just to trigger change when we add/remove people
+		// rooms.userIds change is not getting detected, so we are using this workaround
+		addPeopleModalVisible: state.addPeopleModalVisible,
+		remPeopleModalVisible: state.remPeopleModalVisible
 	};
 };
 
