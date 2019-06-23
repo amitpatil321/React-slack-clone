@@ -10,6 +10,7 @@ html, body{
   width: 200px;
   left:0;
   height: 100%;
+  overflow-x: scroll;
   /* background: #fff; */
 }
 .header{
