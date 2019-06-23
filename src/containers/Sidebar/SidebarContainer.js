@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import {
 	joinRoom,
@@ -15,6 +16,9 @@ import Notification from 'components/Notification';
 import Sidebar from 'components/Sidebar';
 
 class SidebarContainer extends Component {
+	state = {
+		isLoggedIn: true
+	};
 	componentDidMount() {
 		// Bind click event to "channels" word
 		document
@@ -23,7 +27,8 @@ class SidebarContainer extends Component {
 	}
 
 	_onLogoutSuccess = () => {
-		console.log('On logout Success');
+		window.localStorage.removeItem('slack');
+		this.setState({ isLoggedIn: false });
 	};
 
 	_onSelection = item => {
@@ -63,8 +68,15 @@ class SidebarContainer extends Component {
 	};
 
 	render() {
-		let { user, room, rooms, messages, showAddChannel, showListChannels } = this.props;
-		return (
+		let {
+			user,
+			room,
+			rooms,
+			messages,
+			showAddChannel,
+			showListChannels
+		} = this.props;
+		return this.state.isLoggedIn ? (
 			<Sidebar
 				user={user}
 				room={room}
@@ -75,6 +87,8 @@ class SidebarContainer extends Component {
 				showAddChannel={showAddChannel}
 				showListChannels={showListChannels}
 			/>
+		) : (
+			<Redirect to="/login" />
 		);
 	}
 }

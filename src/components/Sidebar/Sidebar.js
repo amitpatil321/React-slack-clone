@@ -93,7 +93,7 @@ const Sidebar = ({
 			<div className="logged-user">
 				<Avatar src={user.avatarURL}></Avatar>
 				<span>{user.name}</span>
-				<GoogleLogout
+				{/* <GoogleLogout
 					clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
 					onLogoutSuccess={onLogoutSuccess}
 					render={renderProps => (
@@ -107,7 +107,10 @@ const Sidebar = ({
 							</Button>
 						</Tooltip>
 					)}
-				></GoogleLogout>
+				></GoogleLogout> */}
+				<Button type="link" onClick={onLogoutSuccess} className="float-right">
+					<Icon type="poweroff" />
+				</Button>
 			</div>
 			<Menu
 				className="rooms-list"
