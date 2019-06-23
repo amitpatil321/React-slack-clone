@@ -130,7 +130,7 @@ export function onlineStatus(user) {
 	return (
 		<>
 			<span className={'online-status ' + status}></span>&nbsp;
-			<small>{status == 'online' ? 'active' : 'away'}</small>
+			<small>{status === 'online' ? 'active' : 'away'}</small>
 		</>
 	);
 }
@@ -147,13 +147,12 @@ export function getLastMessageInRoom(room, messages) {
 	return false;
 }
 
-{
-	/* Show badge only if
-    - There are unread messages
-    - Last message wasn't sent by logged in user (that means he has read old message)
-    - and he's not already viewing same room where new message came
+/*
+Show badge only if
+- There are unread messages
+- Last message wasn't sent by logged in user (that means he has read old message)
+- and he's not already viewing same room where new message came
 */
-}
 export function canShowUnreadBadge(user, room, chatRoom, messages) {
 	return (
 		chatRoom &&

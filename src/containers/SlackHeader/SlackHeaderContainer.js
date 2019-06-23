@@ -16,7 +16,7 @@ class SlackHeaderContainer extends Component {
 	// }
 
 	render() {
-		let { user, room, rooms, showChannelInfoDrawer } = this.props;
+		let { user, room, showChannelInfoDrawer } = this.props;
 		return (
 			room && (
 				<SlackHeader

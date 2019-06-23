@@ -23,17 +23,22 @@ class ListChannelsContainer extends Component {
 	};
 
 	componentDidMount() {
-		this._getJoinableRooms();
+		this._getJoinableRooms(rooms => {
+			this.setState({ joinableRooms: rooms });
+		});
 	}
 
 	componentDidUpdate() {
-		this._getJoinableRooms();
+		this._getJoinableRooms(rooms => {
+			console.log(rooms);
+			// this.setState({ joinableRooms: rooms });
+		});
 	}
 
-	_getJoinableRooms() {
+	_getJoinableRooms(callback) {
 		getJoinableRooms(
 			this.props.user,
-			rooms => this.setState({ joinableRooms: rooms }),
+			rooms => callback(rooms),
 			() => this.setState({ error: 'Error fetching joinable rooms' })
 		);
 	}

@@ -51,7 +51,7 @@ class SendMessageContainer extends Component {
 		let message = event.target.value;
 		let filter = ['http', 'ttps'];
 		// check if text contains emoji codes ?
-		CONFIG.EMOJI_CODES.map(eachCode => {
+		CONFIG.EMOJI_CODES.forEach(eachCode => {
 			let pos = message.indexOf(eachCode);
 			if (pos !== -1) {
 				// Exception : http://, https:// and :/ both contains ":/" so while typing urls it gets replaced with smiley

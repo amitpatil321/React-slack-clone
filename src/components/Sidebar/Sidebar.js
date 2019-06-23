@@ -1,7 +1,6 @@
 import React from 'react';
 import { Avatar, Tooltip, Button, Icon, Menu, Badge } from 'antd';
 import PropTypes from 'prop-types';
-import GoogleLogout from 'react-google-login';
 import { filter, sortBy } from 'lodash';
 
 import {
@@ -40,7 +39,7 @@ const Sidebar = ({
 						{roomTypeIcon(eachRoom)} {name}
 					</Menu.Item>
 				);
-			}
+			}else return null;
 		});
 	};
 
@@ -108,9 +107,11 @@ const Sidebar = ({
 						</Tooltip>
 					)}
 				></GoogleLogout> */}
-				<Button type="link" onClick={onLogoutSuccess} className="float-right">
-					<Icon type="poweroff" />
-				</Button>
+				<Tooltip placement="bottom" title="Logout" trigger="hover">
+					<Button type="link" onClick={onLogoutSuccess} className="float-right">
+						<Icon type="poweroff" />
+					</Button>
+				</Tooltip>
 			</div>
 			<Menu
 				className="rooms-list"

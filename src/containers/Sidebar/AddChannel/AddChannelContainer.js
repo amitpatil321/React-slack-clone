@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Select } from 'antd';
 import { connect } from 'react-redux';
-import { filter } from 'lodash';
 
 import { joinRoom, hideAddChannel } from 'store/SlackActions';
 import { getAllUsers, peopleJoinedMessage } from 'utils/SlackUtils';
@@ -28,6 +27,7 @@ class AddChannelContainer extends Component {
 			return allUsers.map(({ id, name }) => {
 				// List all users except logged in user, Coz he will be default member of channel
 				if (user.id !== id) return <Option key={id}>{name}</Option>;
+				else return null;
 			});
 		}
 	};

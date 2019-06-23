@@ -9,8 +9,7 @@ import {
 	setMessages,
 	currentUser,
 	joinRoom,
-	showChannelInfoDrawer,
-	hideChannelInfoDrawer
+	showChannelInfoDrawer
 } from 'store/SlackActions';
 import ChatKit from 'Chatkit';
 import ChatHome from 'components/ChatHome';
