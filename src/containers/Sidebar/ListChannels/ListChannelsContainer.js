@@ -19,13 +19,13 @@ class ListChannelsContainer extends Component {
   state = {
     text: null,
     error: null,
-    joinableRooms: null
+    joinableRooms: null,
+    fetchComplete: false
   };
 
   componentDidMount() {
-    console.log('did mount');
     this._getJoinableRooms(rooms => {
-      this.setState({ joinableRooms: rooms });
+      this.setState({ joinableRooms: rooms, fetchComplete: false });
     });
   }
 
@@ -41,16 +41,17 @@ class ListChannelsContainer extends Component {
   }
 
   componentDidUpdate() {
-    console.log("Update", this.props.listChannelsModalVisible);
-    const existingRooms = this.state.joinableRooms.map(room => room.name);
-    this._getJoinableRooms(rooms => {
-      const newRooms = rooms.map(room => room.name);
-      console.log(existingRooms, newRooms);
-      if (!isEqual(existingRooms, newRooms)) {
-        console.log('state updated', newRooms);
-        this.setState({ joinableRooms: rooms });
-      }
-    });
+    if (this.state.joinableRooms) {
+      const existingRooms = this.state.joinableRooms.map(room => room.name);
+      this._getJoinableRooms(rooms => {
+        const newRooms = rooms.map(room => room.name);
+        if (!isEqual(existingRooms, newRooms)) {
+          this.setState({ joinableRooms: rooms, fetchComplete: true });
+        } else {
+          this.setState({ fetchComplete: true });
+        }
+      });
+    }
   }
 
   _onChange = event => {
@@ -84,6 +85,7 @@ class ListChannelsContainer extends Component {
         hideLoading();
       }
     );
+    this.setState({ fetchComplete: false });
   };
 
   _getJoinableRooms(callback) {
@@ -111,6 +113,7 @@ class ListChannelsContainer extends Component {
         gotoRoom={joinRoom} // Goto existing room already joined
         listChannelsModalVisible={listChannelsModalVisible}
         hideListChannels={hideListChannels}
+        fetchComplete={this.state.fetchComplete}
         error={error}
       />
     );
