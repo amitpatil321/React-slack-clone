@@ -83,9 +83,7 @@ const ListChannels = ({
         <div className="chann-divider">
           Channels you can join
           {!fetchComplete ? (
-            <span className="float-right">
-              Updating list...
-            </span>
+            <span className="float-right">Updating list...</span>
           ) : null}
         </div>
         {joinableRooms ? (
@@ -94,7 +92,10 @@ const ListChannels = ({
             dataSource={joinableRooms}
             renderItem={room => (
               <List.Item>
-                <List.Item.Meta title={room.name} description={description(room)} />
+                <List.Item.Meta
+                  title={room.name}
+                  description={description(room)}
+                />
                 <span
                   onClick={() => {
                     becomeRoomMember(room);

@@ -19,6 +19,7 @@ class SidebarContainer extends Component {
 	state = {
 		isLoggedIn: true
 	};
+
 	componentDidMount() {
 		// Bind click event to "channels" word
 		document
@@ -32,17 +33,17 @@ class SidebarContainer extends Component {
 	};
 
 	_onSelection = item => {
-		let { user, rooms } = this.props;
+		const { user, rooms } = this.props;
 		// Check if its a room or direct chat?
 		if (item.avatarURL === undefined) this.props.joinRoom(item);
 		else {
 			// check if room exists for logged in user and clicked user ?
-			let findRoom = getDirectChatRoom(user, rooms, item.id);
+			const findRoom = getDirectChatRoom(user, rooms, item.id);
 			if (findRoom.length) {
 				this.props.joinRoom(findRoom[0]);
 			} else {
-				let { user } = this.props;
-				let roomUsers = [user.id, item.id].sort().join('');
+				const { user } = this.props;
+				const roomUsers = [user.id, item.id].sort().join('');
 				this.props.showLoading('Wait a moment!');
 				// Room doesnt exists, Lets create new room for them
 				createRoom(
@@ -68,7 +69,7 @@ class SidebarContainer extends Component {
 	};
 
 	render() {
-		let {
+		const {
 			user,
 			room,
 			rooms,
@@ -77,18 +78,18 @@ class SidebarContainer extends Component {
 			showListChannels
 		} = this.props;
 		return this.state.isLoggedIn ? (
-			<Sidebar
-				user={user}
-				room={room}
-				rooms={rooms}
-				messages={messages}
-				onLogoutSuccess={this._onLogoutSuccess}
-				onSelection={this._onSelection}
-				showAddChannel={showAddChannel}
-				showListChannels={showListChannels}
-			/>
+  <Sidebar
+    user={user}
+    room={room}
+    rooms={rooms}
+    messages={messages}
+    onLogoutSuccess={this._onLogoutSuccess}
+    onSelection={this._onSelection}
+    showAddChannel={showAddChannel}
+    showListChannels={showListChannels}
+  />
 		) : (
-			<Redirect to="/login" />
+  <Redirect to="/login" />
 		);
 	}
 }

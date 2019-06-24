@@ -39,7 +39,7 @@ const ChatHome = props => {
 						<Content className="content">
 							{error && <Alert message={error} type="error" />}
 							{/* handle internet offline event */}
-							<Offline>
+              <Offline>
 								<Alert
 									message="Your computer seems to be offline. We’ll keep trying to reconnect."
 									type="warning"

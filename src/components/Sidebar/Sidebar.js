@@ -1,6 +1,6 @@
 import React from 'react';
 import { Avatar, Tooltip, Button, Icon, Menu, Badge } from 'antd';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { filter, sortBy } from 'lodash';
 
 import {
@@ -39,7 +39,7 @@ const Sidebar = ({
 						{roomTypeIcon(eachRoom)} {name}
 					</Menu.Item>
 				);
-			}else return null;
+			} else return null;
 		});
 	};
 
@@ -92,7 +92,7 @@ const Sidebar = ({
 			<div className="logged-user">
 				<Avatar src={user.avatarURL}></Avatar>
 				<span>{user.name}</span>
-				{/* <GoogleLogout
+  {/* <GoogleLogout
 					clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
 					onLogoutSuccess={onLogoutSuccess}
 					render={renderProps => (
