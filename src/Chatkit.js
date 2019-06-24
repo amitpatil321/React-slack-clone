@@ -9,8 +9,8 @@ const tokenProvider = new Chatkit.TokenProvider({
 export default (userId, actions) => {
 	new Chatkit.ChatManager({
 		instanceLocator: process.env.REACT_APP_CHATKIT_INSTANCE_LOCATOR,
-		userId: userId, // We have stored googleId as userId
-		tokenProvider: tokenProvider
+		userId, // We have stored googleId as userId
+		tokenProvider
 	})
 	// Register global events
 		.connect({
