@@ -1,14 +1,14 @@
 export const connected = rooms => ({ type: 'CHATKIT_READY', payload: rooms });
 export const updateRooms = rooms => ({ type: 'UPDATE_ROOMS', payload: rooms });
 export const setMessages = messages => ({
-	type: 'MESSAGE_RECEIVED',
-	payload: messages
+  type: 'MESSAGE_RECEIVED',
+  payload: messages,
 });
 export const currentUser = user => ({ type: 'CURRENT_USER', payload: user });
 export const joinRoom = room => ({ type: 'CURRENT_ROOM', payload: room });
 export const showLoading = message => ({
-	type: 'SHOW_LOADING',
-	payload: { show: true, message: message }
+  type: 'SHOW_LOADING',
+  payload: { show: true, message },
 });
 export const hideLoading = message => ({ type: 'HIDE_LOADING' });
 export const showListChannels = () => ({ type: 'SHOW_LISTCHANNELS' });
@@ -23,8 +23,8 @@ export const showChannelInfoDrawer = () => ({ type: 'SHOW_CHANNELINFODRAWER' });
 export const hideChannelInfoDrawer = () => ({ type: 'HIDE_CHANNELINFODRAWER' });
 // export const leaveRoom = () => ({ type: 'LEAVE_ROOM' });
 export const showDeleteChannelConfirm = () => ({
-	type: 'SHOW_CHANNELDELCONFIRM'
+  type: 'SHOW_CHANNELDELCONFIRM',
 });
 export const hideDeleteChannelConfirm = () => ({
-	type: 'HIDE_CHANNELDELCONFIRM'
+  type: 'HIDE_CHANNELDELCONFIRM',
 });

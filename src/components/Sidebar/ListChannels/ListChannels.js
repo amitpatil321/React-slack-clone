@@ -1,5 +1,7 @@
 import React from 'react';
-import { Modal, Input, Icon, Alert, List, Row, Col, Button } from 'antd';
+import {
+  Modal, Input, Icon, Alert, List, Row, Col, Button,
+} from 'antd';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
@@ -8,7 +10,6 @@ import './ListChannels.css';
 
 const ListChannels = ({
   user,
-  room,
   text,
   onChange,
   joinableRooms,
@@ -19,21 +20,16 @@ const ListChannels = ({
   hideListChannels,
   showAddChannel,
   fetchComplete,
-  error
+  error,
 }) => {
   // Filter absed on search string
   if (text) {
-    existingRooms = existingRooms.filter(each =>
-      each.name.toUpperCase().startsWith(text.toUpperCase())
-    );
-    joinableRooms = joinableRooms.filter(each =>
-      each.name.toUpperCase().startsWith(text.toUpperCase())
-    );
+    existingRooms = existingRooms.filter(each => each.name.toUpperCase().startsWith(text.toUpperCase()));
+    joinableRooms = joinableRooms.filter(each => each.name.toUpperCase().startsWith(text.toUpperCase()));
   }
 
-  const description = room => {
-    const author =
-      room.createdByUserId === user.id ? 'You' : getUserName(room, room.createdByUserId);
+  const description = (room) => {
+    const author = room.createdByUserId === user.id ? 'You' : getUserName(room, room.createdByUserId);
     return `Created by ${author} on ${moment(room.createdAt).format('MMM D, YYYY hh: mm A')}`;
   };
 
@@ -136,11 +132,18 @@ const ListChannels = ({
 };
 
 ListChannels.propTypes = {
+  user: PropTypes.object.isRequired,
   text: PropTypes.string,
-  onChange: PropTypes.func,
-  existingRooms: PropTypes.array,
-  joinableRooms: PropTypes.array,
-  error: PropTypes.string
+  onChange: PropTypes.func.isRequired,
+  joinableRooms: PropTypes.array.isRequired,
+  existingRooms: PropTypes.array.isRequired,
+  becomeRoomMember: PropTypes.func.isRequired,
+  gotoRoom: PropTypes.func.isRequired,
+  listChannelsModalVisible: PropTypes.bool.isRequired,
+  hideListChannels: PropTypes.func.isRequired,
+  showAddChannel: PropTypes.func,
+  fetchComplete: PropTypes.bool.isRequired,
+  error: PropTypes.string,
 };
 
 export default ListChannels;

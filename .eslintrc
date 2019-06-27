@@ -5,7 +5,7 @@
       "allowImportExportEverywhere": false,
       "codeFrame": false
     },
-    "extends": ["airbnb", "plugin:prettier/recommended"],
+    "extends": ["airbnb"],
     "env": {
         "browser": true,
         "jest": true
@@ -17,6 +17,8 @@
         "react/prop-types": ["warn"],
         "no-return-assign": ["off"],
         "no-underscore-dangle": ["off"],
-        "import/no-unresolved": "off"
+        "import/no-unresolved": ["off"],
+        "no-unused-labels" : ["off"],
+        "react/forbid-prop-types": 0
       }
 }

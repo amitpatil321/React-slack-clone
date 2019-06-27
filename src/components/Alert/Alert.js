@@ -1,6 +1,6 @@
 import React from 'react';
 import { Alert } from 'antd';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 /*
  - Component to print alert boxes
@@ -12,23 +12,25 @@ import PropTypes from 'prop-types'
  */
 
 const AlertBox = ({ title, message, type }) => {
-	let alertTitle = title ? title : type;
-	return (
-		<div className="mainContent" id="mainContent">
-			<Alert
-				message     = {alertTitle.substring(0, 1).toUpperCase() + alertTitle.substring(1)}
-				description = {message}
-				type        = {type}
-				showIcon
-			/>
-		</div>
-	);
-}
+  const alertTitle = title || type;
+  return (
+    <div className="mainContent" id="mainContent">
+      <Alert
+        message={alertTitle.substring(0, 1).toUpperCase() + alertTitle.substring(1)}
+        description={message}
+        type={type}
+        showIcon
+      />
+    </div>
+  );
+};
 
-AlertBox.propType = {
-	title         : PropTypes.string,
-	message       : PropTypes.string.isRequired,
-	type          : PropTypes.string.isRequired
-}
+AlertBox.propTypes = {
+  title: PropTypes.string,
+  message: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+};
+
+AlertBox.defaultProps = { title: null };
 
 export default AlertBox;
