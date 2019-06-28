@@ -6,13 +6,17 @@
 // import Sidebar from '../../containers/Sidebar';
 
 // const {
-//     Header, Content, Footer, Sider,
+//   Header, Content, Footer, Sider,
 // } = Layout;
 
-// it("Contains header, sidebar, content and footer sections", () => {
-//     let wrapper = shallow(<ChatHome ><Sidebar /></ChatHome>)
+// it('Renders', () => {
+//   expect(wrapper.exists()).toBe(true);
+// });
 
-//     expect(wrapper.find(Sider).length).toEqual(1);
+// it('Contains header, sidebar, content and footer sections', () => {
+//   const wrapper = shallow(<ChatHome><Sidebar /></ChatHome>);
+
+//   expect(wrapper.find(Sider).length).toEqual(1);
 // });
 
 /*
