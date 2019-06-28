@@ -90,4 +90,10 @@ SendMessage.propTypes = {
   onEmojiSelected: PropTypes.func,
 };
 
+SendMessage.defaultProps = {
+  onChange: () => { },
+  onKeyDown: () => { },
+  onEmojiSelected: () => { },
+};
+
 export default SendMessage;

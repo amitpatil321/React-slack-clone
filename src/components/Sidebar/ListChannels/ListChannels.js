@@ -146,4 +146,10 @@ ListChannels.propTypes = {
   error: PropTypes.string,
 };
 
+ListChannels.defaultProps = {
+  text: null,
+  showAddChannel: false,
+  error: null,
+};
+
 export default ListChannels;

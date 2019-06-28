@@ -20,4 +20,9 @@ Login.propTypes = {
   onFailure: PropTypes.func,
 };
 
+Login.defaultProps = {
+  onSuccess: () => {},
+  onFailure: () => { },
+};
+
 export default Login;

@@ -79,4 +79,10 @@ AddChannel.propTypes = {
   error: PropTypes.string,
 };
 
+AddChannel.defaultProps = {
+  validationError: null,
+  channelName: null,
+  error: null,
+};
+
 export default AddChannel;
