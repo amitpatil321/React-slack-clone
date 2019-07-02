@@ -35,7 +35,7 @@ class AddChannelContainer extends Component {
 	};
 
 	// Handle form submit
-	_onSubmitForm = (event) => {
+  _onSubmitForm = (event) => {
 	  event.preventDefault();
 	  const { user, room, rooms } = this.props;
 	  const { channelName, isPrivate, selectedUsers } = this.state;
