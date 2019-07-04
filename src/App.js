@@ -1,13 +1,13 @@
-import React from "react";
-import { hot } from "react-hot-loader/root";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { connect } from "react-redux";
+import React from 'react';
+import { hot } from 'react-hot-loader/root';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import Login from "./containers/Login";
-import ChatHome from "./containers/ChatHome";
+import Login from './containers/Login';
+import ChatHome from './containers/ChatHome';
 
-import "antd/dist/antd.css";
-import "./App.css";
+import 'antd/dist/antd.css';
+import './App.css';
 
 function App() {
   return (

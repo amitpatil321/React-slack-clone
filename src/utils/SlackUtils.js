@@ -83,6 +83,7 @@ export function getAllUsers(user) {
 // }
 
 export function getUserName(room, id) {
+  if (!room || !room.userStore) return false;
   return room.userStore.users[id].name;
 }
 export function getUserPic(room, id) {

@@ -22,12 +22,11 @@ const ListChannels = ({
   fetchComplete,
   error,
 }) => {
-  // Filter absed on search string
+  // Filter based on search string
   if (text) {
     existingRooms = existingRooms.filter(each => each.name.toUpperCase().startsWith(text.toUpperCase()));
     joinableRooms = joinableRooms.filter(each => each.name.toUpperCase().startsWith(text.toUpperCase()));
   }
-
   const description = (room) => {
     const author = room.createdByUserId === user.id ? 'You' : getUserName(room, room.createdByUserId);
     return `Created by ${author} on ${moment(room.createdAt).format('MMM D, YYYY hh: mm A')}`;
@@ -43,12 +42,7 @@ const ListChannels = ({
       destroyOnClose
     >
       {error ? (
-        <>
-          <Alert message={error} type="error" showIcon />
-          &nbsp;
-          <br />
-          &nbsp;
-        </>
+        <Alert message={error} type="error" showIcon />
       ) : (
         ''
       )}
