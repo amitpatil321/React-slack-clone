@@ -164,7 +164,7 @@ ChatHomeContainer.propTypes = {
 
 ChatHomeContainer.defaultProps = {
   error: null,
-}
+};
 
 export default connect(
   mapStateToProps,
