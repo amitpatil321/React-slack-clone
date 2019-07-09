@@ -105,7 +105,9 @@ class ListChannelsContainer extends Component {
   }
 
   render() {
-    const { text, error, joinableRooms, fetchComplete } = this.state;
+    const {
+      text, error, joinableRooms, fetchComplete,
+    } = this.state;
     const {
       user, room, rooms, listChannelsModalVisible, hideListChannels, joinRoom, showAddChannel,
     } = this.props;

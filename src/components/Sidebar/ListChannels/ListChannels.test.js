@@ -1,13 +1,12 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import filter from 'lodash/filter';
 import {
-  Modal, Input, Icon, Alert, List, Row, Col, Button,
+  Input, Button,
 } from 'antd';
 
 import {
-  user, room, rooms, existingRooms, joinableRooms,
-} from 'store/listChannelsMockData';
+  user, room, rooms, joinableRooms,
+} from './mockData';
 import ListChannels from './ListChannels';
 
 let wrapper;
