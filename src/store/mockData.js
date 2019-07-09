@@ -1,4 +1,4 @@
-export const user = { name: 'Amit Patil', imageUrl: 'https://randomuser.me/api/portraits/women/66.jpg' };
+export const user = { id: '118355669689506051312', name: 'Amit Patil', imageUrl: 'https://randomuser.me/api/portraits/women/66.jpg' };
 
 export const room = {
   createdAt: '2019-06-07T14:44:49Z',

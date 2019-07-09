@@ -1,67 +1,121 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import {
+  filter, map, uniq, uniqWith, isEqual, sortBy,
+} from 'lodash';
 
+import { user, room } from 'store/mockData';
+import { messages, rooms } from './mockData';
 import Sidebar from './Sidebar';
 
 let wrapper;
+const onLogoutSuccess = jest.fn();
+const onSelection = jest.fn();
+const showAddChannel = jest.fn();
+const showListChannels = jest.fn();
 
 beforeEach(() => {
-    const props = {
-        user : { name: "Amit Patil", imageUrl: 'https://randomuser.me/api/portraits/women/66.jpg'},
-        rooms: [
-                {
-                    id: "21192065", isPrivate : false, name : "general", users : [
-                        {id : 11, name : "Amit" , presence : { state : "online" }},
-                        {id : 12, name : "Coder Patil" , presence : { state : "offline" }},
-                        {id : 13, name : "Vanshika Patil" , presence : { state : "online" }},
-                        {id: 14, name: "Dev Patil", presence: { state: "offline" }}
-                    ]
-                },
-                { id: "2", isPrivate: false, name: "Design" },
-                { id: "3", isPrivate: true, name: "meetings" }
-        ],
-        room : { id : "2" },
-        onLogoutSuccess : () => { console.log("On logout success") }
-    }
-    wrapper = mount(<Sidebar {...props} />);
+  wrapper = mount(<Sidebar
+    user={user}
+    room={room}
+    rooms={rooms}
+    messages={messages}
+    onLogoutSuccess={onLogoutSuccess}
+    onSelection={onSelection}
+    showAddChannel={showAddChannel}
+    showListChannels={showListChannels}
+  />);
 });
+
 afterEach(() => {
-    wrapper.unmount();
-})
-
-it("Renders", () => {
-    expect(wrapper.exists()).toBe(true);
-})
-
-describe("Testing rooms/channels", () => {
-    it("Renders correct number of rooms", () => {
-        expect(wrapper.find("#channels").find(".ant-menu-item").length).toEqual(3);
-    })
-
-    it("Sets default selected/active room", () => {
-        expect(wrapper.find("#channels").find(".ant-menu-item-selected").text()).toEqual("#Design");
-    })
-
-    it("Sets clicked room as active", () => {
-        // Select first room
-        wrapper.find("#channels").find(".ant-menu-item").first().simulate("click");
-        expect(wrapper.find("#channels").find(".ant-menu-item-selected").text()).toEqual("#general");
-    })
+  wrapper.unmount();
 });
 
-describe("Testing users", () => {
-    it("Renders correct number of users", () => {
-        expect(wrapper.find(".online-status").length).toEqual(4);
-    })
-
-    it("Sets correct online status", () => {
-        expect(wrapper.find(".online").length).toEqual(2);
-        expect(wrapper.find(".offline").length).toEqual(2);
-    })
-
-    it("Makes chat/user selected on click", () => {
-        wrapper.find("#users").find(".ant-menu-item").first().simulate("click");
-        expect(wrapper.find("#users").find(".ant-menu-item-selected").text().trim()).toEqual("Amit");
-    })
-
+it('Renders', () => {
+  expect(wrapper.exists()).toBe(true);
 });
+
+describe('Testing rooms/channels', () => {
+  it('Sets default selected/active room', () => {
+    expect(wrapper.find('#channels').find('.ant-menu-item-selected').text()).toEqual('# general');
+  });
+
+  it('Renders channels', () => {
+    const expected = filter(rooms, eachRoom => !eachRoom.customData || eachRoom.customData.privateChat !== true);
+    expect(wrapper.find('.channel-group ul').length).toBe(expected.length);
+  });
+
+  it('Makes channel name bold if it has unread messages', () => {
+    const expected = filter(rooms, eachRoom => eachRoom.unreadCount && eachRoom.name === 'Channel5');
+    const roomName = expected[0].name;
+    let hasBoldCLass = false;
+    wrapper.find('#channels ul').at(0).find('li').map((each) => {
+      if (each.text().replace('# ', '') === roomName && each.hasClass('unread-message')) {
+        hasBoldCLass = true;
+      }
+    });
+    expect(hasBoldCLass).toBe(true);
+  });
+
+  it('onLogoutSuccess gets called', () => {
+    wrapper.find('.logged-user .ant-btn').simulate('click');
+    expect(onLogoutSuccess).toHaveBeenCalled();
+  });
+
+  it('onSelection gets called', () => {
+    wrapper.find('#channels ul').childAt(0).simulate('click');
+    expect(onSelection).toHaveBeenCalled();
+  });
+
+  it('showAddChannel gets called', () => {
+    wrapper.find('.add-channel').first().simulate('click');
+    expect(showAddChannel).toHaveBeenCalled();
+  });
+});
+
+
+describe('Testing users', () => {
+  it('Renders private chat/users list', () => {
+    let users = [];
+    const generalRoom = rooms.find(eachRoom => eachRoom.id === process.env.REACT_APP_CHATKIT_GENERAL_ROOM);
+    const expected = map(generalRoom.users, user => user.name);
+    wrapper.find('.slack-users').map((each) => {
+      users.push(cleanName(each.text()).trim());
+    });
+    // Remove duplicates
+    users = uniq(users);
+    expect(users.length).toBe(Object.keys(expected).length);
+    expect(users.sort()).toEqual(expected.sort());
+  });
+
+  it('Shows correct online/offlive status', () => {
+    const status = [];
+    let users = [];
+
+    const onlineUsers = rooms.find(eachRoom => eachRoom.id === process.env.REACT_APP_CHATKIT_GENERAL_ROOM);
+    onlineUsers.users.forEach(({ name, presence }) => {
+      // console.log(name, presence.state);
+      status.push({ name: name.trim(), status: presence.state });
+    });
+    wrapper.find('.slack-users').map((each) => {
+      users.push({ name: cleanName(each.text()).trim(), status: each.find('span').first().hasClass('online') ? 'online' : 'offline' });
+    });
+    users = uniqWith(users, isEqual);
+    expect(sortBy(users, ['name'])).toEqual(sortBy(status, ['name']));
+  });
+
+  it('Shows unread message badge if there are unread messages', () => {
+    // Get obj with unread count message
+    const unread = rooms.find(eachRoom => eachRoom.isPrivate && eachRoom.unreadCount);
+    let otherUser;
+    unread.userIds.forEach((eachUser) => {
+      if (eachUser !== user.id) { otherUser = eachUser; }
+    });
+    expect(wrapper.find(`.channel-${unread.id}`).first().find('.ant-badge-count').first()
+      .prop('title')).toEqual(unread.unreadCount);
+  });
+});
+
+const cleanName = (str) => {
+  return str.replace('012345678901234567890123456789', '').replace('(you)', '');
+}

@@ -37,11 +37,9 @@ const Sidebar = ({
   const getUsersList = () => {
     let unreadCount;
     // List all users
-    const general = filter(rooms, {
-      id: process.env.REACT_APP_CHATKIT_GENERAL_ROOM,
-    });
-    if (general.length) {
-      return sortBy(general[0].users, each => each.name.toLowerCase()).map((eachUser) => {
+    const general = rooms.find(eachRoom => eachRoom.id === process.env.REACT_APP_CHATKIT_GENERAL_ROOM);
+    if (general) {
+      return sortBy(general.users, each => each.name.toLowerCase()).map((eachUser) => {
         const privateRoom = getDirectChatRoom(user, rooms, eachUser.id)[0];
         if (privateRoom) {
           unreadCount = canShowUnreadBadge(user, room, privateRoom, messages) ? (
@@ -52,9 +50,9 @@ const Sidebar = ({
           <Menu.Item
             key={privateRoom ? privateRoom.id : eachUser.id}
             onClick={() => onSelection(eachUser)}
-            className={`channel-${privateRoom ? privateRoom.id : eachUser.id}`}
+            className={`channel-${privateRoom ? privateRoom.id : eachUser.id} slack-users`}
           >
-            <span className={`online-status ${eachUser.presence.state}`} />
+            <span className={`online-status ${(eachUser.presence.state === 'online') ? 'online' : 'offline'}`} />
             {eachUser.name}
             {' '}
             {eachUser.id === user.id && <small>(you)</small>}
