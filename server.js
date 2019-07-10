@@ -83,6 +83,11 @@ app.get('/', (req, res) => {
   res.end('Server is running');
 });
 
-app.listen(process.env.NODE_PORT || 3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log('Server running on port :' + process.env.NODE_PORT || 3000);
 });
+
+// var port = process.env.PORT || 3000;
+// app.listen(port, "0.0.0.0", function () {
+//   console.log("Listening on Port 3000");
+// });
