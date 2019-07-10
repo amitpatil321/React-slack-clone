@@ -2,6 +2,7 @@ require('dotenv').config({ path: `${process.cwd()}/client/.env` });
 const Chatkit = require('@pusher/chatkit-server');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const path = require('path');
 
 const express = require('express');
 
