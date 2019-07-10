@@ -79,8 +79,8 @@ app.get('/delete', (req, res) => {
     .catch(err => console.error(err));
 });
 
-app.get('/', (req, res) => {
-  res.end('Server is running');
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
 app.listen(process.env.PORT || 3000, () => {
