@@ -3,14 +3,16 @@ const Chatkit = require('@pusher/chatkit-server');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
-
 const express = require('express');
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Create chatkit instance
 const chatkit = new Chatkit.default({
@@ -80,13 +82,13 @@ app.get('/delete', (req, res) => {
     .catch(err => console.error(err));
 });
 
-app.get('*', (req, res) => {
-  console.log("React route");
+app.get(['*','login'], (req, res) => {
+  console.log("react route");
   res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log('Server running on port :' + process.env.NODE_PORT || 3000);
+app.listen(PORT, () => {
+  console.log('Server running on port :' + PORT);
 });
 
 // var port = process.env.PORT || 3000;
