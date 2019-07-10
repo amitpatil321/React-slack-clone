@@ -80,7 +80,8 @@ app.get('/delete', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/build/index.html'));
+  console.log("React route");
+  // res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
 app.listen(process.env.PORT || 3000, () => {
