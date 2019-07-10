@@ -6,7 +6,7 @@ const path = require('path');
 const express = require('express');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || process.env.NODE_PORT;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -64,28 +64,28 @@ app.post('/authenticate', (req, res) => {
   res.status(authData.status).send(authData.body);
 });
 
-app.get('/delete', (req, res) => {
-  let count = 0;
-  chatkit.getRooms({ includePrivate: true })
-    .then((rooms) => {
-      rooms.forEach((room) => {
-        if (room.custom_data !== undefined) {
-          chatkit.deleteRoom({
-            id: room.id,
-          })
-            .then(() => count++)
-            .catch(err => console.error(err));
-        }
-      });
-      res.status(200).send(`Removed ${count} rooms ${JSON.stringify(rooms)}`);
-    })
-    .catch(err => console.error(err));
-});
+// app.get('/delete', (req, res) => {
+//   let count = 0;
+//   chatkit.getRooms({ includePrivate: true })
+//     .then((rooms) => {
+//       rooms.forEach((room) => {
+//         if (room.custom_data !== undefined) {
+//           chatkit.deleteRoom({
+//             id: room.id,
+//           })
+//             .then(() => count++)
+//             .catch(err => console.error(err));
+//         }
+//       });
+//       res.status(200).send(`Removed ${count} rooms ${JSON.stringify(rooms)}`);
+//     })
+//     .catch(err => console.error(err));
+// });
 
-app.get(['*','login'], (req, res) => {
-  console.log("react route");
-  res.sendFile(path.join(__dirname + '/client/build/index.html'));
-});
+// app.get('*', (req, res) => {
+//   console.log("react route");
+//   res.sendFile(path.join(__dirname + '/client/build/index.html'));
+// });
 
 app.listen(PORT, () => {
   console.log('Server running on port :' + PORT);
