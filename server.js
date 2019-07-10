@@ -80,9 +80,9 @@ app.get('/delete', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.end('Server is running...');
+  res.end('Server is running');
 });
 
-app.listen(process.env.NODE_PORT || 4000, () => {
-  console.log('Server started');
+app.listen(process.env.NODE_PORT || 3000, () => {
+  console.log('Server running on port :' + process.env.NODE_PORT || 3000);
 });
