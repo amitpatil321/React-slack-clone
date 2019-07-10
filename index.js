@@ -80,7 +80,7 @@ app.get('/delete', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.end('Hello world!');
+  res.end('Server is running...');
 });
 
 app.listen(process.env.NODE_PORT || 4000, () => {
