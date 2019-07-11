@@ -23,16 +23,16 @@ export default (userId, actions) => {
       // Subscribe to all rooms the user is a member of
       Promise.all(
         user.rooms.map(room => user.subscribeToRoom({
-            roomId: room.id,
-            messageLimit: 5,
-            hooks: {
-              onUserJoined: actions.refresh,
-              onMessage: actions.addMessage,
-              onUserLeft: actions.refresh, // force update app on user removal
-              onUserStartedTyping: actions.isTyping,
-              onUserStoppedTyping: actions.notTyping,
-            },
-          }),),
+          roomId: room.id,
+          messageLimit: 5,
+          hooks: {
+            onUserJoined: actions.refresh,
+            onMessage: actions.addMessage,
+            onUserLeft: actions.refresh, // force update app on user removal
+            onUserStartedTyping: actions.isTyping,
+            onUserStoppedTyping: actions.notTyping,
+          },
+        })),
       ).then((rooms) => {
         actions.setUser(user);
         // Join the first room in the users room list
