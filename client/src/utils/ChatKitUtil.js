@@ -3,7 +3,7 @@ export function addUserToRoom(currentUser, roomId, userId, successCallback, erro
   currentUser
     .addUserToRoom({
       userId,
-      roomId
+      roomId,
     })
     .then(() => successCallback())
     .catch(err => errorCallback(err));
@@ -19,7 +19,7 @@ export function removeUserFromRoom(currentUser, roomId, userId, successCallback,
   currentUser
     .removeUserFromRoom({
       userId,
-      roomId
+      roomId,
     })
     .then(() => successCallback())
     .catch(err => errorCallback(err));
@@ -29,7 +29,7 @@ export function sendMessage(currentUser, roomId, message, successCallback, error
   currentUser
     .sendMultipartMessage({
       roomId,
-      parts: [{ type: 'text/plain', content: message }]
+      parts: [{ type: 'text/plain', content: message }],
     })
     .then(messageId => successCallback(messageId))
     .catch(err => errorCallback(err));
@@ -42,14 +42,14 @@ export function createRoom(
   isPrivate,
   customData = { privateChat: false },
   successCallback,
-  errorCallback
+  errorCallback,
 ) {
   currentUser
     .createRoom({
       name: channelName,
       addUserIds: selectedUsers,
       private: isPrivate,
-      customData
+      customData,
     })
     .then(room => successCallback(room))
     .catch(err => errorCallback(err));
@@ -58,7 +58,7 @@ export function createRoom(
 export function subscribeToRoom(currentUser, roomId, hooks) {
   currentUser.subscribeToRoom({
     roomId,
-    hooks
+    hooks,
   });
 }
 
@@ -85,10 +85,12 @@ export function getJoinableRooms(currentUser, successCallback, errorCallback) {
 
 export function setReadCursor(currentUser, room, messages) {
   if (messages)
-    currentUser
-      .setReadCursor({
-        roomId: room.id,
-        position: parseInt(Object.keys(messages)[Object.keys(messages).length - 1]) // Finds last message
-      })
-      .catch(err => console.log('Error setting read cursor!'));
+  { 
+currentUser
+    .setReadCursor({
+      roomId: room.id,
+      position: parseInt(Object.keys(messages)[Object.keys(messages).length - 1]), // Finds last message
+    })
+    .catch(err => console.log('Error setting read cursor!'));
+ }
 }
