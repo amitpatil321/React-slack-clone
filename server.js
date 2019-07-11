@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 const express = require('express');
+var cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || process.env.NODE_PORT;
@@ -64,32 +65,10 @@ app.post('/authenticate', (req, res) => {
   res.status(authData.status).send(authData.body);
 });
 
-// app.get('/delete', (req, res) => {
-//   let count = 0;
-//   chatkit.getRooms({ includePrivate: true })
-//     .then((rooms) => {
-//       rooms.forEach((room) => {
-//         if (room.custom_data !== undefined) {
-//           chatkit.deleteRoom({
-//             id: room.id,
-//           })
-//             .then(() => count++)
-//             .catch(err => console.error(err));
-//         }
-//       });
-//       res.status(200).send(`Removed ${count} rooms ${JSON.stringify(rooms)}`);
-//     })
-//     .catch(err => console.error(err));
-// });
-
 // app.get('*', (req, res) => {
 //   console.log("react route");
 //   res.sendFile(path.join(__dirname + '/client/build/index.html'));
 // });
-
-app.get('/user', (req, res) => {
-  res.status(200).send(`User api`);
-});
 
 app.listen(PORT, () => {
   console.log('Server running on port :' + PORT);
