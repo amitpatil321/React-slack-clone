@@ -1,4 +1,6 @@
 export const APP_NAME = 'Slack Clone';
+console.log(process.env);
+console.log(process.env.REACT_APP_NODE_PORT);
 export const SERVER = `http://localhost:${process.env.REACT_APP_NODE_PORT}`;
 export const GROUP_MESSAGE_DURATION = 5; // Group messages sent between 5 mins of time span
 
