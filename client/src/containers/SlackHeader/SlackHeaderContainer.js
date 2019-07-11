@@ -6,6 +6,15 @@ import { showChannelInfoDrawer } from 'store/SlackActions';
 import SlackHeader from 'components/SlackHeader';
 
 class SlackHeaderContainer extends Component {
+  state = {
+    userCount: 0,
+  }
+
+  componentDidUpdate() {
+    const { room } = this.props;
+    const { userCount } = this.state;
+    if (userCount !== room.userIds.length && room.userIds.length >= 1) { this.setState({ userCount: room.userIds.length }); }
+  }
   // shouldComponentUpdate(nextProps) {
   // 	let { room } = this.props;
   // 	if (
@@ -18,12 +27,15 @@ class SlackHeaderContainer extends Component {
 
   render() {
     const { user, room, showChannelInfoDrawer } = this.props;
+    const { userCount } = this.state;
+
     return (
       room && (
       <SlackHeader
         user={user}
         room={room}
         showChannelInfoDrawer={showChannelInfoDrawer}
+        userCount={userCount}
       />
       )
     );

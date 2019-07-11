@@ -14,12 +14,14 @@ import {
   roomTypeIcon,
 } from 'utils/SlackUtils';
 
-const SlackHeader = ({ user, room, showChannelInfoDrawer }) => {
+const SlackHeader = ({
+  user, room, showChannelInfoDrawer, userCount,
+}) => {
   let roomName;
   let users;
   // Check if its a channel or private chat header?
   if (room.customData === undefined || room.customData.privateChat === false) {
-    users = [<Icon type="user" key={room.id} />, room.userIds.length];
+    users = [<Icon type="user" key={room.id} />, userCount];
     roomName = (
       <>
         {roomTypeIcon(room)}
@@ -59,6 +61,7 @@ SlackHeader.propTypes = {
   user: PropTypes.object.isRequired,
   room: PropTypes.object.isRequired,
   showChannelInfoDrawer: PropTypes.func.isRequired,
+  userCount: PropTypes.number.isRequired,
 };
 
 export default SlackHeader;
