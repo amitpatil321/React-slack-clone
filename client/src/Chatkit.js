@@ -48,7 +48,7 @@ export default (userId, actions) => {
           description: error.info.error_description,
           onClose: () => {
             // Clearn localstorage
-            localStorage.removeitem('slackUser');
+            localStorage.removeItem('slackUser');
           },
         });
       } else actions.error(actions);
