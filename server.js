@@ -87,6 +87,10 @@ app.post('/authenticate', (req, res) => {
 //   res.sendFile(path.join(__dirname + '/client/build/index.html'));
 // });
 
+app.get('/user', (req, res) => {
+  res.status(200).send(`User api`);
+});
+
 app.listen(PORT, () => {
   console.log('Server running on port :' + PORT);
 });
